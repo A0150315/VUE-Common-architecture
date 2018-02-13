@@ -2,7 +2,6 @@ const webpack = require("webpack");
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -14,11 +13,6 @@ module.exports = {
     },
     module: {
         rules: [{
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-                use: 'postcss-loader'
-            })
-        }, {
             test: /\.html$/,
             use: ['html-loader']
         }, {
@@ -42,13 +36,7 @@ module.exports = {
             template: './template/template.html',
             // chunks:['main','manifest','style']需要什么加什么，默认全加
         }),
-        new webpack.NamedModulesPlugin(), //hot维护插件
         new webpack.HotModuleReplacementPlugin(), //hr插件
-        new ExtractTextPlugin({ //CSS分离插件
-            filename: "style.[chunkhash].css",
-            allChunks: true,
-            ignoreOrder: true
-        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
         })
