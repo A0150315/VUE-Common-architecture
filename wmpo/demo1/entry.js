@@ -1,10 +1,10 @@
 // 程序的入口文件
 import Vue from "vue";
 
-import store from './store';// 引入vuex的入口
-import router from './route';// 引入vue-router的入口
+import store from './src/store';// 引入vuex的入口
+import router from './src/route';// 引入vue-router的入口
 
-import './style/global.css';
+import './src/css/global.css';
 
 import MetaInfo from 'vue-meta-info';// 动态修改meta信息，详情谷歌或百度
 Vue.use(MetaInfo)

@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import ajax from "../plugins/service";// 引入封装的axios
+import ajax from "../utils/service";// 引入封装的axios
 export default {
   methods: {
     async mokeAjax() {// ES7 调用 service 发送请求

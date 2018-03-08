@@ -4,8 +4,9 @@
   "main": "entry.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack -p --config ./config/webpack.prod.js",
-    "start": "webpack-dev-server --open --config ./config/webpack.dev.js"
+    "build": "webpack -p --config ./wmpo/demo1/webpack/webpack.prod.js",
+    "start": "webpack-dev-server --open --config ./wmpo/demo1/webpack/webpack.dev.js",
+    "dev": "webpack-dev-server --host 0.0.0.0 --config ./wmpo/demo1/webpack/webpack.dev.js"
   },
   "devDependencies": {
     "axios": "^0.17.1",
@@ -22,7 +23,6 @@
     "node-sass": "^4.7.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.0",
-    "saladcss-bem": "^0.0.2",
     "style-loader": "^0.20.1",
     "vue": "^2.5.13",
     "vue-loader": "^14.1.1",

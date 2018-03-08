@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import start from "../components/start.vue";
+import start from "../../../../components/start.vue";
 export default {
   computed:{
     data(){
@@ -25,7 +25,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
   div{
-    font-size:rem(32px);
+    font-size:.32rem;
   }
 </style>
 

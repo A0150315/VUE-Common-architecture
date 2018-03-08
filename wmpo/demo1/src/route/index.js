@@ -4,8 +4,8 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
 
-import start from '../page/start.vue';
-import other from '../page/other.vue';
+import start from '../pages/start.vue';
+import other from '../pages/other.vue';
 
 const router = new VueRouter({
     routes: [{
