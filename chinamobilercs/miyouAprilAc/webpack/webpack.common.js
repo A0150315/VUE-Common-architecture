@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        main: './wmpo/demo2/entry.js'
+        main: './chinamobilercs/miyouAprilAc/entry.js'
     },
     output: {
         filename: '[name].[hash].js',
@@ -33,7 +33,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({ //自动生成HTML
             title: 'Output Management',
-            template: './wmpo/demo2/src/template/template.html',
+            template: './chinamobilercs/miyouAprilAc/src/template/template.html',
             // chunks:['main','manifest','style']需要什么加什么，默认全加
         }),
         new webpack.HotModuleReplacementPlugin(), //hr插件
