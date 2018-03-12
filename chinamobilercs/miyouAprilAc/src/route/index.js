@@ -4,8 +4,6 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
 
-import start from '../pages/start.vue';
-import other from '../pages/other.vue';
 import prankIndex from '../pages/prank-index.vue';
 
 const router = new VueRouter({
