@@ -14,12 +14,6 @@ const router = new VueRouter({
         redirect:'/index'
     },{
         path: '/index',
-        component: start
-    },{
-        path: '/index/other',
-        component: other
-    },{
-        path: '/index/prank-index',
         component: prankIndex
     }]
 })
