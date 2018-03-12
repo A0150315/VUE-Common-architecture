@@ -1,50 +1,51 @@
 <template>
-    <div class="container">
-        <div class="percent-top">
-            <div class="percent-info">
-                <div class="pencent-head"></div>
-                <p>lx</p>
-                <p>111111111111</p>
+    <div class="prank-index-wrapper">
+        <header></header>
+        <section>
+            <div class="content-top">
+                <div class="my-game">
+                    <img src="../assets/img/我的战绩.png" alt="">
+                </div>
+                <div class="my-info">
+                    <div>
+                        <p><span class="number">5</span><span>位</span></p>
+                        <p>成功整蛊好友></p>
+                    </div>
+                    <div>
+                        <p><span class="number">5</span><span>位</span></p>
+                        <p>成功识破整蛊></p>
+                    </div>
+                    <div>
+                        <p><span class="number">5</span><span>位</span></p>
+                        <p>我的奖品></p>
+                    </div>
+                </div>
             </div>
-            <div class="my-prize">我的奖品</div>
-            <div class="friend-info">
-                <div class="friend-lf">
-                    <p>2wei</p>
-                    <p>一成功整蛊的好友</p>
-                </div>
-                <div class="friend-rg">
-                    <p>2wei</p>
-                    <p>一成功整蛊的好友</p>
-                </div>
-            </div>
-        </div>
-        <ul>
-            <li>
-                <div class="prank-image"></div>
-                <div class="prank-text">
-                    <p>整蛊好友</p>
-                    <p>整蛊好友</p>
-                </div>
-                <div class="icon"></div>
-            </li>
-            <li>
-                <div class="prank-image"></div>
-                <div class="prank-text">
-                    <p>整蛊好友</p>
-                    <p>整蛊好友</p>
-                </div>
-                <div class="icon"></div>
-            </li>
-        </ul>
-        <div class="active-router">
-            <p>活动规则</p>
-        </div>
+            <ul>
+                <li>
+                    <div class="prank-bg prank-friend-bg"></div>
+                    <div class="prank-info">
+                        <div class="prank-friend"></div>
+                        <p>给好友出题，整蛊成功领取1G</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="prank-bg prank-hall-bg"></div>
+                    <div class="prank-info">
+                        <div class="prank-hall"></div>
+                        <p>挑战整蛊，我最懂你</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <div class="active-rule"></div>
+        <footer></footer>
         <prank-alert v-if="showAlert"
-                :title="btnTitle"
-                :textContent="textContent"
-                :btnContent="btnContent"
-                @hasClick="goToNext()"
-        ></prank-alert>
+                                      :title="btnTitle"
+                                      :textContent="textContent"
+                                      :btnContent="btnContent"
+                                      @hasClick="goToNext()"
+    ></prank-alert>
     </div>
 </template>
 
@@ -56,7 +57,7 @@
         },
         data () {
             return {
-                showAlert: true,
+                showAlert: false,
                 btnTitle: 'test',
                 textContent: 'testsssssssssssssssssssssssssssssssssssssssssssss',
                 btnContent: 'goToNext'
@@ -65,85 +66,133 @@
         methods: {
             goToNext() {
                 this.showAlert = false;
+            },
+            prankFriend() {
+                this.showAlert = true;
+            },
+            prankHall() {
+                this.showAlert = true;
             }
         }
     }
 </script>
 
 <style scoped lang="less">
-    .container{
-        padding: 10px;
-        font-size: 12px;
+    .prank-index-wrapper{
         width: 100%;
-        min-height: 667px;
         height: 100%;
-        box-sizing: border-box;
-        .percent-top{
+        background-color: #f7c42f;
+        position: relative;
+        header{
             width: 100%;
-            height: 250px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            text-align: center;
-            position: relative;
-            padding: 10px;
+            height: 4.74rem;
+            background: url("../assets/img/banner.png") no-repeat;
+            background-size: 100% 100%;
+        }
+        section{
+            width: 100%;
+            padding: 0.22rem 0.25rem 0;
             box-sizing: border-box;
-            .pencent-head{
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                border: 1px solid #ddd;
-                position: relative;
-                left: 50%;
-                margin-left: -40px;
-            }
-            .my-prize{
-                position: absolute;
-                right: 12px;
-                top: 12px;
-            }
-            .friend-info{
+            .content-top{
                 width: 100%;
-                height: 100px;
-                position: relative;
-                bottom: 0;
-                display: flex;
-                padding-top: 60px;
+                height: 2.68rem;
+                border-radius: 0.34rem;
+                background-color: #fff;
+                padding: 0.26rem 0;
                 box-sizing: border-box;
-                div{
-                    width: 50%;
-                    height: 100%;
-                    text-align: center;
+                margin-bottom: 0.32rem;
+                .my-game{
+                    margin: 0 auto;
+                    width: 3.40rem;
+                    height: 0.8rem;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        display: block;
+                    }
                 }
-            }
-        }
-        ul{
-            width: 100%;
-            li{
-                width: 100%;
-                height: 100px;
-                display: flex;
-                padding: 10px;
-                box-sizing: border-box;
-                .prank-image{
-                    width: 80px;
-                    height: 80px;
-                    border: 1px solid #ddd;
-                    margin-right: 20px;
-                }
-                .prank-text{
+                .my-info{
                     display: flex;
-                    flex-direction: column;
-                    justify-content: center;
+                    text-align: center;
+                    div{
+                        flex-grow: 1;
+                    }
+                    span{
+                        font-size: 0.40rem;
+                        color: #242424;
+                    }
+                    .number{
+                        font-size: 0.80rem;
+                    }
+                    p{
+                        font-size: 0.22rem;
+                        color: #666;
+                    }
+                }
+            }
+            ul{
+                li{
+                    width: 100%;
+                    height: 1.2rem;
+                    border-radius: 0.34rem;
+                    background-color: #fff;
+                    display: flex;
+                    margin-bottom: 0.32rem;
+                    .prank-bg{
+                        width: 0.80rem;
+                        height: 0.80rem;
+                        margin: 0.20rem 0 0.20rem 0.5rem;
+                    }
+                    .prank-friend-bg{
+                        background: url("../assets/img/pic_zhengguhaoyou.png");
+                        background-size: 100% 100%;
+                    }
+                    .prank-hall-bg{
+                        background: url("../assets/img/pic_zhwnggudating.png");
+                        background-size: 100% 100%;
+                    }
+                    .prank-info{
+                        font-size: 0.26rem;
+                        color: #3c3c3c;
+                        margin-left: 0.36rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        div{
+                            width: 2.33rem;
+                            height: 0.41rem;
+                            margin-bottom: 0.16rem;
+                        }
+                        .prank-friend{
+                            background: url("../assets/img/word_zhengguhaoyou.png");
+                            background-size: 100% 100%;
+                        }
+                        .prank-hall{
+                            background: url("../assets/img/word_zhanggudating.png");
+                            background-size: 100% 100%;
+                        }
+                    }
                 }
             }
         }
-    }
-    .active-router{
-        width: 80%;
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
+        .active-rule{
+            width: 1.8rem;
+            height: 0.48rem;
+            position: absolute;
+            left: 50%;
+            bottom: 0.7rem;
+            transform: translateX(-50%);
+            background: url("../assets/img/word_huodongguize.png");
+            background-size: 100% 100%;
+        }
+        footer{
+            width: 100%;
+            height: 1.42rem;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            background: url("../assets/img/bg.png") no-repeat;
+            background-size: 100% 100%;
+        }
     }
 </style>
