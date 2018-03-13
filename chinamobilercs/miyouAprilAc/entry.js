@@ -16,7 +16,7 @@ const root = new Vue({
         }
     },
     template: `
-        <div>
+        <div style="height: 100%;">
             <transition :name="transitionName" mode="out-in">
                 <router-view></router-view>
             </transition>

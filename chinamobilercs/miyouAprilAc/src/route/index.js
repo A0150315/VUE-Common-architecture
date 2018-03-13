@@ -4,8 +4,7 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter)
 
-import start from '../pages/start.vue';
-import other from '../pages/other.vue';
+import prankIndex from '../pages/prank-index.vue';
 
 const router = new VueRouter({
     routes: [{
@@ -13,10 +12,7 @@ const router = new VueRouter({
         redirect:'/index'
     },{
         path: '/index',
-        component: start
-    },{
-        path: '/index/other',
-        component: other
+        component: prankIndex
     }]
 })
 router.beforeEach(async (to, from, next) => {// 全局路由守卫

@@ -30,9 +30,12 @@ textarea {
     display: none
 }
 
+#box,
 body,
 html {
     background-color: #FAFAFA;
+    width: 100%;
+    height: 100%;
 }
 
 a {
