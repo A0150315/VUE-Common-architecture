@@ -1,24 +1,23 @@
 <template>
   <div class="answertopic">
-      <TopicCount class="answertopic__topiccount" :sum=topics.length :current=current />
+      <Bottom_bg />
       <Topic  :isMaster=true 
               :topics=topics 
               :current=current 
               :selectedIndexs=selectedIndexs
               :setSelectedIndex=setSelectedIndex />
-      已发送给
       <TopicInteraction 
               :current=current
               :isFull="topics.length===selectedIndexsLength"
+              :topicsLength=topics.length
               :goPreTopic=goPreTopic
               :goNextTopic=goNextTopic
       />
+      <RefreshBottom :changeTopic="changeTopic"/>
   </div>
 </template>
 <style lang="postcss" scoped>
 .answertopic {
-  margin: 0.24rem;
-
   font-size: 0.3rem;
 }
 .answertopic__topiccount {
@@ -29,16 +28,17 @@
 <script>
 import mokedata from "../test/mockData.js";
 
-import TopicCount from "../components/TopicCount.vue";
 import Topic from "../components/Topic.vue";
 import TopicInteraction from "../components/TopicInteraction.vue";
+import Bottom_bg from "../components/Bottom-bg.vue";
+import RefreshBottom from "../components/RefreshBottom.vue";
 export default {
   data() {
     return {
       topics: [
         {
           title: "如果可以选择的话，我希望我的性别是（）",
-          options: ["a、男生", "b、女生", "c、外星人"]
+          options: ["男生", "女生", "外星人"]
         }
       ],
       current: 0,
@@ -46,13 +46,14 @@ export default {
     };
   },
   components: {
-    TopicCount,
     Topic,
-    TopicInteraction
+    TopicInteraction,
+    Bottom_bg,
+    RefreshBottom
   },
-  computed:{
-    selectedIndexsLength(){
-      return Object.keys(this.selectedIndexs).length; 
+  computed: {
+    selectedIndexsLength() {
+      return Object.keys(this.selectedIndexs).length;
     }
   },
   methods: {
@@ -63,8 +64,14 @@ export default {
       if (this.current > 0) this.current--;
     },
     goNextTopic() {
-      if (this.current < this.topics.length-1) this.current++;
-      console.log(this.topics.length,this.selectedIndexsLength);
+      if (this.current < this.topics.length - 1) this.current++;
+      console.log(this.topics.length, this.selectedIndexsLength);
+    },
+    changeTopic() {
+      this.$set(this.topics, this.current, mokedata[1]);
+      const tempObject = { ...this.selectedIndexs };
+      delete tempObject[this.current];
+      this.selectedIndexs = tempObject;
     }
   },
   beforeMount() {

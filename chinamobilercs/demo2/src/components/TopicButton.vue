@@ -1,33 +1,24 @@
 <template>
-  <div class="topbutton" :class="{'topbutton--unactive':!isFull}">提交</div>
+  <div class="topbutton">发送给好友</div>
 </template>
 <style lang="postcss" scoped>
 .topbutton {
-  width: 50vw;
-  height: 7vh;
-  border-radius: 0.1rem;
+  width: 3.79rem;
+  height: .86rem;
 
-  line-height: 7vh;
+  line-height: .86rem;
   text-align: center;
-  background-color: #6b6b6b;
   color: #fff;
-}
-.topbutton--unactive {
-  opacity: 0.4 !important;
+  font-size: .42rem;
+
+  position: fixed;
+  left: 50%;
+  bottom: 1.8rem;
+
+  background-image: url('../assets/btn_datiyemian.png');
+  background-size: 3.79rem .86rem;
+
+  transform: translateX(-50%);
 }
 </style>
-<script>
-export default {
-  props: {
-    current: {
-      type: [Number, String],
-      default: -1
-    },
-    isFull: {
-      type: Boolean,
-      default: false
-    }
-  }
-};
-</script>
 

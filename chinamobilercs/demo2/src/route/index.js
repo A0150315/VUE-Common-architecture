@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
 import start from '../pages/start.vue';
-import answertopic from '../pages/answertopic.vue';
+import createtopic from '../pages/createtopic.vue';
 
 const router = new VueRouter({
     routes: [{
@@ -15,8 +15,8 @@ const router = new VueRouter({
         path: '/index',
         component: start
     },{
-        path: '/index/answertopic',
-        component: answertopic
+        path: '/index/createtopic',
+        component: createtopic
     }]
 })
 router.beforeEach(async (to, from, next) => {// 全局路由守卫

@@ -1,13 +1,25 @@
 <template>
   <div class="topic">
-      <p class="topic__title">{{current+1}}、{{topics[current]?topics[current].title:''}}</p>
-      <p v-if="isMaster">(请选择你心中的答案)</p>
-      <ul>
+      <p class="topic__title">
+        <span class="topic__title__count">
+          {{current+1}}/{{topics.length}}
+        </span>
+        <span class="topic__title__text">
+          {{topics[current]?topics[current].title:''}}
+        </span>
+      </p>
+      <p v-if="isMaster" class="topic__tips">请选择你的指定答案</p>
+      <ul class="topic__list">
           <li v-for="(item,index) of topics[current].options" 
               :key="index" class="topic__listitem" 
               :class="{'top__listitem--selected':index===selectedIndexs[current]}"
               @click="setSelectedIndex(index)" >
-                {{item}}
+                <span class="topic__listitem__index">
+                  {{index | num2elph}}
+                </span>
+                <span class="topic__listitem__text">
+                  {{item}}
+                </span>
           </li>
       </ul>
   </div>
@@ -35,26 +47,94 @@ export default {
     selectedIndexs: {
       type: Object
     }
+  },
+  filters: {
+    num2elph(value) {
+      return String.fromCharCode(String(value).charCodeAt() + 17);
+    }
   }
 };
 </script>
 <style lang="postcss" scoped>
-.topic {
-  background-color: #fff;
-  border-bottom: 0.0075rem dashed #333;
-}
 .topic__title {
-  padding-bottom: 0.6rem;
+  box-sizing: border-box;
+  padding: 1.6rem 0.7rem 0 0.8rem;
+  margin: 0.14rem 0 0 0;
+  width: 7.5rem;
+  height: 2.7rem;
+  background-image: url("../assets/bg_topic.png");
+  background-size: 7.5rem 2.7rem;
+
+  font-weight: 900;
+  color: #fff;
+
+  display: flex;
+  justify-content: space-between;
+}
+.topic__title__count {
+  width: 0.76rem;
+  height: 0.48rem;
+  background-image: url("../assets/bg_number.png");
+  background-size: 0.76rem 0.48rem;
+
+  font-size: 0.3rem;
+  line-height: 0.48rem;
+  text-align: center;
+}
+.topic__title__text {
+  padding-left: 0.1rem;
+  font-size: 0.4rem;
+  -webkit-text-stroke: 2px #000000;
+  line-height: 1.5;
+
+  flex: 1;
+}
+.topic__tips {
+  padding: 0.5rem 0 0.24rem;
+
+  font-size: 0.24rem;
+  color: #6b5000;
+
+  text-align: center;
+}
+.topic__list {
+  box-sizing: border-box;
+  background-image: url("../assets/bg_anwser.png");
+  width: 7.5rem;
+  height: 4.12rem;
+  background-size: 7.5rem 4.12rem;
+
+  padding: 0.6rem 0.68rem 0 0.56rem;
 }
 .topic__listitem {
-  margin: 0.2rem;
-  padding: 0.26rem 0.16rem;
-  border-radius: 0.2rem;
+  height: 0.75rem;
+  margin-bottom: 0.24rem;
 
-  font-weight: bold;
-  background-color: #f2f2f2;
+  font-weight: bolder;
+
+  display: flex;
+  justify-content: space-between;
+}
+.topic__listitem__index {
+  background-image: url("../assets/bg_abc.png");
+  width: 0.74rem;
+  height: 0.75rem;
+  background-size: 0.74rem 0.75rem;
+
+  display: block;
+
+  line-height: 0.75rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.46rem;
+}
+.topic__listitem__text {
+  flex: 1;
+  padding: 0.22rem 0 0 0.12rem;
+
+  font-size: 0.34rem;
 }
 .top__listitem--selected {
-  background-color: #fad852;
+  color: #f35416;
 }
 </style>
