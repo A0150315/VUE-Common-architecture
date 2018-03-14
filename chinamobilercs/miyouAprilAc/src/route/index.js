@@ -9,6 +9,7 @@ import createtopic from '../pages/createtopic.vue';
 import checkanswer from '../pages/checkanswer.vue';
 import answer from '../pages/answer.vue';
 import result from '../pages/event/result.vue';
+import prankFriend from '../pages/prank-friend.vue';
 
 const router = new VueRouter({
     routes: [{
@@ -29,6 +30,9 @@ const router = new VueRouter({
     }, {
         path: '/index/:event/result/',
         component: result
+    }, {
+        path: '/index/prankFriend',
+        component: prankFriend
     }]
 })
 router.beforeEach(async (to, from, next) => { // 全局路由守卫
