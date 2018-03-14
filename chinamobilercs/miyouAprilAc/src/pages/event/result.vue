@@ -10,12 +10,12 @@
       <span class="result__buttons__blue" v-if="isCorrect">
           领取1G流量
       </span>
-      <router-link to="/index/createtopic" tag="span" class="result__buttons__orange">
-          我也要整蛊TA
+      <router-link :to="isXiaomi?'/index/answer':'/index/createtopic'" tag="span" class="result__buttons__orange">
+          {{isXiaomi?'继续挑战':'我也要整蛊TA'}}
       </router-link>
     </div>
     <router-link class="result__checkanswer"  tag="span" to="/index/checkanswer">
-      查看TA的指定答案
+      查看{{isXiaomi?'小密':'TA'}}的指定答案
     </router-link>
   </div>
 </template>
@@ -76,6 +76,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  data() {
+    return {
+      isXiaomi: false
+    };
   }
 };
 </script>
