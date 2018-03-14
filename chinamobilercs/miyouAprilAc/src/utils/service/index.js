@@ -24,9 +24,10 @@ export default {
                 text
             }
         })
+    },
+    //获取挑战信息的接口请求
+    getStatisticsMessage() {
+        return axios.get(config.statisticsMessage,{})
     }
     // 封装更多请求
-    // ···
-    // ···
-    // ···
 }

@@ -1,6 +1,7 @@
 <template>
     <div class="alert-wrapper-box">
         <div class="alert-wrapper">
+            <div v-if="showAlert.CloseIcon" class="alert-close-icon" @click="close()"></div>
             <div v-if="showAlert.tipImgUrl" :style="showAlert.styleImg" class="alert-tip">
                 <img :src="showAlert.tipImgUrl">
             </div>
@@ -21,7 +22,7 @@
                 type: Object,
                 default: function () {
                   return   {
-                      alertStatus: false,      /*弹框显示的状态*/
+//                    alertStatus: false,      /*弹框显示的状态*/
                       tipImgUrl: '',           /*弹框头部提示图片路径*/
                       tipImgWidth: 0,         /*弹框头部提示图片宽度*/
                       tipImgHeight: 0,        /*弹框头部提示图片高度*/
@@ -76,6 +77,15 @@
             padding: 20px 10px;
             word-break: break-all;
             font-size: 0.46rem;
+            & .alert-close-icon{
+                width: 0.68rem;
+                height: 0.68rem;
+                background: url("../chinamobilercs/miyouAprilAc/src/assets/img/icon-close.png");
+                background-size: 100% 100%;
+                position: absolute;
+                right: -0.34rem;
+                top: -0.34rem;
+            }
             & .alert-tip{
                 margin: 0 auto;
                 & .img{
