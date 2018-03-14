@@ -1,7 +1,8 @@
 <template>
   <div class="answertopic">
       <Bottom_bg />
-      <Topic  :isMaster=true 
+      <Topic  :isMaster=true
+              :isAnswering=true 
               :topics=topics 
               :current=current 
               :selectedIndexs=selectedIndexs
@@ -12,10 +13,9 @@
               :topicsLength=topics.length
               :goPreTopic=goPreTopic
               :goNextTopic=goNextTopic
-              buttonText="发送给好友"
+              buttonText="提交"
               :buttonFunC=goNextPage
       />
-      <RefreshBottom :changeTopic="changeTopic"/>
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -37,7 +37,7 @@ import Bottom_bg from "../components/Bottom-bg.vue";
 import RefreshBottom from "../components/RefreshBottom.vue";
 export default {
   metaInfo: {
-    title: "制作题目"
+    title: "全民愚人战，整蛊好友领12G"
   },
   data() {
     return {
@@ -68,23 +68,12 @@ export default {
       if (this.current < this.topics.length - 1) this.current++;
       console.log(this.topics.length, this.selectedIndexsLength);
     },
-    changeTopic() {
-      this.$set(this.topics, this.current, mokedata[1]); //刷新题目
-      const tempObject = { ...this.selectedIndexs };
-      delete tempObject[this.current];
-      this.selectedIndexs = tempObject;
-    },
-    goNextPage(callback) {
+    goNextPage() {
       this.$router.replace(`${this.$route.fullPath}/result`);
     }
   },
   beforeMount() {
     this.topics = mokedata;
-  },
-  beforeRouteLeave(to, from, next) {
-    next();
   }
 };
 </script>
-
-

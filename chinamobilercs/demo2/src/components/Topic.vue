@@ -8,8 +8,9 @@
           {{topics[current]?topics[current].title:''}}
         </span>
       </p>
-      <p v-if="isMaster" class="topic__tips">请选择你的指定答案</p>
-      <ul class="topic__list">
+      <p v-if="isAnswering" class="topic__tips--blank"></p>
+      <p v-else-if="isMaster" class="topic__tips">请选择你的指定答案</p>
+      <ul class="topic__list" v-if="isMaster">
           <li v-for="(item,index) of topics[current].options" 
               :key="index" class="topic__listitem" 
               :class="{'top__listitem--selected':index===selectedIndexs[current]}"
@@ -22,6 +23,27 @@
                 </span>
           </li>
       </ul>
+      <ul class="topic__list topic__list--notMaster" v-else>
+          <li v-for="(item,index) of topics[current].options" 
+              :key="index" class="topic__listitem" 
+              :class="[(index===selectedIndexs[current] && isMaster)
+                          ?'top__listitem--selected'
+                          :index===selectedIndexs[current]
+                            ?selectedIndexs[current]===answerList[current]
+                              ?'topic__listitem--correct'
+                              :'topic__listitem--error'
+                            :''
+                      ]"
+          >
+                <span class="topic__listitem__index">
+                  {{(index===selectedIndexs[current]?null:index) | num2elph}}
+                </span>
+                <span class="topic__listitem__text">
+                  {{item}}
+                </span>
+          </li>
+      </ul>
+      <p v-if="!isMaster" class="topic__tips topic__tips--bottom">回答正确3道或者3道以上，算挑战成功</p>
   </div>
   
 </template>
@@ -40,16 +62,28 @@ export default {
       type: Boolean,
       defalut: false
     },
+    isAnswering: {
+      type: Boolean,
+      defalut: false
+    },
     setSelectedIndex: {
       type: Function,
       defalut: () => console.log("请设置setSelectedIndex的函数")
     },
     selectedIndexs: {
-      type: Object
+      type: Object,
+      defalut: {}
+    },
+    answerList: {
+      type: Object,
+      defalut: {}
     }
   },
   filters: {
-    num2elph(value) {
+    num2elph: value => {
+      if (value === null) {
+        return "";
+      }
       return String.fromCharCode(String(value).charCodeAt() + 17);
     }
   }
@@ -97,6 +131,13 @@ export default {
 
   text-align: center;
 }
+.topic__tips--blank {
+  height: 0.66rem;
+}
+.topic__tips--bottom {
+  padding-top: 0.3rem;
+  font-weight: bolder;
+}
 .topic__list {
   box-sizing: border-box;
   background-image: url("../assets/bg_anwser.png");
@@ -106,6 +147,9 @@ export default {
 
   padding: 0.6rem 0.68rem 0 0.56rem;
 }
+.topic__list--notMaster {
+  margin-top: 0.66rem;
+}
 .topic__listitem {
   height: 0.75rem;
   margin-bottom: 0.24rem;
@@ -114,6 +158,18 @@ export default {
 
   display: flex;
   justify-content: space-between;
+}
+.topic__listitem--correct {
+  color: #00bffe;
+  & .topic__listitem__index {
+    background-image: url("../assets/icon_right.png");
+  }
+}
+.topic__listitem--error {
+  color: #b003f0;
+  & .topic__listitem__index {
+    background-image: url("../assets/icon_wrong.png");
+  }
 }
 .topic__listitem__index {
   background-image: url("../assets/bg_abc.png");

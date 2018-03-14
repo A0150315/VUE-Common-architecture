@@ -8,7 +8,7 @@
             <span>下一题</span>
             <img src="../assets/icon_next.png" alt="next" class="topicinteraction__buttons topicinteraction__buttons__next">
         </div>
-        <TopicButton v-if="isFull"/>
+        <TopicButton v-if="isFull && isMaster" :buttonFunC=buttonFunC :buttonText=buttonText />
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -65,6 +65,18 @@ export default {
     topicsLength: {
       type: [Number, String],
       default: 0
+    },
+    isMaster: {
+      type: Boolean,
+      default: true
+    },
+    buttonText: {
+      type: String,
+      default: ""
+    },
+    buttonFunC: {
+      type: Function,
+      default: () => {}
     }
   },
   components: {

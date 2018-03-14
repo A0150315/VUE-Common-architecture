@@ -1,27 +1,25 @@
 <template>
   <div class="answertopic">
       <Bottom_bg />
-      <Topic  :isMaster=true 
+      <Topic  :isMaster=false 
               :topics=topics 
               :current=current 
               :selectedIndexs=selectedIndexs
-              :setSelectedIndex=setSelectedIndex />
+              :answerList=answerList
+      />
       <TopicInteraction 
+              :isMaster=false 
               :current=current
-              :isFull="topics.length===selectedIndexsLength"
               :topicsLength=topics.length
               :goPreTopic=goPreTopic
               :goNextTopic=goNextTopic
-              buttonText="发送给好友"
-              :buttonFunC=goNextPage
       />
-      <RefreshBottom :changeTopic="changeTopic"/>
   </div>
 </template>
 <style lang="postcss" scoped>
 .answertopic {
   font-size: 0.3rem;
-  height: calc(100vh - 0.14rem);
+  height:calc(100vh - .14rem);
 }
 .answertopic__topiccount {
   font-size: 1rem;
@@ -37,13 +35,14 @@ import Bottom_bg from "../components/Bottom-bg.vue";
 import RefreshBottom from "../components/RefreshBottom.vue";
 export default {
   metaInfo: {
-    title: "制作题目"
+    title: "全民愚人战，整蛊好友领12G"
   },
   data() {
     return {
       topics: [],
       current: 0,
-      selectedIndexs: {}
+      selectedIndexs: {},
+      answerList: {}
     };
   },
   components: {
@@ -52,37 +51,29 @@ export default {
     Bottom_bg,
     RefreshBottom
   },
-  computed: {
-    selectedIndexsLength() {
-      return Object.keys(this.selectedIndexs).length;
-    }
-  },
   methods: {
-    setSelectedIndex(index) {
-      this.$set(this.selectedIndexs, this.current, index);
-    },
     goPreTopic() {
       if (this.current > 0) this.current--;
     },
     goNextTopic() {
       if (this.current < this.topics.length - 1) this.current++;
       console.log(this.topics.length, this.selectedIndexsLength);
-    },
-    changeTopic() {
-      this.$set(this.topics, this.current, mokedata[1]); //刷新题目
-      const tempObject = { ...this.selectedIndexs };
-      delete tempObject[this.current];
-      this.selectedIndexs = tempObject;
-    },
-    goNextPage(callback) {
-      this.$router.replace(`${this.$route.fullPath}/result`);
     }
   },
   beforeMount() {
     this.topics = mokedata;
-  },
-  beforeRouteLeave(to, from, next) {
-    next();
+    this.selectedIndexs = {
+      // 选中题目
+      "0": 2,
+      "1": 1,
+      "2": 0
+    };
+    this.answerList = {
+      //正确答案
+      "0": 1,
+      "1": 1,
+      "2": 1
+    };
   }
 };
 </script>
