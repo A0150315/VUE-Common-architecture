@@ -5,17 +5,33 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
 import prankIndex from '../pages/prank-index.vue';
+import createtopic from '../pages/createtopic.vue';
+import checkanswer from '../pages/checkanswer.vue';
+import answer from '../pages/answer.vue';
+import result from '../pages/event/result.vue';
 
 const router = new VueRouter({
     routes: [{
         path: '/',
-        redirect:'/index'
-    },{
+        redirect: '/index'
+    }, {
         path: '/index',
         component: prankIndex
+    }, {
+        path: '/index/createtopic/',
+        component: createtopic
+    }, {
+        path: '/index/checkanswer/',
+        component: checkanswer
+    }, {
+        path: '/index/answer/',
+        component: answer
+    }, {
+        path: '/index/:event/result/',
+        component: result
     }]
 })
-router.beforeEach(async (to, from, next) => {// 全局路由守卫
+router.beforeEach(async (to, from, next) => { // 全局路由守卫
     next()
 })
 
