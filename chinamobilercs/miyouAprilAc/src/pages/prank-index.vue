@@ -61,12 +61,12 @@
                     tipImgUrl: '',
                     tipImgWidth: 0,
                     tipImgHeight: 0,
-                    contentTxt: 'lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+//                    contentTxt: 'lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
                     CloseIcon: true,
                     CloseBtn: false,
                     confirmBtn: true,
-                    rules: [],
-                    confirmBtnTxt: '好的'
+                    rules: ['lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', 'mmmmmmmmmmmmmmmmmnnnnnnn'],
+                    confirmBtnTxt: '确定'
                 },
                 alertStatus: false,   //弹框的状态变量
                 prankSuccess: 0,      //成功整蛊次数

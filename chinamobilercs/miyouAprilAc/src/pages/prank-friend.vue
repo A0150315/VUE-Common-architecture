@@ -61,7 +61,7 @@
             height: 1.2rem;
             background-color: #fff;
             margin: 0 auto 0.26rem;
-            border-radius: 0.1rem;
+            border-radius: 0.34rem;
             color: #333;
             & p{
                 height: 100%;

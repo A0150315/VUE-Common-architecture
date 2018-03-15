@@ -6,7 +6,12 @@
                 <img :src="showAlert.tipImgUrl">
             </div>
             <div v-if="showAlert.contentTxt" class="alert-content">{{showAlert.contentTxt}}</div>
-            <div v-if="showAlert.rules.length" class="alert-rules"></div>
+            <div v-if="showAlert.rules.length" class="alert-rules">
+                <p v-for="(item, index) in showAlert.rules">
+                    <span :class="{'rule-img1':(index + 1 === 1), 'rule-img2':(index + 1 === 2)}"></span>
+                    {{item}}
+                </p>
+            </div>
             <div v-if="showAlert.CloseBtn || showAlert.confirmBtn" class="alert-btn">
                 <button @click="close()" v-if="showAlert.CloseBtn" class="alert-close">取消</button>
                 <button @click="confirm()" v-if="showAlert.confirmBtn"
@@ -99,6 +104,29 @@
             }
             & .alert-rules {
                 text-align: left;
+                color: #333;
+                & span{
+                    display: inline-block;
+                    width: 0.35rem;
+                    height: 0.35rem;
+                    background-size: 100% 100%;
+                    position: absolute;
+                    left: 0.15rem;
+                    top: 0.1rem;
+                }
+                & p{
+                    margin-bottom: 0.2rem;
+                    padding-left: 0.6rem;
+                    position: relative;
+                }
+                & .rule-img1{
+                    background: url('../chinamobilercs/miyouAprilAc/src/assets/img/1.png') no-repeat;
+                    background-size: 100% 100%;
+                }
+                & .rule-img2{
+                    background: url('../chinamobilercs/miyouAprilAc/src/assets/img/2.png') no-repeat;
+                    background-size: 100% 100%;
+                }
             }
             & .alert-btn {
                 text-align: center;
