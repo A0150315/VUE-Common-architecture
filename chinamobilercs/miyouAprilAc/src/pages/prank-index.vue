@@ -32,14 +32,14 @@
                 <li>
                     <div class="prank-bg prank-hall-bg"></div>
                     <div class="prank-info">
-                        <div class="prank-hall"></div>
+                        <div @click="prankHall()" class="prank-hall"></div>
                         <p>挑战整蛊，我最懂你</p>
                     </div>
                 </li>
             </ul>
         </section>
         <div class="active-rule"></div>
-        <footer></footer>
+        <bottomBg></bottomBg>
         <prank-alert v-if="alertStatus" @close="closeAlert()" @confirm="goToNext()" :showAlert='showAlert'></prank-alert>
     </div>
 </template>
@@ -48,9 +48,12 @@
     import prankAlert from '../../../../components/prank-alert.vue'
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
+    import bottomBg from '../components/Bottom-bg.vue'
+
     export default {
         components: {
-            prankAlert
+            prankAlert,
+            bottomBg
         },
         data () {
             return {
@@ -63,6 +66,7 @@
                     CloseBtn: false,
                     confirmBtn: true,
                     rules: [],
+                    confirmBtnTxt: '好的'
                 },
                 alertStatus: false,   //弹框的状态变量
                 prankSuccess: 0,      //成功整蛊次数
@@ -91,13 +95,22 @@
                 this.alertStatus = false;
             },
             prankFriend() {
-                this.alertStatus = true;
+                /* 弹窗提示框显示 */
+//                this.alertStatus = true;
+                /* 跳转到题目列表页面 */
+                this.$router.push('index/prankFriend')
+            },
+            prankHall() {
+                /* 弹窗提示框显示 */
+//              this.alertStatus = true;
+                /* 跳转到整蛊大厅答题页面 */
+                this.$router.push('index/answer')
             }
         }
     }
 </script>
 
-<style scoped lang="postcss">
+<style scoped lang="less">
     .prank-index-wrapper{
         width: 100%;
         height: 100%;
@@ -203,15 +216,6 @@
             bottom: 0.7rem;
             transform: translateX(-50%);
             background: url("../assets/img/word_huodongguize.png");
-            background-size: 100% 100%;
-        }
-        & footer{
-            width: 100%;
-            height: 1.42rem;
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            background: url("../assets/img/bg.png") no-repeat;
             background-size: 100% 100%;
         }
     }
