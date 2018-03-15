@@ -66,6 +66,7 @@
                     CloseBtn: false,
                     confirmBtn: true,
                     rules: [],
+                    confirmBtnTxt: '好的'
                 },
                 alertStatus: false,   //弹框的状态变量
                 prankSuccess: 0,      //成功整蛊次数
@@ -95,7 +96,7 @@
             },
             prankFriend() {
                 /* 弹窗提示框显示 */
-//              this.alertStatus = true;
+//                this.alertStatus = true;
                 /* 跳转到题目列表页面 */
                 this.$router.push('index/prankFriend')
             },

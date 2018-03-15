@@ -5,6 +5,7 @@ import store from './src/store';// 引入vuex的入口
 import router from './src/route';// 引入vue-router的入口
 
 import './src/css/global.css';
+import './src/assets/font/iconfont.css'
 
 import MetaInfo from 'vue-meta-info';// 动态修改meta信息，详情谷歌或百度
 Vue.use(MetaInfo)
