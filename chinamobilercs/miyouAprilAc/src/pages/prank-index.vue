@@ -7,18 +7,18 @@
                     <img src="../assets/img/我的战绩.png" alt="">
                 </div>
                 <div class="my-info">
-                    <div>
+                    <router-link class="info" to="index/record">
                         <p><span class="number">{{this.prankSuccess}}</span><span>位</span></p>
                         <p>成功整蛊好友></p>
-                    </div>
-                    <div>
+                    </router-link>
+                    <router-link class="info" to="index/record">
                         <p><span class="number">{{this.congratulation}}</span><span>位</span></p>
                         <p>成功识破整蛊></p>
-                    </div>
-                    <div>
+                    </router-link>
+                    <router-link class="info" to="index/myAward">
                         <p><span class="number">{{this.coupon}}</span><span>G</span></p>
                         <p>我的奖品></p>
-                    </div>
+                    </router-link>
                 </div>
             </div>
             <ul>
@@ -38,7 +38,7 @@
                 </li>
             </ul>
         </section>
-        <div class="active-rule"></div>
+        <router-link to="index/activityRule" class="active-rule"></router-link>
         <bottomBg></bottomBg>
         <prank-alert v-if="alertStatus" @close="closeAlert()" @confirm="goToNext()" :showAlert='showAlert'></prank-alert>
     </div>
@@ -147,7 +147,7 @@
                 & .my-info{
                     display: flex;
                     text-align: center;
-                    & div{
+                    & .info{
                         flex-grow: 1;
                     }
                     & span{
@@ -214,6 +214,7 @@
             position: absolute;
             left: 50%;
             bottom: 0.7rem;
+            z-index: 1;
             transform: translateX(-50%);
             background: url("../assets/img/word_huodongguize.png");
             background-size: 100% 100%;
