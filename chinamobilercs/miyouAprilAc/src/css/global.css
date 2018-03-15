@@ -2,6 +2,12 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+@font-face {
+    font-family: STYuanti;
+    src: url('../assets/font/STYuanti.ttc');
+    font-weight: bold;
+}
+
 body,
 html,
 li,
@@ -22,7 +28,7 @@ legend,
 option,
 select,
 textarea {
-    font-family: "YouYuan","Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+    font-family: "STYuanti", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
 
 ::-webkit-scrollbar {

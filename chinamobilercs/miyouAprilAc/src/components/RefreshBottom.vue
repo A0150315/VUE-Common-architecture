@@ -8,16 +8,21 @@
 .refreshbottom {
   display: flex;
   align-items: center;
+  justify-content: center;
 
+  width: 2.38rem;
+  height: 0.49rem;
+  box-sizing: border-box;
   padding: 0.1rem 0.2rem;
 
   position: fixed;
-  right: 1rem;
+  right: 0.4rem;
   top: 0;
 
   font-size: 0.26rem;
   font-weight: bold;
-  background-color: #fff;
+  background-image: url("../assets/img/bg_chang.png");
+  background-size: 2.38rem 0.49rem;
 }
 .refreshbottom__img {
   width: 0.29rem;

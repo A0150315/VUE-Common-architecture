@@ -118,9 +118,10 @@ export default {
 .topic__title__text {
   padding-left: 0.1rem;
   font-size: 0.4rem;
-  -webkit-text-stroke: 2px #000000;
+  // -webkit-text-stroke: 2px #000000;
   line-height: 1.5;
 
+  color: #000;
   flex: 1;
 }
 .topic__tips {

@@ -10,3 +10,29 @@ export default [{
         options: ["B", "H", "J"]
     }
 ];
+
+// svg描边
+// <div class="svg">
+//     <svg> 
+//     <use xlink:href="#css"/>
+//     <text id="css" x y="1em">{{topics[current]?topics[current].title:''}}</text>
+//     </svg>
+// </div>
+// .svg {
+//     width: 100%;
+//     height: 100%;
+// }
+// .svg text {
+//     fill: currentColor;
+// }
+
+// .svg svg {
+//     width: 100%;
+//     height: 100%;
+// }
+
+// .svg use {
+//     stroke: black;
+//     stroke-width: 13;
+//     stroke-linejoin: round;
+// }
