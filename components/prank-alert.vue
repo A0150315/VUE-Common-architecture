@@ -8,7 +8,7 @@
             <div v-if="showAlert.contentTxt" class="alert-content">{{showAlert.contentTxt}}</div>
             <div v-if="showAlert.rules.length" class="alert-rules">
                 <p v-for="(item, index) in showAlert.rules">
-                    <span :class="{'rule-img1':(index + 1 === 1), 'rule-img2':(index + 1 === 2)}"></span>
+                    <span :style="{background: 'url(static/'+(index + 1)+'.png) no-repeat',backgroundSize:'100% 100%'}"></span>
                     {{item}}
                 </p>
             </div>
@@ -80,7 +80,7 @@
             width: 5.7rem;
             padding: 0.36rem 0.24rem;
             word-break: break-all;
-            font-size: 0.46rem;
+            font-size: 0.32rem;
             transform: translate(-50%, -50%);
             & .alert-close-icon {
                 width: 0.68rem;
@@ -92,7 +92,7 @@
                 top: -0.34rem;
             }
             & .alert-tip {
-                margin: 0 auto;
+                margin: 0 auto 0.5rem;
                 & img {
                     width: 100%;
                     height: 100%;
@@ -100,6 +100,9 @@
                 }
             }
             & .alert-content {
+                margin: 0 auto;
+                width: 4.4rem;
+                padding-top: 0.22rem;
                 text-align: center;
             }
             & .alert-rules {
@@ -110,46 +113,41 @@
                     display: inline-block;
                     width: 0.35rem;
                     height: 0.35rem;
-                    background-size: 100% 100%;
                     position: absolute;
                     left: 0.15rem;
-                    top: 0.1rem;
+                    top: 0;
                 }
                 & p{
-                    margin-bottom: 0.2rem;
+                    margin-bottom: 0.5rem;
                     padding-left: 0.6rem;
                     position: relative;
-                }
-                & .rule-img1{
-                    background: url('../chinamobilercs/miyouAprilAc/src/assets/img/1.png') no-repeat;
-                    background-size: 100% 100%;
-                }
-                & .rule-img2{
-                    background: url('../chinamobilercs/miyouAprilAc/src/assets/img/2.png') no-repeat;
-                    background-size: 100% 100%;
                 }
             }
             & .alert-btn {
                 margin-top: 0.3rem;
                 text-align: center;
                 & button {
+                    font-size: 0.34rem;
                     border: none;
                 }
                 & .alert-close {
                     width: 2.07rem;
                     height: 0.57rem;
+                    margin-right: 0.4rem;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_smaller2.png");
                     background-size: 100% 100%;
                 }
                 & .alert-confirm {
                     width: 2.07rem;
                     height: 0.57rem;
+                    color: #fff;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_smaller1.png");
                     background-size: 100% 100%;
                 }
                 & .only-alert-confirm {
                     width: 2.47rem;
                     height: 0.66rem;
+                    color: #fff;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_bigger1.png");
                     background-size: 100% 100%;
                 }
