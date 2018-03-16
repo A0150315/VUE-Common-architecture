@@ -101,10 +101,8 @@
                 this.$router.push('index/prankFriend')
             },
             prankHall() {
-                /* 弹窗提示框显示 */
-//              this.alertStatus = true;
-                /* 跳转到整蛊大厅答题页面 */
-                this.$router.push('index/answer')
+                /* 跳转到整蛊大厅页面 */
+                this.$router.push('index/prankHall')
             }
         }
     }

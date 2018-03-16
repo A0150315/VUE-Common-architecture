@@ -10,6 +10,7 @@ import checkanswer from '../pages/checkanswer.vue';
 import answer from '../pages/answer.vue';
 import result from '../pages/event/result.vue';
 import prankFriend from '../pages/prank-friend.vue';
+import prankHall from '../pages/prank-hall.vue';
 import record from '../pages/record.vue';
 import myAward from '../pages/myAward.vue';
 import activityRule from '../pages/activityRule.vue';
@@ -42,10 +43,12 @@ const router = new VueRouter({
     }, {
         path: '/index/myAward',
         component: myAward
-    }
-    , {
+    }, {
         path: '/index/activityRule',
         component: activityRule
+    }, {
+        path: '/index/prankHall',
+        component: prankHall
     }]
 })
 router.beforeEach(async (to, from, next) => { // 全局路由守卫
