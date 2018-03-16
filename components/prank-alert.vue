@@ -2,7 +2,7 @@
     <div class="alert-wrapper-box">
         <div class="alert-wrapper">
             <div v-if="showAlert.CloseIcon" class="alert-close-icon" @click="close()"></div>
-            <div v-if="showAlert.tipImgUrl" :style="showAlert.styleImg" class="alert-tip">
+            <div v-if="showAlert.tipImgUrl" :style="styleImg" class="alert-tip">
                 <img :src="showAlert.tipImgUrl">
             </div>
             <div v-if="showAlert.contentTxt" class="alert-content">{{showAlert.contentTxt}}</div>
@@ -46,8 +46,8 @@
         data() {
             return {
                 styleImg: {
-                    width: this.tipImgWidth + "rem",
-                    height: this.tipImgHeight + "rem"
+                    width: this.showAlert.tipImgWidth + "rem",
+                    height: this.showAlert.tipImgHeight + "rem"
                 }
             };
         },
@@ -74,11 +74,11 @@
             position: absolute;
             left: 50%;
             top: 50%;
-            background-color: yellow;
+            background-color: #f7c42f;
             border: 1px solid #ddd;
-            border-radius: 10px;
-            width: 300px;
-            padding: 20px 10px;
+            border-radius: 0.34rem;
+            width: 5.7rem;
+            padding: 0.36rem 0.24rem;
             word-break: break-all;
             font-size: 0.46rem;
             transform: translate(-50%, -50%);
@@ -93,7 +93,7 @@
             }
             & .alert-tip {
                 margin: 0 auto;
-                & .img {
+                & img {
                     width: 100%;
                     height: 100%;
                     display: block;
@@ -104,7 +104,8 @@
             }
             & .alert-rules {
                 text-align: left;
-                color: #333;
+                font-size: 0.32rem;
+                color: #000;
                 & span{
                     display: inline-block;
                     width: 0.35rem;
@@ -129,6 +130,7 @@
                 }
             }
             & .alert-btn {
+                margin-top: 0.3rem;
                 text-align: center;
                 & button {
                     border: none;
