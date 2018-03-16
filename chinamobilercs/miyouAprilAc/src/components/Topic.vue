@@ -1,5 +1,5 @@
 <template>
-  <div class="topic">
+  <div class="topic" v-if="topics[current]">
       <p class="topic__title">
         <span class="topic__title__count">
           {{current+1}}/{{topics.length}}
@@ -11,7 +11,7 @@
       <p v-if="isAnswering" class="topic__tips--blank"></p>
       <p v-else-if="isMaster" class="topic__tips">请选择你的指定答案</p>
       <ul class="topic__list" v-if="isMaster">
-          <li v-for="(item,index) of topics[current].options" 
+          <li v-for="(item,index) of topics[current].optionList" 
               :key="index" class="topic__listitem" 
               :class="{'top__listitem--selected':index===selectedIndexs[current]}"
               @click="setSelectedIndex(index)" >
@@ -19,12 +19,12 @@
                   {{index | num2elph}}
                 </span>
                 <span class="topic__listitem__text">
-                  {{item}}
+                  {{item.content}}
                 </span>
           </li>
       </ul>
       <ul class="topic__list topic__list--notMaster" v-else>
-          <li v-for="(item,index) of topics[current].options" 
+          <li v-for="(item,index) of topics[current].optionList" 
               :key="index" class="topic__listitem" 
               :class="[(index===selectedIndexs[current] && isMaster)
                           ?'top__listitem--selected'
@@ -39,7 +39,7 @@
                   {{(index===selectedIndexs[current]?null:index) | num2elph}}
                 </span>
                 <span class="topic__listitem__text">
-                  {{item}}
+                  {{item.content}}
                 </span>
           </li>
       </ul>
@@ -71,7 +71,7 @@ export default {
       defalut: () => console.log("请设置setSelectedIndex的函数")
     },
     selectedIndexs: {
-      type: Object,
+      type: [Object,Array],
       defalut: {}
     },
     answerList: {
@@ -93,11 +93,13 @@ export default {
 .topic__title {
   box-sizing: border-box;
   padding: 1.6rem 0.7rem 0 0.8rem;
-  margin: 0.14rem 0 0 0;
   width: 7.5rem;
   height: 2.7rem;
   background-image: url("../assets/img/bg_topic.png");
   background-size: 7.5rem 2.7rem;
+
+  position: relative;
+  top:0.14rem;
 
   font-weight: 900;
   color: #fff;

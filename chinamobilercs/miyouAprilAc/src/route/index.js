@@ -5,10 +5,10 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter)
 
 import prankIndex from '../pages/prank-index.vue';
-import createtopic from '../pages/createtopic.vue';
-import checkanswer from '../pages/checkanswer.vue';
-import answer from '../pages/answer.vue';
-import result from '../pages/event/result.vue';
+import createtopic from '../pages/answer/createtopic.vue';
+import checkanswer from '../pages/answer/checkanswer.vue';
+import answer from '../pages/answer/answer.vue';
+import result from '../pages/answer/event/result.vue';
 import prankFriend from '../pages/prank-friend.vue';
 import record from '../pages/record.vue';
 import myAward from '../pages/myAward.vue';
@@ -22,10 +22,10 @@ const router = new VueRouter({
         path: '/index',
         component: prankIndex
     }, {
-        path: '/index/createtopic/',
+        path: '/index/:from/createtopic/',
         component: createtopic
     }, {
-        path: '/index/checkanswer/',
+        path: '/index/:from/checkanswer/',
         component: checkanswer
     }, {
         path: '/index/answer/',
@@ -42,8 +42,7 @@ const router = new VueRouter({
     }, {
         path: '/index/myAward',
         component: myAward
-    }
-    , {
+    }, {
         path: '/index/activityRule',
         component: activityRule
     }]

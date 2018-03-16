@@ -1,20 +1,18 @@
 <template>
   <div class="answertopic">
       <Bottom_bg />
-      <Topic  :isMaster=true
-              :isAnswering=true 
+      <Topic  :isMaster=false 
               :topics=topics 
               :current=current 
               :selectedIndexs=selectedIndexs
-              :setSelectedIndex=setSelectedIndex />
+              :answerList=answerList
+      />
       <TopicInteraction 
+              :isMaster=false 
               :current=current
-              :isFull="topics.length===selectedIndexsLength"
               :topicsLength=topics.length
               :goPreTopic=goPreTopic
               :goNextTopic=goNextTopic
-              buttonText="提交"
-              :buttonFunC=goNextPage
       />
   </div>
 </template>
@@ -29,12 +27,12 @@
 }
 </style>
 <script>
-import mokedata from "../test/mockData.js";
+import mokedata from "../../test/mockData.js";
 
-import Topic from "../components/Topic.vue";
-import TopicInteraction from "../components/TopicInteraction.vue";
-import Bottom_bg from "../components/Bottom-bg.vue";
-import RefreshBottom from "../components/RefreshBottom.vue";
+import Topic from "../../components/Topic.vue";
+import TopicInteraction from "../../components/TopicInteraction.vue";
+import Bottom_bg from "../../components/Bottom-bg.vue";
+import RefreshBottom from "../../components/RefreshBottom.vue";
 export default {
   metaInfo: {
     title: "全民愚人战，整蛊好友领12G"
@@ -43,7 +41,8 @@ export default {
     return {
       topics: [],
       current: 0,
-      selectedIndexs: {}
+      selectedIndexs: {},
+      answerList: {}
     };
   },
   components: {
@@ -52,28 +51,23 @@ export default {
     Bottom_bg,
     RefreshBottom
   },
-  computed: {
-    selectedIndexsLength() {
-      return Object.keys(this.selectedIndexs).length;
-    }
-  },
   methods: {
-    setSelectedIndex(index) {
-      this.$set(this.selectedIndexs, this.current, index);
-    },
     goPreTopic() {
       if (this.current > 0) this.current--;
     },
     goNextTopic() {
       if (this.current < this.topics.length - 1) this.current++;
       console.log(this.topics.length, this.selectedIndexsLength);
-    },
-    goNextPage() {
-      this.$router.replace(`${this.$route.fullPath}/result`);
     }
   },
   beforeMount() {
-    this.topics = mokedata;
+    const data = JSON.parse(sessionStorage.getItem("answerList"));
+    this.topics = data;
+
+    this.selectedIndexs = data.map(e => e.userIndex);
+    this.answerList = data.map(e => e.answerIndex);
   }
 };
 </script>
+
+

@@ -1,7 +1,8 @@
 <template>
   <div class="answertopic">
       <Bottom_bg />
-      <Topic  :isMaster=true 
+      <Topic  :isMaster=true
+              :isAnswering=true 
               :topics=topics 
               :current=current 
               :selectedIndexs=selectedIndexs
@@ -12,10 +13,9 @@
               :topicsLength=topics.length
               :goPreTopic=goPreTopic
               :goNextTopic=goNextTopic
-              buttonText="发送给好友"
+              buttonText="提交"
               :buttonFunC=goNextPage
       />
-      <RefreshBottom :changeTopic="changeTopic"/>
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -29,15 +29,16 @@
 }
 </style>
 <script>
-import mokedata from "../test/mockData.js";
+import mokedata from "../../test/mockData.js";
+import Ajax from "../../utils/service";
 
-import Topic from "../components/Topic.vue";
-import TopicInteraction from "../components/TopicInteraction.vue";
-import Bottom_bg from "../components/Bottom-bg.vue";
-import RefreshBottom from "../components/RefreshBottom.vue";
+import Topic from "../../components/Topic.vue";
+import TopicInteraction from "../../components/TopicInteraction.vue";
+import Bottom_bg from "../../components/Bottom-bg.vue";
+import RefreshBottom from "../../components/RefreshBottom.vue";
 export default {
   metaInfo: {
-    title: "制作题目"
+    title: "全民愚人战，整蛊好友领12G"
   },
   data() {
     return {
@@ -68,23 +69,35 @@ export default {
       if (this.current < this.topics.length - 1) this.current++;
       console.log(this.topics.length, this.selectedIndexsLength);
     },
-    changeTopic() {
-      this.$set(this.topics, this.current, mokedata[1]); //刷新题目
-      const tempObject = { ...this.selectedIndexs };
-      delete tempObject[this.current];
-      this.selectedIndexs = tempObject;
+    async goNextPage() {
+      const answerList = this.topics.map((e, i) => {
+        const answer = e.optionList[this.selectedIndexs[i]];
+        return {
+          questionId: answer.questionId,
+          answer: answer.questionOptionId
+        };
+      });
+      const { code, data } = await Ajax.answer(answerList);
+      if (code === 0) {
+        //   //插入成功执行的操作
+        this.$router.replace({
+          path: `${this.$route.fullPath}/result`,
+          query: {
+            isPass: data.isPass,
+            rightNum: data.rightNum,
+            isXiaomi: true
+          }
+        });
+        sessionStorage.setItem("answerList", JSON.stringify(data.questionList));
+      }
     },
-    goNextPage(callback) {
-      this.$router.replace(`${this.$route.fullPath}/result`);
+    async getTopic() {
+      const { data } = await Ajax.getPublicQuestionList();
+      this.topics = data;
     }
   },
   beforeMount() {
-    this.topics = mokedata;
-  },
-  beforeRouteLeave(to, from, next) {
-    next();
+    this.getTopic();
   }
 };
 </script>
-
-

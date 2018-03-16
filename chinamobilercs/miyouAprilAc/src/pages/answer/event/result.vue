@@ -1,20 +1,20 @@
 <template>
   <div class="result">
     <div>
-      <img src="../../assets/img/pic_succeed.png" alt="pic_succeed.png" class="result__topicon" v-if="isCorrect">
-      <img src="../../assets/img/pic_fail.png" alt="pic_fail.png" class="result__topicon" v-else>
+      <img src="../../../assets/img/pic_succeed.png" alt="pic_succeed.png" class="result__topicon" v-if="isCorrect">
+      <img src="../../../assets/img/pic_fail.png" alt="pic_fail.png" class="result__topicon" v-else>
     </div>
-    <p>{{isCorrect?'回答正确3道题，挑战成功':'只回答正确2道题'}}</p>
+    <p>{{isCorrect?`回答正确${rightNum}道题，挑战成功`:`只回答正确${rightNum}道题`}}</p>
     <p>{{isCorrect?'还是你最懂他':'你被整蛊了哦'}}</p>
     <div class="result__buttons">
       <span class="result__buttons__blue" v-if="isCorrect">
           领取1G流量
       </span>
-      <router-link :to="isXiaomi?'/index/answer':'/index/createtopic'" tag="span" class="result__buttons__orange">
+      <router-link :to="isXiaomi?'/index/answer':'/index/prankFriend/createtopic'" tag="span" class="result__buttons__orange">
           {{isXiaomi?'继续挑战':'我也要整蛊TA'}}
       </router-link>
     </div>
-    <router-link class="result__checkanswer"  tag="span" to="/index/checkanswer">
+    <router-link class="result__checkanswer"  tag="span" :to="isXiaomi?'/index/prankFriend/checkanswer?isXiaomi=true':'/index/prankFriend/checkanswer'">
       查看{{isXiaomi?'小密':'TA'}}的指定答案
     </router-link>
   </div>
@@ -55,10 +55,10 @@
   }
 }
 .result__buttons__blue {
-  background-image: url("../../assets/img/btn_挑战结果2.png");
+  background-image: url("../../../assets/img/btn_挑战结果2.png");
 }
 .result__buttons__orange {
-  background-image: url("../../assets/img/btn_挑战结果1.png");
+  background-image: url("../../../assets/img/btn_挑战结果1.png");
 }
 .result__checkanswer {
   position: relative;
@@ -71,16 +71,18 @@
 </style>
 <script>
 export default {
-  props: {
-    isCorrect: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
-      isXiaomi: false
+      isXiaomi: false,
+      isCorrect: false,
+      rightNum: 0
     };
+  },
+  mounted() {
+    const { isPass, isXiaomi, rightNum } = this.$route.query;
+    this.isXiaomi = isXiaomi;
+    this.isCorrect = isPass;
+    this.rightNum = rightNum;
   }
 };
 </script>
