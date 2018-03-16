@@ -80,7 +80,7 @@
             width: 5.7rem;
             padding: 0.36rem 0.24rem;
             word-break: break-all;
-            font-size: 0.46rem;
+            font-size: 0.32rem;
             transform: translate(-50%, -50%);
             & .alert-close-icon {
                 width: 0.68rem;
@@ -100,6 +100,9 @@
                 }
             }
             & .alert-content {
+                margin: 0 auto;
+                width: 4.4rem;
+                padding-top: 0.22rem;
                 text-align: center;
             }
             & .alert-rules {
@@ -124,23 +127,27 @@
                 margin-top: 0.3rem;
                 text-align: center;
                 & button {
+                    font-size: 0.34rem;
                     border: none;
                 }
                 & .alert-close {
                     width: 2.07rem;
                     height: 0.57rem;
+                    margin-right: 0.4rem;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_smaller2.png");
                     background-size: 100% 100%;
                 }
                 & .alert-confirm {
                     width: 2.07rem;
                     height: 0.57rem;
+                    color: #fff;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_smaller1.png");
                     background-size: 100% 100%;
                 }
                 & .only-alert-confirm {
                     width: 2.47rem;
                     height: 0.66rem;
+                    color: #fff;
                     background: url("../chinamobilercs/miyouAprilAc/src/assets/img/btn_pop_bigger1.png");
                     background-size: 100% 100%;
                 }

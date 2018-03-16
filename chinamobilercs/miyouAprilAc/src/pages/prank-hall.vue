@@ -37,17 +37,7 @@
         },
         data () {
             return {
-                showAlert: {
-                    tipImgUrl: '',
-                    tipImgWidth: 0,
-                    tipImgHeight: 0,
-                    contentTxt: '您今天已经挑战了5次了哦，请明天再来吧',
-                    CloseIcon: true,
-                    CloseBtn: false,
-                    confirmBtn: true,
-                    rules: [],
-                    confirmBtnTxt: '好的'
-                },
+                showAlert: {},
                 alertStatus: false,   //弹框的状态变量
                 challenge: 0,
                 congratulation: 0
@@ -78,11 +68,31 @@
                 if (this.challenge < 5) {
                     this.$router.push('answer')
                 } else {
+                    this.showAlert = {
+                        tipImgUrl: '',
+                        tipImgWidth: 0,
+                        tipImgHeight: 0,
+                        contentTxt: '您今天已经挑战了5次了哦，请明天再来吧',
+                        CloseIcon: true,
+                        CloseBtn: false,
+                        confirmBtn: true,
+                        rules: [],
+                        confirmBtnTxt: '好的'
+                    }
                     this.alertStatus = true;
                 }
             },
             showPrankRule() {
-
+                this.showAlert = {
+                    tipImgUrl: 'static/pic_tiaozhanguize.png',
+                    tipImgWidth: 2.87,
+                    tipImgHeight: 0.65,
+                    CloseIcon: true,
+                    CloseBtn: false,
+                    confirmBtn: false,
+                    rules: ['每次挑战有5道题，需要答对3道题才算挑战成功，每天有3次挑战机会', '每成功挑战5次可获得1G奖励，最高获得2G奖励'],
+                }
+                this.alertStatus = true;
             }
         }
     }
