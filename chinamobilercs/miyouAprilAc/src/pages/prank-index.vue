@@ -58,9 +58,9 @@
         data () {
             return {
                 showAlert: {
-                    tipImgUrl: '',
-                    tipImgWidth: 0,
-                    tipImgHeight: 0,
+                    tipImgUrl: 'static/pic_zhengguguize.png',
+                    tipImgWidth: 2.87,
+                    tipImgHeight: 0.65,
 //                    contentTxt: 'lxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
                     CloseIcon: true,
                     CloseBtn: false,
@@ -166,7 +166,7 @@
             & ul{
                 & li{
                     width: 100%;
-                    height: 1.2rem;
+                    height: 1.74rem;
                     border-radius: 0.34rem;
                     background-color: #fff;
                     display: flex;
@@ -174,7 +174,7 @@
                     & .prank-bg{
                         width: 0.80rem;
                         height: 0.80rem;
-                        margin: 0.20rem 0 0.20rem 0.5rem;
+                        margin: 0.47rem 0 0.47rem 0.5rem;
                     }
                     & .prank-friend-bg{
                         background: url("../assets/img/pic_zhengguhaoyou.png");

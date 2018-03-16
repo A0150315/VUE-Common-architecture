@@ -92,7 +92,7 @@
                 top: -0.34rem;
             }
             & .alert-tip {
-                margin: 0 auto;
+                margin: 0 auto 0.5rem;
                 & img {
                     width: 100%;
                     height: 100%;
@@ -115,7 +115,7 @@
                     top: 0;
                 }
                 & p{
-                    margin-bottom: 0.2rem;
+                    margin-bottom: 0.5rem;
                     padding-left: 0.6rem;
                     position: relative;
                 }
