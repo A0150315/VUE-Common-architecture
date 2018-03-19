@@ -21,6 +21,7 @@
 <script>
 	import prankAlert from '../../../../components/prank-alert.vue'
 	import ajax from "../utils/service"// 引入封装的axios
+	import { MessageBox,Indicator } from 'mint-ui'
 	export default {
 		data() {
 			return {
@@ -98,10 +99,12 @@
 		},
 		mounted() {
 			//	this.mokeAjax() // 调用方法
+			Indicator.open();
 			this.getCardList().then((res) =>{
 				console.log(res);
+				Indicator.close();
 				if(res.code == 0){
-					if( res.list == null){
+					if( res.list == null || res.list.length == 0){
 						this.showContent = false;
 					}
 					else{
@@ -110,8 +113,10 @@
 					}
 				}
 				else{
-					console.log(res.msg);
+					MessageBox.alert("",res.msg);
 				}
+			}).catch(() =>{
+				MessageBox.alert("", "请求报错了");
 			});
 			//	this.setHeight = document.body.clientHeight - 28;
 		}

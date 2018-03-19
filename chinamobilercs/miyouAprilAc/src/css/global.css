@@ -83,3 +83,7 @@ textarea:focus {
     opacity: 0;
     transform: translate(-30px, 0);
 }
+/* messageBox样式 */
+.mint-msgbox{
+    width: 60% !important;
+}

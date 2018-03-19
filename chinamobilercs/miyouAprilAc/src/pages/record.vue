@@ -5,7 +5,7 @@
 			<div :class="{selected:isSelect == 0}" @click="changeItem(0)">识破的整蛊</div>
 		</header>
 		<div id="mainContent" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
-			<section v-for='(item,index) in dataList' v-if='showContent && isSelect == 1'>
+			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 1'>
 				<span>{{item.challengeUsername}}</span>
 				<img class="right" src='../assets/img/trickFail.png' v-if="item.isPass == '0'" />
 				<img class="right" src='../assets/img/trickSuccess.png' v-if="item.isPass == '1'" />
@@ -31,7 +31,7 @@
 <script>
 	import prankAlert from '../../../../components/prank-alert.vue'
 	import ajax from "../utils/service"// 引入封装的axios
-	import { InfiniteScroll, Indicator } from 'mint-ui'
+	import { InfiniteScroll,MessageBox, Indicator } from 'mint-ui'
 	export default {
 		data() {
 			return {
@@ -59,6 +59,7 @@
 				if(index == 0) {
 					this.pageNum = 1;
 					this.isSelect = 0;
+					this.showTip = false;
 					this.promptMsg = '您还没有挑战过整蛊呢';
 					this.mark = '1';
 					this.recordList = [];
@@ -66,6 +67,7 @@
 				} else {
 					this.pageNum = 1;
 					this.isSelect = 1;
+					this.showTip = false;
 					this.promptMsg = '您还没有整蛊过好友呢';
 					this.mark = '0';
 					this.recordList = [];
@@ -78,20 +80,27 @@
 						console.log(res);
 						Indicator.close();
 						if(res.code == 0){
-							if(res.list == null){
-								this.showContent = false;
-								this.showTip = true;
-								this.loading = true;
+							if(res.list == null || res.list.length == 0){
+								if(this.pageNum == 1){
+									this.showContent = false;
+								}
+								else{
+									this.showTip = true;
+								    this.loading = true;
+								}
 							}
 							else{
 								this.recordList = this.recordList.concat(res.list);
 								this.showContent = true;
+								this.loading = false;
 								this.pageNum++;
 							}
 						}
 						else{
-							console.log(res.msg);
+							MessageBox.alert("", res.msg);
 						}
+					}).catch(() =>{
+						MessageBox.alert("", "请求报错了");
 					});
 			},
 			//请求记录列表
@@ -200,6 +209,7 @@
 		mounted() {
 			//	this.mokeAjax() // 调用方法
 			this.computeHeight();
+//			this.getList();
 		}
 	};
 </script>
