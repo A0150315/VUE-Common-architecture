@@ -1,5 +1,5 @@
 <template>
-  <div id='main'>
+  <div id='main' class="iconfont">
       <div>
         1、本活动对象仅限于广东家庭网用户，但不包括已办理不限量套餐、4G随心王、万花筒套餐、任我用套餐、非家庭网用户、和多号副号、万能副卡移动用户。
       </div>
@@ -36,20 +36,38 @@
 export default {
   computed:{
     data(){
-      return this.$store.state.client.data
     }
+  },
+  methods:{
+  	computeHeight() {
+					//		 if($("header").height() + $("#mainContent").height())
+					var allheight = $("#main").height()  + 30 + 24;
+					if(allheight <= document.body.clientHeight) {
+						var mainHeight = document.body.clientHeight - 54;
+						$("#main").css("height", mainHeight + "px");
+						$("body").css("overflow","hidden");
+					}
+					else{
+						$("body").css("overflow","auto");
+					}
+			}
   },
   components: {
   },
   mounted(){
-    this.$store.dispatch('actionsStep',{text:'VUEX以及POSTCSS测试文本'})
+    this.computeHeight();
   }
 };
 </script>
 <style lang="less" scoped>
   #main{
-  	padding: 4px 10px;
-  	font-size:14px;
+		font-size: .2rem;
+    color: #333;
+    margin: 12px;
+    padding: 15px;
+    background: #ffffff;
+    line-height: 0.4rem;
+    border-radius: 10px;
   }
 </style>
 

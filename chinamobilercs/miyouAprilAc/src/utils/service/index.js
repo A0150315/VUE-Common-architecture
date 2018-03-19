@@ -87,6 +87,18 @@ export default {
         return axios.get(config.freindQuestionList, {
             params: userTemplateId
         })
+    },
+    //挑战记录查询
+    getRecordList({text}) {
+        return axios.get(config.getRecordList,{
+            params:text
+        })
+    },
+    //卡券信息查询
+    getCardList({text}) {
+        return axios.get(config.getCardList,{
+            params:text
+        })
     }
     // 封装更多请求
 }
