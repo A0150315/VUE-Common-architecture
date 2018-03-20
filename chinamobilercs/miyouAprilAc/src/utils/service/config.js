@@ -10,7 +10,7 @@ export default {
     answer: `http://${host}/fool/useranswer/answerrandomqustnset?token=TS`, //回答大厅题目
     freindQuestionList: `http://${host}/fool/prank/queList?token=TS`, //好友题目列表
     freindChanllenge: `http://${host}/fool/prank/challenge?token=TS`, //好友答题
-    freindQuestionList: `http://${host}/fool/tuserquestion/resultContrast?token=TS`, //好友答案
+    freindQuestionAnswer: `http://${host}/fool/tuserquestion/resultContrast?token=TS`, //好友答案
     getCardList: `http://${host}/fool/prize/cards?token=TS`,//请求卡券列表
     getRecordList: `http://${host}/fool/prank/queryListByPhone?token=TS`,//请求整蛊记录列表
 }

@@ -14,7 +14,7 @@
           {{isXiaomi?'继续挑战':'我也要整蛊TA'}}
       </router-link>
     </div>
-    <router-link class="result__checkanswer"  tag="span" :to="isXiaomi?'/index/prankFriend/checkanswer?isXiaomi=true':'/index/prankFriend/checkanswer'">
+    <router-link class="result__checkanswer"  tag="span" :to="isXiaomi?'/index/prankFriend/checkanswer?isXiaomi=true':'/index/prankFriend/checkanswer?userTemplateId=' + userTemplateId">
       查看{{isXiaomi?'小密':'TA'}}的指定答案
     </router-link>
   </div>
@@ -75,14 +75,17 @@ export default {
     return {
       isXiaomi: false,
       isCorrect: false,
-      rightNum: 0
+      rightNum: 0,
+        userTemplateId: 0
     };
   },
   mounted() {
-    const { isPass, isXiaomi, rightNum } = this.$route.query;
+    const { isPass, isXiaomi, rightNum, userTemplateId } = this.$route.query;
     this.isXiaomi = isXiaomi;
     this.isCorrect = isPass;
     this.rightNum = rightNum;
+      this.userTemplateId = userTemplateId;
+      console.log(userTemplateId)
   }
 };
 </script>
