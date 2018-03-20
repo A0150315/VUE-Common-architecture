@@ -122,7 +122,6 @@ export default {
               // No Android or iOS interface found
               alert("No native APIs found.");
           }
-      }
         this.$router.back();
       }
     },
