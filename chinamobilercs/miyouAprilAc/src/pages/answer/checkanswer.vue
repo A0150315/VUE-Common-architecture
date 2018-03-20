@@ -43,7 +43,7 @@
                 topics: [],
                 current: 0,
                 selectedIndexs: {},
-                answerList: {}
+                answerList: []
             };
         },
         components: {
@@ -60,6 +60,7 @@
                 if (this.current < this.topics.length - 1) this.current++;
                 console.log(this.topics.length, this.selectedIndexsLength);
             },
+            /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到参数isxiaomi来进行判断 */
             getQuestionAnswer() {
                 var userTemplateId = 0;
                 var searchURL = window.location.hash;

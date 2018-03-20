@@ -1,5 +1,5 @@
 <template>
-    <div class="answertopic" v-cloak="true">
+    <div class="answertopic" v-cloak="true" v-show="showStatus">
         <Bottom_bg/>
         <Topic :isMaster=true
                :isAnswering=true
@@ -47,7 +47,9 @@
                 topics: [],
                 current: 0,
                 selectedIndexs: {},
-                userTemplateId: 0
+                userTemplateId: 0,
+                commitStatus: true, //用做多提交按钮的多次点击进行限制
+                showStatus: false,  //用做数据完全显示的状态
             };
         },
         components: {
@@ -95,36 +97,46 @@
                     sessionStorage.setItem("answerList", JSON.stringify(data.questionList));
                 }
             },
+            /* 好友分享进来的接口处理调用 */
             async goNextPage1() {
-                const answerList = this.topics.map((e, i) => {
-                    const answer = e.optionList[this.selectedIndexs[i]];
-                    return answer.questionId + ':' + answer.questionOptionId;
-                });
-                const {code, data, isSuccess, rightCount} = await Ajax.freindChanllenge({
-                    'userTemplateId': this.userTemplateId,
-                    'isPass': answerList.join(',')
-                });
-                console.log(answerList.join(','))
-
-                //   //插入成功执行的操作
-                var userTemplateId = this.userTemplateId
-                this.$router.push({
-                    path: ':event/result',
-                    query: {
-                        isPass: !isSuccess,
+                if (this.commitStatus) {
+                    this.commitStatus = false;
+                    const answerList = this.topics.map((e, i) => {
+                        const answer = e.optionList[this.selectedIndexs[i]];
+                        return answer.questionId + ':' + answer.questionOptionId;
+                    });
+                    const {code, data, isSuccess, rightCount} = await Ajax.freindChanllenge({
+                        'userTemplateId': this.userTemplateId,
+                        'isPass': answerList.join(',')
+                    });
+                    //   //插入成功执行的操作
+                    var userTemplateId = this.userTemplateId
+                    sessionStorage.setItem("resultInfo", JSON.stringify({
+                        isPass: isSuccess === '1'? true:false,
                         rightNum: rightCount,
                         isXiaomi: false,
                         userTemplateId: userTemplateId
-                    }
-                });
+                    }));
+                    this.$router.push({
+                        path: ':event/result',
+                        query: {
+                            isPass: isSuccess === '1'? true:false,
+                            rightNum: rightCount,
+                            isXiaomi: false,
+                            userTemplateId: userTemplateId
+                        }
+                    });
+                }
             },
             async getTopic() {
+                /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 var searchURL = window.location.hash;
                 searchURL = window.location.hash.substring(1, searchURL.length);
                 searchURL ? this.userTemplateId = searchURL.split("&")[0].split("=")[1] : ''
 
                 if (this.userTemplateId) {
-                    const {code, QuestionList, isSuccess, rightCount} = await Ajax.freindQuestionList(this.userTemplateId);
+                    const {code, QuestionList, isSuccess, rightCount} = await Ajax.freindQuestionList(this.userTemplateId)
+                    this.showStatus = true;
                     if (code === '1') {
                         //   //插入成功执行的操作
                         this.$router.push({
@@ -138,11 +150,10 @@
                         return;
                     }
                     this.topics = QuestionList;
-                    console.log(QuestionList)
                 } else {
                     const {data} = await Ajax.getPublicQuestionList();
+                    this.showStatus = true;
                     this.topics = data;
-                    console.log(data)
                 }
             }
         },
