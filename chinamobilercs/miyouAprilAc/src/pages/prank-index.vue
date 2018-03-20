@@ -217,6 +217,8 @@
             width: 1.8rem;
             height: 0.48rem;
             display: block;
+            position: relative;
+            z-index: 1;
             margin: 0.5rem auto 0.7rem;
             background: url("../assets/img/word_huodongguize.png");
             background-size: 100% 100%;

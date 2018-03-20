@@ -28,7 +28,7 @@
     }
 </style>
 <script>
-    import Ajax from "../../utils/service";;
+    import Ajax from "../../utils/service";
 
     import Topic from "../../components/Topic.vue";
     import TopicInteraction from "../../components/TopicInteraction.vue";
