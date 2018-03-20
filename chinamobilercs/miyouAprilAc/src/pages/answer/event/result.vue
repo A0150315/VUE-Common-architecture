@@ -81,11 +81,10 @@ export default {
   },
   mounted() {
     const { isPass, isXiaomi, rightNum, userTemplateId } = this.$route.query;
-    this.isXiaomi = isXiaomi == 'true' ? true: false;
-    this.isCorrect = isPass == 'true' ? true: false;
+    this.isXiaomi = (isXiaomi === 'true' || isXiaomi === true) ? true: false;
+    this.isCorrect = (isPass === 'true' || isPass === true) ? true: false;
     this.rightNum = rightNum;
       this.userTemplateId = userTemplateId;
-      console.log(userTemplateId)
   }
 };
 </script>

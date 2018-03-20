@@ -216,11 +216,8 @@
         & .active-rule{
             width: 1.8rem;
             height: 0.48rem;
-            position: absolute;
-            left: 50%;
-            bottom: 0.7rem;
-            z-index: 1;
-            transform: translateX(-50%);
+            display: block;
+            margin: 0.5rem auto 0.7rem;
             background: url("../assets/img/word_huodongguize.png");
             background-size: 100% 100%;
         }

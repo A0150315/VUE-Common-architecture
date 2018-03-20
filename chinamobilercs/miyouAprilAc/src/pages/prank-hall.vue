@@ -57,6 +57,7 @@
                     if (res.code === 0) {
                         this.challenge = res.tFooldayActivityEntity.challenge;
                         this.congratulation = res.tFooldayActivityEntity.congratulation;
+                        this.chance = res.tFooldayActivityEntity.chance
                     }
                 })
             },
@@ -65,14 +66,14 @@
             },
             /* 跳转到整蛊答题页面 */
             goAnswer() {
-                if (this.challenge < 100) {
+                if (this.chance <= 3) {
                     this.$router.push('answer')
                 } else {
                     this.showAlert = {
                         tipImgUrl: '',
                         tipImgWidth: 0,
                         tipImgHeight: 0,
-                        contentTxt: '您今天已经挑战了5次了哦，请明天再来吧',
+                        contentTxt: '您今天已经挑战了3次了哦，请明天再来吧',
                         CloseIcon: true,
                         CloseBtn: false,
                         confirmBtn: true,
