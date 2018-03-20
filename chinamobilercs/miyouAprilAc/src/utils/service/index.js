@@ -63,11 +63,11 @@ export default {
         return axios.post(config.answer, _Array)
     },
     //好友题目列表
-    freindQuestionList({
+    freindQuestionList(
         userTemplateId
-    }) {
-        return axios.get(config.freindQuestionList, {
-            params: userTemplateId
+    ) {
+        return axios.post(config.freindQuestionList, {
+           userTemplateId
         })
     },
     //好友答题
@@ -81,11 +81,11 @@ export default {
         })
     },
     //好友答案
-    freindQuestionList({
+    freindQuestionAnswer({
         userTemplateId
     }) {
-        return axios.get(config.freindQuestionList, {
-            params: userTemplateId
+        return axios.post(config.freindQuestionAnswer, {
+            userTemplateId
         })
     }
     // 封装更多请求

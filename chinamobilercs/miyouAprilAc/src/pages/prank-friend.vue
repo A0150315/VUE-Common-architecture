@@ -64,7 +64,6 @@ export default {
       });
     },
     /* 跳转到自定义题目库 */
-    /* 跳转到自定义题目库 */
     goTopic(id) {
       this.$router.push({
         path: `${this.$route.fullPath}/createtopic`,

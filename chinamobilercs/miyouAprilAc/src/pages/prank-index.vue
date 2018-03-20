@@ -72,6 +72,7 @@
                 prankSuccess: 0,      //成功整蛊次数
                 congratulation: 0,    //成功识破整蛊的次数
                 coupon: 0,            //获取到的奖励的数量
+                preventClick: true,   //防止多次点击设置的状态量
             }
         },
         created() {
@@ -98,11 +99,17 @@
                 /* 弹窗提示框显示 */
 //                this.alertStatus = true;
                 /* 跳转到题目列表页面 */
-                this.$router.push('index/prankFriend')
+                if (this.preventClick){
+                    this.preventClick = false
+                    this.$router.push('index/prankFriend')
+                }
             },
             prankHall() {
                 /* 跳转到整蛊大厅页面 */
-                this.$router.push('index/prankHall')
+                if (this.preventClick){
+                    this.preventClick = false
+                    this.$router.push('index/prankHall')
+                }
             }
         }
     }

@@ -65,7 +65,7 @@
             },
             /* 跳转到整蛊答题页面 */
             goAnswer() {
-                if (this.challenge < 5) {
+                if (this.challenge < 100) {
                     this.$router.push('answer')
                 } else {
                     this.showAlert = {
