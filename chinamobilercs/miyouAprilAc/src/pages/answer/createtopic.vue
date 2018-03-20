@@ -102,8 +102,32 @@ export default {
       const { code } = await Ajax.insertQuestion(answerList);
       if (code === 0) {
         //插入成功执行的操作
+          var _parms = {
+              "title": "你真的懂我吗，做几道题就知道了",
+              "summary": "答对3题就送1G流量",
+              "url":"http://feixin.10086.cn/miyou/index.html",
+              "imageUrl":"https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/f9dcd100baa1cd11cc79bbd8b212c8fcc2ce2d7f.jpg",
+              "phone": "13802885145",
+              "authorName":"yuanlin"
+          };
+          if (window.local_method) {
+              alert("安卓")
+              // Call Android interface
+              window.local_method.passForwardDetail(JSON.stringify(_parms));
+          } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
+              // Call iOS interface
+              alert("IOS")
+              window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
+          } else {
+              // No Android or iOS interface found
+              alert("No native APIs found.");
+          }
+      }
         this.$router.back();
       }
+    },
+    forwardSuccess (response) {
+      alert(response)
     },
     async getNewList() {
       const { data } = await Ajax.getAllQuestion();
