@@ -75,8 +75,8 @@ export default {
       defalut: {}
     },
     answerList: {
-      type: Object,
-      defalut: {}
+      type: Array,
+      defalut: []
     }
   },
   filters: {

@@ -81,8 +81,8 @@ export default {
   },
   mounted() {
     const { isPass, isXiaomi, rightNum, userTemplateId } = this.$route.query;
-    this.isXiaomi = isXiaomi;
-    this.isCorrect = isPass;
+    this.isXiaomi = isXiaomi == 'true' ? true: false;
+    this.isCorrect = isPass == 'true' ? true: false;
     this.rightNum = rightNum;
       this.userTemplateId = userTemplateId;
       console.log(userTemplateId)
