@@ -25,7 +25,7 @@
 			<div id="footerMsg">温馨提醒</div>
 			<div id="footerContent">每成功整蛊一个好友可获得1G奖励，活动期间最高获得5G奖励</div>
 		</footer>
-		<prank-alert v-if="showAlert" :title="btnTitle" :textContent="textContent" :btnContent="btnContent" @hasClick="goToNext()"></prank-alert>
+		<prank-alert v-if="alertStatus" @close="closeAlert()" @confirm="closeAlert()" :showAlert='showAlert'></prank-alert>
 	</div>
 </template>
 <script>
@@ -35,11 +35,9 @@
 	export default {
 		data() {
 			return {
-				showAlert: false,
-				showContent: true,
-				btnTitle: 'test',
-				textContent: '请检查网络后重试',
-				btnContent: 'goToNext',
+				showAlert: {},
+                alertStatus: false,   //弹框的状态变量
+                showContent: true,
 				isSelect: 1,
 				promptMsg: '您还没有整蛊过好友呢',
 				recordList: [],
@@ -54,6 +52,9 @@
 			}
 		},
 		methods: {
+			closeAlert() {
+                this.alertStatus = false;
+            },
 			//改变标签栏的事件
 			changeItem(index) {
 				if(index == 0) {
@@ -97,10 +98,33 @@
 							}
 						}
 						else{
-							MessageBox.alert("", res.msg);
+							this.showAlert = {
+		                        tipImgUrl: '',
+			                    tipImgWidth: 2.87,
+			                    tipImgHeight: 0.65,
+			                    CloseIcon: true,
+			                    CloseBtn: false,
+		                        contentTxt: res.msg,
+		                        confirmBtn: true,
+		                        rules: [],
+		                        confirmBtnTxt: '好的'
+		                    }
+		                    this.alertStatus = true;
 						}
 					}).catch(() =>{
-						MessageBox.alert("", "请求报错了");
+						Indicator.close();
+						this.showAlert = {
+		                        tipImgUrl: '',
+			                    tipImgWidth: 2.87,
+			                    tipImgHeight: 0.65,
+			                    CloseIcon: true,
+			                    CloseBtn: false,
+		                        contentTxt: '请求报错了',
+		                        confirmBtn: true,
+		                        rules: [],
+		                        confirmBtnTxt: '好的'
+		                    }
+		                this.alertStatus = true;
 					});
 			},
 			//请求记录列表
