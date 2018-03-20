@@ -15,7 +15,7 @@
 				{{promptMsg}}
 			</div>
 		</div>
-		<prank-alert v-if="showAlert" :title="btnTitle" :textContent="textContent" :btnContent="btnContent" @hasClick="goToNext()"></prank-alert>
+		<prank-alert v-if="alertStatus" @close="closeAlert()" @confirm="closeAlert()" :showAlert='showAlert'></prank-alert>
 	</div>
 </template>
 <script>
@@ -25,11 +25,9 @@
 	export default {
 		data() {
 			return {
-				showAlert: false,
+				showAlert: {},
+                alertStatus: false,   //弹框的状态变量
 				showContent: true,
-				btnTitle: 'test',
-				textContent: '请检查网络后重试',
-				btnContent: 'goToNext',
 				promptMsg: '没有奖品',
 				cardList: ''
 			}
@@ -49,9 +47,9 @@
 				});
 				return mokeData;
 			},
-			goToNext() {
-				this.btnTitle = '修改';
-			},
+			closeAlert() {
+                this.alertStatus = false;
+            },
 			//计算整蛊内容高度是否超过整屏
 			computeHeight() {
 				setTimeout(function(){
@@ -113,10 +111,33 @@
 					}
 				}
 				else{
-					MessageBox.alert("",res.msg);
+					this.showAlert = {
+                        tipImgUrl: '',
+	                    tipImgWidth: 2.87,
+	                    tipImgHeight: 0.65,
+	                    CloseIcon: true,
+	                    CloseBtn: false,
+                        contentTxt: res.msg,
+                        confirmBtn: true,
+                        rules: [],
+                        confirmBtnTxt: '好的'
+                    }
+                    this.alertStatus = true;
 				}
 			}).catch(() =>{
-				MessageBox.alert("", "请求报错了");
+				Indicator.close();
+				this.showAlert = {
+                        tipImgUrl: '',
+	                    tipImgWidth: 2.87,
+	                    tipImgHeight: 0.65,
+	                    CloseIcon: true,
+	                    CloseBtn: false,
+                        contentTxt: '请求报错了',
+                        confirmBtn: true,
+                        rules: [],
+                        confirmBtnTxt: '好的'
+                    }
+                this.alertStatus = true;
 			});
 			//	this.setHeight = document.body.clientHeight - 28;
 		}
