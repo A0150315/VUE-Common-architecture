@@ -39,6 +39,10 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(), //hr插件
         new webpack.optimize.CommonsChunkPlugin({
             name: 'manifest'
+        }),
+        new webpack.ProvidePlugin({
+            jQuery: "jquery",
+            $: "jquery"
         })
     ]
 }

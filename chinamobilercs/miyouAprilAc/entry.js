@@ -3,12 +3,14 @@ import Vue from "vue";
 
 import store from './src/store'; // 引入vuex的入口
 import router from './src/route'; // 引入vue-router的入口
-
+import Mint from 'mint-ui';
 import './src/css/global.css';
 import './src/assets/font/iconfont.css'
+import 'mint-ui/lib/style.css'
 
 import MetaInfo from 'vue-meta-info'; // 动态修改meta信息，详情谷歌或百度
 Vue.use(MetaInfo)
+Vue.use(Mint)
 
 const root = new Vue({
     data() {
