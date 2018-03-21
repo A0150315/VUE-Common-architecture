@@ -162,21 +162,33 @@
             }
         },
         beforeMount() {
-            var token = CommonCenter.getQueryString("token");
-            var username = CommonCenter.getQueryString("username");
-            var templateId = CommonCenter.getQueryString("userTemplateId");
-            this.userTemplateId = templateId;
+            var url = window.location.href; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            var n = url.indexOf("?")
+            if (n != -1) {
+                var str = url.substr(n+1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];
+                }
+            }
+            var token = theRequest.token;
+            var username = theRequest.username;
+            var templateId = theRequest.templateId;
             alert(token);
             alert(username)
             alert(templateId)
-            Ajax.answerToken({username, token, templateId}).then((res) => {
-                alert(res.code)
-                if (res.code === 0) {
-                    this.getTopic();
-                } else {
-                    alert('token验证失败')
-                }
-            })
+            if (templateId) {
+                this.userTemplateId = templateId;
+                Ajax.answerToken({username, token, templateId}).then((res) => {
+                    alert(res.code)
+                    if (res.code === 0) {
+                        this.getTopic();
+                    } else {
+                        alert('token验证失败')
+                    }
+                })
+            }
         },
     };
 </script>
