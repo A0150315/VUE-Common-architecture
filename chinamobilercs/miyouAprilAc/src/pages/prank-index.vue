@@ -76,7 +76,6 @@
             }
         },
         created() {
-            alert(window.location.href);
             var url = window.location.href; //获取url中"?"符后的字串
             var theRequest = new Object();
             var n = url.indexOf("?")
@@ -87,18 +86,22 @@
                     theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];
                 }
             }
-            //var token = CommonCenter.getQueryString("token");
             var token = theRequest.token;
-            console.log(window.location.hash)
-            alert(token);
-            request.indexToken({token}).then((res) => {
-                alert(res.code)
-                if (res.code === 0) {
-                    this._getStatisticsMessage();
-                } else {
-                    alert('token验证失败')
-                }
-            })
+            alert(token)
+            if (!sessionStorage.getItem('tokenStatus')) {
+                request.indexToken({token}).then((res) => {
+                    alert(res.code)
+                    if (res.code === 0) {
+                        sessionStorage.setItem('tokenStatus', 1);
+                        this._getStatisticsMessage();
+                    } else {
+                        alert('token验证失败')
+                    }
+                })
+            } else {
+                this._getStatisticsMessage();
+            }
+
         },
         mounted() {
             CommonCenter.setTitle('全民愚人战，整蛊好友领12G')

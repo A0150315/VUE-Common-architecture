@@ -137,22 +137,24 @@
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
                 alert(JSON.stringify(res))
-                var challengeGroupId = res.groupId;
-                var challengeGroupName = res.groupName;
                 var challengeUserMobile = res.forwardNum || res.groupId;
                 var challengeUsername = res.forwardName || res.groupName;
+                if (res.groupName && res.groupId) {
+                    var type = 2;
+                } else {
+                    var type = 1;
+                }
                 alert("xingmin--"+res.forwardNum)
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
                 Ajax.prankPush({
-                    challengeGroupId : challengeGroupId,
-                    challengeGroupName: challengeGroupName,
                     challengeUserMobile: challengeUserMobile,
                     challengeUsername: challengeUsername,
-                    userTemplateId: vm.userTemplateId
+                    userTemplateId: vm.userTemplateId,
+                    type: type
                 }).then((res) => {
                     alert(res.code);
                     if (res.code === 0) {
-                        vm.$router.push('prankFriend')
+                        vm.$router.back();
                     }
                 })
             },
