@@ -14,7 +14,7 @@
                 :topicsLength=topics.length
                 :goPreTopic=goPreTopic
                 :goNextTopic=goNextTopic
-                buttonText="提交"
+                :buttonText="提交"
                 :buttonFunC=userTemplateId?goNextPage1:goNextPage
         />
     </div>
@@ -38,6 +38,7 @@
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
+    import CommonCenter from '../../utils/common'
     export default {
         metaInfo: {
             title: "全民愚人战，整蛊好友领12G"
@@ -126,12 +127,10 @@
             },
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
-                var searchURL = window.location.hash;
-                searchURL = window.location.hash.substring(1, searchURL.length);
-                searchURL ? this.userTemplateId = searchURL.split("&")[0].split("=")[1] : ''
-
                 if (this.userTemplateId) {
+                    alert(this.userTemplateId)
                     const {code, QuestionList, isSuccess, rightCount, prankId} = await Ajax.freindQuestionList(this.userTemplateId)
+                    alert(QuestionList)
                     this.showStatus = true;
                     if (code === '1') {
                         //   //插入成功执行的操作
@@ -149,6 +148,7 @@
                         return;
                     }
                     this.topics = QuestionList;
+                    alert(this.topics);
                 } else {
                     const {data, code} = await Ajax.getPublicQuestionList();
                     /* 满三次后跳转到整蛊大厅 */
@@ -162,7 +162,21 @@
             }
         },
         beforeMount() {
-            this.getTopic();
+            var token = CommonCenter.getQueryString("token");
+            var username = CommonCenter.getQueryString("username");
+            var templateId = CommonCenter.getQueryString("userTemplateId");
+            this.userTemplateId = templateId;
+            alert(token);
+            alert(username)
+            alert(templateId)
+            Ajax.answerToken({username, token, templateId}).then((res) => {
+                alert(res.code)
+                if (res.code === 0) {
+                    this.getTopic();
+                } else {
+                    alert('token验证失败')
+                }
+            })
         },
     };
 </script>

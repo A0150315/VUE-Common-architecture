@@ -76,7 +76,17 @@
             }
         },
         created() {
-            this._getStatisticsMessage();
+            alert(window.location.href);
+            var token = CommonCenter.getQueryString("token");
+            alert(token);
+            request.indexToken({token}).then((res) => {
+                alert(res.code)
+                if (res.code === 0) {
+                    this._getStatisticsMessage();
+                } else {
+                    alert('token验证失败')
+                }
+            })
         },
         mounted() {
             CommonCenter.setTitle('全民愚人战，整蛊好友领12G')

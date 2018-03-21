@@ -108,8 +108,24 @@ export default {
     },
     //发送好友回调接口
     prankPush(text) {
-        return axios.post(config.prankPush,{
-            text
+        return axios.post(config.prankPush, text)
+    },
+    //首页的token验证接口
+    indexToken({token}) {
+        return axios.get(config.indexToken, {
+            params:{
+                token
+            }
+        })
+    },
+    //答题的token验证接口
+    answerToken({username, token, templateId}) {
+        return axios.get(config.answerToken, {
+            params:{
+                username,
+                token,
+                templateId
+            }
         })
     }
     // 封装更多请求

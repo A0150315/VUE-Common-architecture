@@ -100,23 +100,26 @@
                         answer: answer.questionOptionId
                     };
                 });
-
+                alert(111)
                 const {code, data} = await Ajax.insertQuestion(answerList);
-                this.userTemplateId = data.userTemplateId;
+                console.log(code);
+                console.log(data);
+                //this.userTemplateId = data.userTemplateId;
                 if (code === 0) {
+                    this.userTemplateId = data.userTemplateId;
                     window.forwardSuccess = this.forwardSuccess;
                     window.vm = this;
+                    alert(data.userTemplateId);
                     //插入成功执行的操作
                     var _parms = {
                         "title": "你真的懂我吗，做几道题就知道了",
                         "summary": "答对3题就送1G流量",
-                        "url": "http://feixin.10086.cn/miyou/index.html?userTemplateId=" + data.userTemplateId,
-                        "imageUrl": "https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/f9dcd100baa1cd11cc79bbd8b212c8fcc2ce2d7f.jpg",
+                        "url": "http://221.176.34.113:8080/prank/#/index/answer?userTemplateId=" + data.userTemplateId,
+                        "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
                         "phone": "13802885145",
                         "authorName": "yuanlin"
                     };
                     if (window.local_method) {
-                        alert("安卓")
                         // Call Android interface
                         window.local_method.passForwardDetail(JSON.stringify(_parms));
                     } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
@@ -127,19 +130,27 @@
                         // No Android or iOS interface found
                         alert("No native APIs found.");
                     }
+                }else {
+                    alert(data.msg)
                 }
             },
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
-                alert(res)
-                var challengeUserMobile = res.forwardPhoto;
+                alert(JSON.stringify(res))
+                var challengeGroupId = res.groupId;
+                var challengeGroupName = res.groupName;
+                var challengeUserMobile = res.forwardNum;
                 var challengeUsername = res.forwardName;
+                alert("xingmin--"+res.forwardNum)
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
                 Ajax.prankPush({
+                    challengeGroupId : challengeGroupId,
+                    challengeGroupName: challengeGroupName,
                     challengeUserMobile: challengeUserMobile,
                     challengeUsername: challengeUsername,
                     userTemplateId: vm.userTemplateId
                 }).then((res) => {
+                    alert(res.code);
                     if (res.code === 0) {
                         vm.$router.push('prankFriend')
                     }
