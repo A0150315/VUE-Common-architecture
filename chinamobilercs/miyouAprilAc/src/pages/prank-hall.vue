@@ -66,7 +66,7 @@
             },
             /* 跳转到整蛊答题页面 */
             goAnswer() {
-                if (this.chance <= 3) {
+                if (this.chance < 3) {
                     this.$router.push('answer')
                 } else {
                     this.showAlert = {

@@ -10,7 +10,7 @@
       <span @click="_getCardStatus()" class="result__buttons__blue" v-if="isCorrect">
           领取1G流量
       </span>
-      <router-link :to="isXiaomi?'/index/answer':'/index/prankFriend/createtopic'" tag="span" class="result__buttons__orange">
+      <router-link :to="isXiaomi?'/index/answer':'/index/prankFriend/createtopic'" tag="span" class="result__buttons__orange" replace>
           {{isXiaomi?'继续挑战':'我也要整蛊TA'}}
       </router-link>
     </div>
