@@ -7,7 +7,7 @@
     <p>{{isCorrect?`回答正确${rightNum}道题，挑战成功`:`只回答正确${rightNum}道题`}}</p>
     <p>{{isCorrect?'还是你最懂他':'你被整蛊了哦'}}</p>
     <div class="result__buttons">
-      <span class="result__buttons__blue" v-if="isCorrect">
+      <span @click="_getCardStatus()" class="result__buttons__blue" v-if="isCorrect">
           领取1G流量
       </span>
       <router-link :to="isXiaomi?'/index/answer':'/index/prankFriend/createtopic'" tag="span" class="result__buttons__orange">
@@ -17,6 +17,7 @@
     <router-link class="result__checkanswer"  tag="span" :to="isXiaomi?'/index/prankFriend/checkanswer?isXiaomi=true':'/index/prankFriend/checkanswer?userTemplateId=' + userTemplateId">
       查看{{isXiaomi?'小密':'TA'}}的指定答案
     </router-link>
+    <prank-alert v-if="alertStatus" @close="closeAlert()":showAlert='showAlert'></prank-alert>
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -70,23 +71,59 @@
 }
 </style>
 <script>
+    import Ajax from "../../../utils/service";
+    import prankAlert from '../../../../../../components/prank-alert.vue'
+
 export default {
+        components: {
+            prankAlert
+        },
   data() {
     return {
       isXiaomi: false,
       isCorrect: false,
       rightNum: 0,
-        userTemplateId: 0
+        userTemplateId: 0,
+        showAlert: {},
+        alertStatus: false
     };
   },
   mounted() {
-    const { isPass, isXiaomi, rightNum, userTemplateId } = this.$route.query;
-    this.isXiaomi = isXiaomi == 'true' ? true: false;
-    this.isCorrect = isPass == 'true' ? true: false;
+    const { isPass, isXiaomi, rightNum, userTemplateId, prankId } = this.$route.query;
+    this.isXiaomi = (isXiaomi === 'true' || isXiaomi === true) ? true: false;
+    this.isCorrect = (isPass === 'true' || isPass === true) ? true: false;
     this.rightNum = rightNum;
       this.userTemplateId = userTemplateId;
-      console.log(userTemplateId)
-  }
+      this.prankId = prankId;
+  },
+    methods: {
+      /* 领取卡卷的接口 */
+        _getCardStatus() {
+            Ajax.getCardStatus({'prankId':this.prankId}).then((res) => {
+
+                this.showAlert = {
+                    tipImgUrl: '',
+                    tipImgWidth: 0,
+                    tipImgHeight: 0,
+                    contentTxt: '',
+                    CloseIcon: true,
+                    CloseBtn: false,
+                    confirmBtn: false,
+                    rules: [],
+                    confirmBtnTxt: ''
+                };
+                if (res.code === 0) {
+                    this.showAlert.contentTxt = '1G流量包领取成功,24小时之内放到您的“我-卡卷中”'
+                } else {
+                    this.showAlert.contentTxt = res.msg
+                }
+                this.alertStatus = true;
+            })
+        },
+        closeAlert () {
+            this.alertStatus = false;
+        }
+    }
 };
 </script>
 

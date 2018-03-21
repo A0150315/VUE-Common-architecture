@@ -13,4 +13,6 @@ export default {
     freindQuestionAnswer: `http://${host}/fool/tuserquestion/resultContrast?token=TS`, //好友答案
     getCardList: `http://${host}/fool/prize/cards?token=TS`,//请求卡券列表
     getRecordList: `http://${host}/fool/prank/queryListByPhone?token=TS`,//请求整蛊记录列表
+    getCardStatus: `http://${host}/fool/prize/draw?token=TS`,//领取卡卷接口
+    prankPush: `http://${host}/fool/prank/push?token=TS`,//好友的回调接口
 }

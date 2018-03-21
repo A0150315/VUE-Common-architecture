@@ -99,6 +99,18 @@ export default {
         return axios.get(config.getCardList,{
             params:text
         })
+    },
+    //卡卷领取接口情况
+    getCardStatus(text) {
+        return axios.get(config.getCardStatus,{
+            params:text
+        })
+    },
+    //发送好友回调接口
+    prankPush(text) {
+        return axios.post(config.prankPush,{
+            text
+        })
     }
     // 封装更多请求
 }

@@ -89,6 +89,7 @@ export default {
   position: relative;
   font-size: 0.34rem;
   & ul {
+      padding-top: 0.1rem;
     max-height: 12rem;
     overflow: auto;
     ::-webkit-scrollbar {

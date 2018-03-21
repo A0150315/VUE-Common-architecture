@@ -91,7 +91,8 @@
                             isPass: data.isPass,
                             rightNum: data.rightNum,
                             isXiaomi: true,
-                            userTemplateId: 0
+                            userTemplateId: 0,
+                            prankId: data.prankId
                         }
                     });
                     sessionStorage.setItem("answerList", JSON.stringify(data.questionList));
@@ -105,25 +106,20 @@
                         const answer = e.optionList[this.selectedIndexs[i]];
                         return answer.questionId + ':' + answer.questionOptionId;
                     });
-                    const {code, data, isSuccess, rightCount} = await Ajax.freindChanllenge({
+                    const {prankId, isSuccess, rightCount} = await Ajax.freindChanllenge({
                         'userTemplateId': this.userTemplateId,
                         'isPass': answerList.join(',')
                     });
                     //   //插入成功执行的操作
                     var userTemplateId = this.userTemplateId
-                    sessionStorage.setItem("resultInfo", JSON.stringify({
-                        isPass: isSuccess === '1'? true:false,
-                        rightNum: rightCount,
-                        isXiaomi: false,
-                        userTemplateId: userTemplateId
-                    }));
                     this.$router.push({
                         path: ':event/result',
                         query: {
                             isPass: isSuccess === '1'? true:false,
                             rightNum: rightCount,
                             isXiaomi: false,
-                            userTemplateId: userTemplateId
+                            userTemplateId: userTemplateId,
+                            prankId: prankId
                         }
                     });
                 }
@@ -135,23 +131,31 @@
                 searchURL ? this.userTemplateId = searchURL.split("&")[0].split("=")[1] : ''
 
                 if (this.userTemplateId) {
-                    const {code, QuestionList, isSuccess, rightCount} = await Ajax.freindQuestionList(this.userTemplateId)
+                    const {code, QuestionList, isSuccess, rightCount, prankId} = await Ajax.freindQuestionList(this.userTemplateId)
                     this.showStatus = true;
                     if (code === '1') {
                         //   //插入成功执行的操作
+                        var userTemplateId = this.userTemplateId
                         this.$router.push({
                             path: `:event/result`,
                             query: {
                                 isPass: !isSuccess,
                                 rightNum: rightCount,
-                                isXiaomi: false
+                                isXiaomi: false,
+                                prankId: prankId,
+                                userTemplateId: userTemplateId
                             }
                         });
                         return;
                     }
                     this.topics = QuestionList;
                 } else {
-                    const {data} = await Ajax.getPublicQuestionList();
+                    const {data, code} = await Ajax.getPublicQuestionList();
+                    /* 满三次后跳转到整蛊大厅 */
+                    if (code === 303) {
+                        this.$router.push('prankHall');
+                        return ;
+                    }
                     this.showStatus = true;
                     this.topics = data;
                 }
