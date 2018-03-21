@@ -76,17 +76,32 @@
             }
         },
         created() {
-            alert(window.location.href);
-            var token = CommonCenter.getQueryString("token");
-            alert(token);
-            request.indexToken({token}).then((res) => {
-                alert(res.code)
-                if (res.code === 0) {
-                    this._getStatisticsMessage();
-                } else {
-                    alert('token验证失败')
+            var url = window.location.href; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            var n = url.indexOf("?")
+            if (n != -1) {
+                var str = url.substr(n+1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];
                 }
-            })
+            }
+            var token = theRequest.token;
+            alert(token)
+            if (!sessionStorage.getItem('tokenStatus')) {
+                request.indexToken({token}).then((res) => {
+                    alert(res.code)
+                    if (res.code === 0) {
+                        sessionStorage.setItem('tokenStatus', 1);
+                        this._getStatisticsMessage();
+                    } else {
+                        alert('token验证失败')
+                    }
+                })
+            } else {
+                this._getStatisticsMessage();
+            }
+
         },
         mounted() {
             CommonCenter.setTitle('全民愚人战，整蛊好友领12G')
