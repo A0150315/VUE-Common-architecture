@@ -108,9 +108,7 @@ export default {
     },
     //发送好友回调接口
     prankPush(text) {
-        return axios.post(config.prankPush,{
-            text
-        })
+        return axios.post(config.prankPush, text)
     }
     // 封装更多请求
 }
