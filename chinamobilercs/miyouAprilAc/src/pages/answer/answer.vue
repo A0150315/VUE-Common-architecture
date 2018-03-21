@@ -153,7 +153,7 @@
                     const {data, code} = await Ajax.getPublicQuestionList();
                     /* 满三次后跳转到整蛊大厅 */
                     if (code === 303) {
-                        this.$router.push('prankHall');
+                        this.$router.replace('prankHall');
                         return ;
                     }
                     this.showStatus = true;
