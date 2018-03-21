@@ -139,8 +139,8 @@
                 alert(JSON.stringify(res))
                 var challengeGroupId = res.groupId;
                 var challengeGroupName = res.groupName;
-                var challengeUserMobile = res.forwardNum;
-                var challengeUsername = res.forwardName;
+                var challengeUserMobile = res.forwardNum || res.groupId;
+                var challengeUsername = res.forwardName || res.groupName;
                 alert("xingmin--"+res.forwardNum)
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
                 Ajax.prankPush({

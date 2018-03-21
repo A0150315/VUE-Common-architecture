@@ -77,7 +77,19 @@
         },
         created() {
             alert(window.location.href);
-            var token = CommonCenter.getQueryString("token");
+            var url = window.location.href; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            var n = url.indexOf("?")
+            if (n != -1) {
+                var str = url.substr(n+1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];
+                }
+            }
+            //var token = CommonCenter.getQueryString("token");
+            var token = theRequest.token;
+            console.log(window.location.hash)
             alert(token);
             request.indexToken({token}).then((res) => {
                 alert(res.code)
