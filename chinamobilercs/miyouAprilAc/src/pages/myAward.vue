@@ -32,13 +32,7 @@
 				cardList: ''
 			}
 		},
-		computed: {
-			dataList() {
-				return this.$store.state.client.data
-			}
-		},
 		methods: {
-
 			//请求记录列表
 			async getCardList() {
 				var mokeData = await ajax.getCardList({
@@ -76,24 +70,6 @@
 			prankAlert
 		},
 		beforeMount() {
-		    this.$store.dispatch('actionsStep', [{
-				name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}
-			, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}])
 		},
 		mounted() {
 			//	this.mokeAjax() // 调用方法

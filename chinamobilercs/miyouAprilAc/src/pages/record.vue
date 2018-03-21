@@ -47,9 +47,6 @@
 			}
 		},
 		computed: {
-			dataList() {
-				return this.$store.state.client.data
-			}
 		},
 		methods: {
 			closeAlert() {
@@ -136,9 +133,6 @@
 				});
 				return mokeData;
 			},
-			goToNext() {
-				this.btnTitle = '修改';
-			},
 			//计算整蛊内容高度是否超过整屏
 			computeHeight() {
 					//		 if($("header").height() + $("#mainContent").height())
@@ -160,75 +154,6 @@
 			prankAlert
 		},
 		beforeMount() {
-		    this.$store.dispatch('actionsStep', [{
-				challengeUsername: 'lls',
-				isPass: '1'
-			},{
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '0'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}])
 		},
 		mounted() {
 			//	this.mokeAjax() // 调用方法
