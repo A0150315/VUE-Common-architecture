@@ -90,7 +90,7 @@ export default {
   font-size: 0.34rem;
   & ul {
       padding-top: 0.1rem;
-    max-height: 12rem;
+    max-height: 11rem;
     overflow: auto;
     ::-webkit-scrollbar {
       display: none;
