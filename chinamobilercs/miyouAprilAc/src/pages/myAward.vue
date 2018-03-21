@@ -189,7 +189,7 @@
 			}
 			.section__time{
 				  font-size: 0.16rem;
-    			padding-top: 0.06rem;
+    			padding-top: .08rem;
     			padding-left: 19px;
     			color: #666666;
 			}
