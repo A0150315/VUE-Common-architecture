@@ -131,6 +131,7 @@
             },
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
+                alert(res)
                 var challengeUserMobile = res.forwardPhoto;
                 var challengeUsername = res.forwardName;
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
