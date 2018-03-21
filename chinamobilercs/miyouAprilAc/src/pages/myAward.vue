@@ -6,9 +6,9 @@
 		<div id="mainContent">
 			<section v-for='(item,index) in cardList' v-if='showContent'>
 				<div class="section__img">
-					<div class="section__name">{{item.description == null ? null : item.description.slice(2)}}</div>
-					<div class="section__num">{{item.description == null ? null : item.description.slice(0,2)}}</div>
-					<div class="section__time">截止兑换时间：{{changeTime(item.validTime)}}</div>
+					<div class="section__name">省内流量包</div>
+					<div class="section__num">1G</div>
+					<div class="section__time">截止兑换时间：2018年5月4日</div>
 				</div>
 			</section>
 			<div v-if='!showContent' id='promptMsg'>
