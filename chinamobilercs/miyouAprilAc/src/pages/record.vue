@@ -1,10 +1,10 @@
 <template>
-	<div id="main" class="iconfont" ref='main'>
-		<header class="clearfix">
+	<div id="main" ref='main'>
+		<header class="clearfix iconfont">
 			<div :class="{selected:isSelect == 1}" @click="changeItem(1)">发起的整蛊</div>
 			<div :class="{selected:isSelect == 0}" @click="changeItem(0)">识破的整蛊</div>
 		</header>
-		<div id="mainContent" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+		<div id="mainContent" class="iconfont" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
 			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 1'>
 				<span>{{item.challengeUsername}}</span>
 				<img class="right" src='../assets/img/trickFail.png' v-if="item.isPass == '0'" />
@@ -47,9 +47,6 @@
 			}
 		},
 		computed: {
-			dataList() {
-				return this.$store.state.client.data
-			}
 		},
 		methods: {
 			closeAlert() {
@@ -136,9 +133,6 @@
 				});
 				return mokeData;
 			},
-			goToNext() {
-				this.btnTitle = '修改';
-			},
 			//计算整蛊内容高度是否超过整屏
 			computeHeight() {
 					//		 if($("header").height() + $("#mainContent").height())
@@ -160,75 +154,6 @@
 			prankAlert
 		},
 		beforeMount() {
-		    this.$store.dispatch('actionsStep', [{
-				challengeUsername: 'lls',
-				isPass: '1'
-			},{
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '0'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}
-			, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}, {
-				img: '../assets/button_yellow.png',
-				challengeUsername: 'lls',
-				isPass: '1'
-			}])
 		},
 		mounted() {
 			//	this.mokeAjax() // 调用方法

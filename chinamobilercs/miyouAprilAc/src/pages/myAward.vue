@@ -6,9 +6,9 @@
 		<div id="mainContent">
 			<section v-for='(item,index) in cardList' v-if='showContent'>
 				<div class="section__img">
-					<div class="section__name">{{item.description == null ? null : item.description.slice(2)}}</div>
-					<div class="section__num">{{item.description == null ? null : item.description.slice(0,2)}}</div>
-					<div class="section__time">截止兑换时间：{{changeTime(item.validTime)}}</div>
+					<div class="section__name">省内流量包</div>
+					<div class="section__num">1G</div>
+					<div class="section__time">截止兑换时间：2018年5月4日</div>
 				</div>
 			</section>
 			<div v-if='!showContent' id='promptMsg'>
@@ -32,13 +32,7 @@
 				cardList: ''
 			}
 		},
-		computed: {
-			dataList() {
-				return this.$store.state.client.data
-			}
-		},
 		methods: {
-
 			//请求记录列表
 			async getCardList() {
 				var mokeData = await ajax.getCardList({
@@ -76,24 +70,6 @@
 			prankAlert
 		},
 		beforeMount() {
-		    this.$store.dispatch('actionsStep', [{
-				name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}
-			, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}, {
-					name: '神内流量包',
-				num: '1G',
-				time: '2018年3月15日'
-			}])
 		},
 		mounted() {
 			//	this.mokeAjax() // 调用方法
@@ -189,7 +165,7 @@
 			}
 			.section__time{
 				  font-size: 0.16rem;
-    			padding-top: 0.06rem;
+    			padding-top: .08rem;
     			padding-left: 19px;
     			color: #666666;
 			}
