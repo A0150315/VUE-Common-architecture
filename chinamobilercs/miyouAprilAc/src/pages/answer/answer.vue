@@ -14,7 +14,7 @@
                 :topicsLength=topics.length
                 :goPreTopic=goPreTopic
                 :goNextTopic=goNextTopic
-                buttonText="提交"
+                :buttonText="提交"
                 :buttonFunC=userTemplateId?goNextPage1:goNextPage
         />
     </div>
