@@ -90,6 +90,9 @@ export default {
 };
 </script>
 <style lang="postcss" scoped>
+    .topic{
+        margin-bottom: 0.3rem;
+    }
 .topic__title {
   box-sizing: border-box;
   padding: 1.6rem 0.7rem 0 0.8rem;

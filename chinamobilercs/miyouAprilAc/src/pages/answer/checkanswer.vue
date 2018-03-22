@@ -7,6 +7,7 @@
                :selectedIndexs=selectedIndexs
                :answerList=answerList
         />
+        <p v-if="answer.length" class="answertopic__right"><span>【答案解析】 </span>{{answer[current]}}</p>
         <TopicInteraction
                 :isMaster=false
                 :current=current
@@ -21,7 +22,14 @@
         font-size: 0.3rem;
         height: calc(100vh - 0.14rem);
     }
-
+    .answertopic__right{
+        padding-left: 0.34rem;
+        font-size: 0.32rem;
+        color: #000;
+    }
+    .answertopic__right span{
+         font-weight: bolder;
+     }
     .answertopic__topiccount {
         font-size: 1rem;
         font-weight: bold;
@@ -43,7 +51,8 @@
                 topics: [],
                 current: 0,
                 selectedIndexs: {},
-                answerList: []
+                answerList: [],
+                answer: []
             };
         },
         components: {
@@ -88,9 +97,11 @@
             if (isXiaomi < 0) {
                 this.getQuestionAnswer();
             } else {
+
                 const data = JSON.parse(sessionStorage.getItem("answerList"));
                 this.topics = data;
 
+                this.answer = data.map(e => e.explanation);
                 this.selectedIndexs = data.map(e => e.userIndex);
                 this.answerList = data.map(e => e.answerIndex);
             }
