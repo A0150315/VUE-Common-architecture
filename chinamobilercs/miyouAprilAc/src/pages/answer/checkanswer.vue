@@ -95,8 +95,8 @@
                 this.answerList = QuestionList.map(e => e.answerIndex);
                 return ;
             }
-            Indicator.open();
             if (isXiaomi < 0) {
+                Indicator.open();
                 this.getQuestionAnswer();
             } else {
 
@@ -106,7 +106,6 @@
                 this.answer = data.map(e => e.explanation);
                 this.selectedIndexs = data.map(e => e.userIndex);
                 this.answerList = data.map(e => e.answerIndex);
-                Indicator.close();
             }
         }
     };
