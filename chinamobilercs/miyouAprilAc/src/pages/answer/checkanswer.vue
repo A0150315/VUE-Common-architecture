@@ -77,6 +77,7 @@
         beforeMount() {
             const isXiaomi = window.location.href.indexOf('isXiaomi=true');
             var QuestionList = this.$route.query.QuestionList || '';
+            alert('QuestionList:'+QuestionList)
             /* 判断是否是自己点击进来查看答案 */
             if (QuestionList) {
                 this.topics = QuestionList

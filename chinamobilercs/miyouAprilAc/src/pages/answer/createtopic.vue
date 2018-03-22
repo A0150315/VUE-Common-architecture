@@ -114,7 +114,7 @@
                     var _parms = {
                         "title": "你真的懂我吗，做几道题就知道了",
                         "summary": "答对3题就送1G流量",
-                        "url": "http://221.176.34.113:8080/prank/#/index/answer?userTemplateId=" + data.userTemplateId,
+                        "url": "http://192.168.185.250:20103/foolday/index.html#/index/answer?userTemplateId=" + data.userTemplateId,
                         "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
                         "phone": "13802885145",
                         "authorName": "yuanlin"

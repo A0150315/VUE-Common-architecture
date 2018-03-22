@@ -128,9 +128,9 @@
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 if (this.userTemplateId) {
-                    alert(this.userTemplateId)
                     const {code, QuestionList, isSuccess, rightCount, prankId, user} = await Ajax.freindQuestionList(this.userTemplateId)
                     if (user) {
+                        alert('myself')
                         this.$router.replace({
                             path: ':from/checkanswer',
                             query: {
@@ -139,7 +139,7 @@
                         });
                         return false;
                     } else {
-                        alert(QuestionList)
+                        alert('chanllenge')
                         this.showStatus = true;
                         if (code === '1') {
                             //   //插入成功执行的操作
@@ -173,7 +173,6 @@
         },
         beforeMount() {
             var url = window.location.href; //获取url中"?"符后的字串
-            alert(window.location.href);
             var theRequest = new Object();
             var n = url.indexOf("?")
             if (n != -1) {
@@ -184,9 +183,7 @@
                 }
             }
             var token = theRequest.token;
-            var templateId = theRequest.templateId;
-            alert(token);
-            alert(templateId)
+            var templateId = theRequest.userTemplateId;
             /* 上面代码是为准备做token验证，没有id则意味着从整蛊大厅进入，不需要验证 */
             if (templateId) {
                 this.userTemplateId = templateId;
