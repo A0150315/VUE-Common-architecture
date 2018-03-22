@@ -130,7 +130,7 @@
                 if (this.userTemplateId) {
                     const {code, QuestionList, isSuccess, rightCount, prankId, user, list} = await Ajax.freindQuestionList(this.userTemplateId)
                     if (user === '1') {
-                        alert('myself')
+//                        alert('myself')
                         this.$router.replace({
                             path: ':from/checkanswer',
                             query: {
@@ -139,7 +139,7 @@
                         });
                         return false;
                     } else {
-                        alert('chanllenge')
+//                        alert('chanllenge')
                         this.showStatus = true;
                         if (code === '1') {
                             //   //插入成功执行的操作
@@ -157,7 +157,7 @@
                             return;
                         }
                         this.topics = QuestionList;
-                        alert(this.topics);
+//                        alert(this.topics);
                     }
                 } else {
                     const {data, code} = await Ajax.getPublicQuestionList();
@@ -188,7 +188,7 @@
             if (templateId) {
                 this.userTemplateId = templateId;
                 Ajax.answerToken({token, templateId}).then((res) => {
-                    alert(res.code)
+//                    alert(res.code)
                     if (res.code === 0) {
                         this.getTopic();
                     } else {

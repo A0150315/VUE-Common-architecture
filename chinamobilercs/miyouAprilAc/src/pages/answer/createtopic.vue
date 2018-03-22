@@ -104,12 +104,12 @@
                     const {code, data} = await Ajax.insertQuestion(answerList);
                     if (code === 0) {
                         this.userTemplateId = data.userTemplateId;
-                        alert('inert questions')
+//                        alert('inert questions')
                     } else {
-                        alert(data.msg)
+//                        alert(data.msg)
                     }
                 } else {
-                    alert('had questions')
+//                    alert('had questions')
                     this.userTemplateId = this.userTemplateId.userTemplateId
                 }
                 window.forwardSuccess = this.forwardSuccess;
@@ -128,7 +128,7 @@
                     window.local_method.passForwardDetail(JSON.stringify(_parms));
                 } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
                     // Call iOS interface
-                    alert("IOS")
+//                    alert("IOS")
                     window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
                 } else {
                     // No Android or iOS interface found
@@ -137,7 +137,7 @@
             },
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
-                alert(JSON.stringify(res))
+//                alert(JSON.stringify(res))
                 /* 客户端iOS传的是字符串 */
                 if (typeof(res) === String) {
                     res = JSON.parse(res)
@@ -149,16 +149,16 @@
                 } else {
                     var type = 1;
                 }
-                alert("xingmin--" + res.forwardNum)
+//                alert("xingmin--" + res.forwardNum)
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
-                alert(window.vm.userTemplateId)
+//                alert(window.vm.userTemplateId)
                 Ajax.prankPush({
                     challengeUserMobile: challengeUserMobile,
                     challengeUsername: challengeUsername,
                     userTemplateId: window.vm.userTemplateId,
                     type: type
                 }).then((res) => {
-                    alert(res.code);
+//                    alert(res.code);
                     if (res.code === 0) {
                         window.vm.$router.back();
                     }
@@ -175,7 +175,6 @@
             },
             async olderList({query}) {
                 this.userTemplateId = query;
-                alert("query:"+query.userTemplateId);
                 const {data} = await Ajax.getQuestionList({userTemplateId: query});
                 this.topics = data;
                 this.selectedIndexs = Object(data.map(e => e.answerIndex));

@@ -147,8 +147,10 @@ export default {
   width: 7.5rem;
   height: 4.12rem;
   background-size: 7.5rem 4.12rem;
-
-  padding: 0.6rem 0.68rem 0 0.56rem;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+  padding: 0 0.68rem 0 0.56rem;
 }
 .topic__list--notMaster {
   margin-top: 0.66rem;

@@ -90,7 +90,7 @@
             /* 以上是客户端token的拿取，保存起来是防止多次重复验证 */
             if (!sessionStorage.getItem('tokenStatus')) {
                 request.indexToken({token}).then((res) => {
-                    alert(res.code)
+//                    alert(res.code)
                     if (res.code === 0) {
                         sessionStorage.setItem('tokenStatus', 1);
                         this._getStatisticsMessage();
