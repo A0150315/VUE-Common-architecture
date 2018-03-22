@@ -49,7 +49,8 @@
                 current: 0,
                 selectedIndexs: {},
                 topicsIndexs: [],
-                userTemplateId: ""
+                userTemplateId: "",
+                preAgain: false
             };
         },
         components: {
@@ -93,6 +94,10 @@
                 return num;
             },
             async insertQuestion(callback) {
+                if (this.preAgain) {
+                    return ;
+                }
+                this.preAgain = true;
                 const answerList = this.topics.map((e, i) => {
                     const answer = e.optionList[this.selectedIndexs[i]];
                     return {
@@ -118,7 +123,7 @@
                 var _parms = {
                     "title": "你真的懂我吗，做几道题就知道了",
                     "summary": "答对3题就送1G流量",
-                    "url": "http://192.168.185.250:20103/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
+                    "url": "http://"+window.location.host+"/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
                     "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
                     "phone": "13802885145",
                     "authorName": "yuanlin"
