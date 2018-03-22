@@ -14,7 +14,7 @@
                 :topicsLength=topics.length
                 :goPreTopic=goPreTopic
                 :goNextTopic=goNextTopic
-                :buttonText="提交"
+                buttonText="提交"
                 :buttonFunC=userTemplateId?goNextPage1:goNextPage
         />
     </div>
@@ -128,13 +128,13 @@
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 if (this.userTemplateId) {
-                    const {code, QuestionList, isSuccess, rightCount, prankId, user} = await Ajax.freindQuestionList(this.userTemplateId)
-                    if (user) {
+                    const {code, QuestionList, isSuccess, rightCount, prankId, user, list} = await Ajax.freindQuestionList(this.userTemplateId)
+                    if (user === '1') {
                         alert('myself')
                         this.$router.replace({
                             path: ':from/checkanswer',
                             query: {
-                                QuestionList:QuestionList
+                                QuestionList:list
                             }
                         });
                         return false;

@@ -100,45 +100,46 @@
                         answer: answer.questionOptionId
                     };
                 });
-                alert(111)
-                const {code, data} = await Ajax.insertQuestion(answerList);
-                console.log(code);
-                console.log(data);
-                //this.userTemplateId = data.userTemplateId;
-                if (code === 0) {
-                    this.userTemplateId = data.userTemplateId;
-                    window.forwardSuccess = this.forwardSuccess;
-                    window.vm = this;
-                    alert(data.userTemplateId);
-                    //插入成功执行的操作
-                    var _parms = {
-                        "title": "你真的懂我吗，做几道题就知道了",
-                        "summary": "答对3题就送1G流量",
-                        "url": "http://192.168.185.250:20103/foolday/index.html#/index/answer?userTemplateId=" + data.userTemplateId,
-                        "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
-                        "phone": "13802885145",
-                        "authorName": "yuanlin"
-                    };
-                    if (window.local_method) {
-                        // Call Android interface
-                        window.local_method.passForwardDetail(JSON.stringify(_parms));
-                    } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
-                        // Call iOS interface
-                        alert("IOS")
-                        window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
+                if (!this.userTemplateId) {
+                    const {code, data} = await Ajax.insertQuestion(answerList);
+                    if (code === 0) {
+                        this.userTemplateId = data.userTemplateId;
+                        alert('inert questions')
                     } else {
-                        // No Android or iOS interface found
-                        alert("No native APIs found.");
+                        alert(data.msg)
                     }
-                }else {
-                    alert(data.msg)
+                } else {
+                    alert('had questions')
+                    this.userTemplateId = this.userTemplateId.userTemplateId
+                }
+                window.forwardSuccess = this.forwardSuccess;
+                window.vm = this;
+                //插入成功执行的操作
+                var _parms = {
+                    "title": "你真的懂我吗，做几道题就知道了",
+                    "summary": "答对3题就送1G流量",
+                    "url": "http://192.168.185.250:20103/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
+                    "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
+                    "phone": "13802885145",
+                    "authorName": "yuanlin"
+                };
+                if (window.local_method) {
+                    // Call Android interface
+                    window.local_method.passForwardDetail(JSON.stringify(_parms));
+                } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
+                    // Call iOS interface
+                    alert("IOS")
+                    window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
+                } else {
+                    // No Android or iOS interface found
+                    alert("No native APIs found.");
                 }
             },
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
                 alert(JSON.stringify(res))
                 /* 客户端iOS传的是字符串 */
-                if (typeof(res) === String){
+                if (typeof(res) === String) {
                     res = JSON.parse(res)
                 }
                 var challengeUserMobile = res.forwardNum || res.groupId;
@@ -148,17 +149,18 @@
                 } else {
                     var type = 1;
                 }
-                alert("xingmin--"+res.forwardNum)
+                alert("xingmin--" + res.forwardNum)
                 /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
+                alert(window.vm.userTemplateId)
                 Ajax.prankPush({
                     challengeUserMobile: challengeUserMobile,
                     challengeUsername: challengeUsername,
-                    userTemplateId: vm.userTemplateId,
+                    userTemplateId: window.vm.userTemplateId,
                     type: type
                 }).then((res) => {
                     alert(res.code);
                     if (res.code === 0) {
-                        vm.$router.back();
+                        window.vm.$router.back();
                     }
                 })
             },
@@ -173,11 +175,13 @@
             },
             async olderList({query}) {
                 this.userTemplateId = query;
+                alert("query:"+query.userTemplateId);
                 const {data} = await Ajax.getQuestionList({userTemplateId: query});
                 this.topics = data;
                 this.selectedIndexs = Object(data.map(e => e.answerIndex));
             }
-        },
+        }
+        ,
         mounted()
         {
             if (this.$route.query.userTemplateId) {
@@ -187,7 +191,8 @@
             } else {
                 this.getNewList();
             }
-        },
+        }
+        ,
         beforeRouteLeave(to, from, next)
         {
             next();

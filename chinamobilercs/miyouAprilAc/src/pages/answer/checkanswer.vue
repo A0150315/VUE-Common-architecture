@@ -81,8 +81,8 @@
             /* 判断是否是自己点击进来查看答案 */
             if (QuestionList) {
                 this.topics = QuestionList
-                this.selectedIndexs = data.map(e => e.answerIndex);
-                this.answerList = data.map(e => e.answerIndex);
+                this.selectedIndexs = QuestionList.map(e => e.answerIndex);
+                this.answerList = QuestionList.map(e => e.answerIndex);
                 return ;
             }
             if (isXiaomi < 0) {
