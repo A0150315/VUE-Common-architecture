@@ -33,7 +33,7 @@
 <script>
     import mokedata from "../../test/mockData.js";
     import Ajax from "../../utils/service";
-
+    import { Indicator } from 'mint-ui'
     import Topic from "../../components/Topic.vue";
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
@@ -129,6 +129,7 @@
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 if (this.userTemplateId) {
                     const {code, QuestionList, isSuccess, rightCount, prankId, user, list} = await Ajax.freindQuestionList(this.userTemplateId)
+                    Indicator.close();
                     if (user === '1') {
 //                        alert('myself')
                         this.$router.replace({
@@ -161,6 +162,7 @@
                     }
                 } else {
                     const {data, code} = await Ajax.getPublicQuestionList();
+                    Indicator.close();
                     /* 满三次后跳转到整蛊大厅 */
                     if (code === 303) {
                         this.$router.replace('prankHall');
@@ -172,6 +174,7 @@
             }
         },
         beforeMount() {
+            Indicator.open();
             var url = window.location.href; //获取url中"?"符后的字串
             var theRequest = new Object();
             var n = url.indexOf("?")
@@ -192,6 +195,7 @@
                     if (res.code === 0) {
                         this.getTopic();
                     } else {
+                        Indicator.close();
                         alert('token验证失败')
                     }
                 })

@@ -49,6 +49,7 @@
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
     import bottomBg from '../components/Bottom-bg.vue'
+    import { Indicator } from 'mint-ui'
 
     export default {
         components: {
@@ -76,6 +77,7 @@
             }
         },
         created() {
+            Indicator.open();
             var url = window.location.href; //获取url中"?"符后的字串
             var theRequest = new Object();
             var n = url.indexOf("?")
@@ -95,6 +97,7 @@
                         sessionStorage.setItem('tokenStatus', 1);
                         this._getStatisticsMessage();
                     } else {
+                        Indicator.close();
                         alert('token验证失败')
                     }
                 })
@@ -110,6 +113,7 @@
             /*获取挑战信息接口数据*/
             _getStatisticsMessage() {
                 request.getStatisticsMessage().then((res) => {
+                    Indicator.close();
                     if (res.code === 0) {
                         this.prankSuccess = res.tFooldayActivityEntity.prankSuccess;
                         this.congratulation = res.tFooldayActivityEntity.congratulation;

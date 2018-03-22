@@ -29,6 +29,7 @@
     import bottomBg from '../components/Bottom-bg.vue'
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
+    import { Indicator } from 'mint-ui'
 
     export default {
         components: {
@@ -44,6 +45,7 @@
             }
         },
         created() {
+            Indicator.open();
             this._getStatisticsMessage();
         },
         mounted() {
@@ -53,7 +55,7 @@
             /*获取挑战信息接口数据*/
             _getStatisticsMessage() {
                 request.getStatisticsMessage().then((res) => {
-                    console.log(res)
+                    Indicator.close();
                     if (res.code === 0) {
                         this.challenge = res.tFooldayActivityEntity.challenge;
                         this.congratulation = res.tFooldayActivityEntity.congratulation;

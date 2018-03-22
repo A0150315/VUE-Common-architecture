@@ -73,6 +73,7 @@
 <script>
     import Ajax from "../../../utils/service";
     import prankAlert from '../../../../../../components/prank-alert.vue'
+    import { Indicator } from 'mint-ui'
 
 export default {
         components: {
@@ -99,8 +100,9 @@ export default {
     methods: {
       /* 领取卡卷的接口 */
         _getCardStatus() {
+            Indicator.open();
             Ajax.getCardStatus({'prankId':this.prankId}).then((res) => {
-
+                Indicator.close();
                 this.showAlert = {
                     tipImgUrl: '',
                     tipImgWidth: 0,

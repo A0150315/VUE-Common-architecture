@@ -38,6 +38,7 @@
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
+    import { Indicator } from 'mint-ui'
     export default {
         metaInfo: {
             title: "制作题目"
@@ -94,6 +95,7 @@
                 return num;
             },
             async insertQuestion(callback) {
+                Indicator.open();
                 if (this.preAgain) {
                     return ;
                 }
@@ -128,6 +130,7 @@
                     "phone": "13802885145",
                     "authorName": "yuanlin"
                 };
+                Indicator.close();
                 if (window.local_method) {
                     // Call Android interface
                     window.local_method.passForwardDetail(JSON.stringify(_parms));
@@ -171,6 +174,7 @@
             },
             async getNewList() {
                 const {data} = await Ajax.getAllQuestion();
+                Indicator.close();
                 this.allTopics = data;
                 for (let i = 0; i < 5; i++) {
                     const randomNumber = this.randomNumber();
@@ -181,6 +185,7 @@
             async olderList({query}) {
                 this.userTemplateId = query;
                 const {data} = await Ajax.getQuestionList({userTemplateId: query});
+                Indicator.close();
                 this.topics = data;
                 this.selectedIndexs = Object(data.map(e => e.answerIndex));
             }
@@ -188,6 +193,7 @@
         ,
         mounted()
         {
+            Indicator.open();
             if (this.$route.query.userTemplateId) {
                 this.olderList({
                     query: this.$route.query

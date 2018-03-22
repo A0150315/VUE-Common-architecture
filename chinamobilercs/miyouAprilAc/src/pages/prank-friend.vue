@@ -21,6 +21,7 @@ import prankAlert from "../../../../components/prank-alert.vue";
 import request from "../utils/service/index";
 import bottomBg from "../components/Bottom-bg.vue";
 import CommonCenter from "../utils/common";
+import { Indicator } from 'mint-ui'
 
 export default {
   components: {
@@ -48,6 +49,7 @@ export default {
     };
   },
   created() {
+      Indicator.open()
     this._getMyPrankList();
   },
   mounted() {
@@ -57,7 +59,7 @@ export default {
     /* 获取我自定义题目的列表 */
     _getMyPrankList() {
       request.getMyPrankList().then(res => {
-        console.log(res);
+          Indicator.close();
         if (res.code === 0) {
           this.prankList = res.data;
         }

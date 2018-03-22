@@ -1,7 +1,7 @@
 <template>
     <div class="answertopic">
         <Bottom_bg/>
-        <Topic :isMaster=false
+        <Topic :isMaster=answer.length?true:false
                :topics=topics
                :current=current
                :selectedIndexs=selectedIndexs
@@ -37,7 +37,7 @@
 </style>
 <script>
     import Ajax from "../../utils/service";
-
+    import { Indicator } from 'mint-ui'
     import Topic from "../../components/Topic.vue";
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
@@ -77,6 +77,7 @@
                 searchURL ? userTemplateId = searchURL.split("&")[0].split("=")[1] : ''
                 console.log(userTemplateId)
                 Ajax.freindQuestionAnswer({userTemplateId}).then((res) => {
+                    Indicator.close();
                     this.topics = res.list
                     this.selectedIndexs = res.list.map(e => e.userIndex);
                     this.answerList = res.list.map(e => e.answerIndex);
@@ -94,6 +95,7 @@
                 this.answerList = QuestionList.map(e => e.answerIndex);
                 return ;
             }
+            Indicator.open();
             if (isXiaomi < 0) {
                 this.getQuestionAnswer();
             } else {
@@ -104,6 +106,7 @@
                 this.answer = data.map(e => e.explanation);
                 this.selectedIndexs = data.map(e => e.userIndex);
                 this.answerList = data.map(e => e.answerIndex);
+                Indicator.close();
             }
         }
     };
