@@ -188,6 +188,8 @@
                         alert('token验证失败')
                     }
                 })
+            } else {
+                this.getTopic();
             }
         },
     };

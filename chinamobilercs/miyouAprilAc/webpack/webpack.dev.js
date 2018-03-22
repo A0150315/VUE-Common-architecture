@@ -17,6 +17,7 @@ module.exports = merge(common, {
         compress: false,
         port: 8888,
         hot: true
+
     },
     resolve: {
         alias: {
