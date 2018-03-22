@@ -133,9 +133,8 @@
 				});
 				return mokeData;
 			},
-			//计算整蛊内容高度是否超过整屏
+			//计算内容高度是否超过整屏
 			computeHeight() {
-					//		 if($("header").height() + $("#mainContent").height())
 				var mainHeight = document.body.clientHeight - $("header").height() - $("footer").height() - 44;
 				$("#mainContent").css("height", mainHeight + "px");
 				$("body").css("overflow","hidden");
@@ -156,9 +155,7 @@
 		beforeMount() {
 		},
 		mounted() {
-			//	this.mokeAjax() // 调用方法
 			this.computeHeight();
-//			this.getList();
 		}
 	};
 </script>
