@@ -163,6 +163,7 @@
         },
         beforeMount() {
             var url = window.location.href; //获取url中"?"符后的字串
+            alert(window.location.href);
             var theRequest = new Object();
             var n = url.indexOf("?")
             if (n != -1) {
