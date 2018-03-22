@@ -129,26 +129,36 @@
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 if (this.userTemplateId) {
                     alert(this.userTemplateId)
-                    const {code, QuestionList, isSuccess, rightCount, prankId} = await Ajax.freindQuestionList(this.userTemplateId)
-                    alert(QuestionList)
-                    this.showStatus = true;
-                    if (code === '1') {
-                        //   //插入成功执行的操作
-                        var userTemplateId = this.userTemplateId
-                        this.$router.push({
-                            path: `:event/result`,
+                    const {code, QuestionList, isSuccess, rightCount, prankId, user} = await Ajax.freindQuestionList(this.userTemplateId)
+                    if (user) {
+                        this.$router.replace({
+                            path: ':from/checkanswer',
                             query: {
-                                isPass: !isSuccess,
-                                rightNum: rightCount,
-                                isXiaomi: false,
-                                prankId: prankId,
-                                userTemplateId: userTemplateId
+                                QuestionList:QuestionList
                             }
                         });
-                        return;
+                        return false;
+                    } else {
+                        alert(QuestionList)
+                        this.showStatus = true;
+                        if (code === '1') {
+                            //   //插入成功执行的操作
+                            var userTemplateId = this.userTemplateId
+                            this.$router.push({
+                                path: `:event/result`,
+                                query: {
+                                    isPass: !isSuccess,
+                                    rightNum: rightCount,
+                                    isXiaomi: false,
+                                    prankId: prankId,
+                                    userTemplateId: userTemplateId
+                                }
+                            });
+                            return;
+                        }
+                        this.topics = QuestionList;
+                        alert(this.topics);
                     }
-                    this.topics = QuestionList;
-                    alert(this.topics);
                 } else {
                     const {data, code} = await Ajax.getPublicQuestionList();
                     /* 满三次后跳转到整蛊大厅 */
@@ -174,15 +184,13 @@
                 }
             }
             var token = theRequest.token;
-            var username = theRequest.username;
             var templateId = theRequest.templateId;
             alert(token);
-            alert(username)
             alert(templateId)
             /* 上面代码是为准备做token验证，没有id则意味着从整蛊大厅进入，不需要验证 */
             if (templateId) {
                 this.userTemplateId = templateId;
-                Ajax.answerToken({username, token, templateId}).then((res) => {
+                Ajax.answerToken({token, templateId}).then((res) => {
                     alert(res.code)
                     if (res.code === 0) {
                         this.getTopic();

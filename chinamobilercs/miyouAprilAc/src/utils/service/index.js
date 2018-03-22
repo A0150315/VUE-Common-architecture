@@ -119,10 +119,9 @@ export default {
         })
     },
     //答题的token验证接口
-    answerToken({username, token, templateId}) {
+    answerToken({token, templateId}) {
         return axios.get(config.answerToken, {
             params:{
-                username,
                 token,
                 templateId
             }
