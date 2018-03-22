@@ -11,9 +11,7 @@
 					<div class="section__time">截止兑换时间：2018年5月4日</div>
 				</div>
 			</section>
-			<div v-if='!showContent' id='promptMsg'>
-				{{promptMsg}}
-			</div>
+	
 		</div>
 		<prank-alert v-if="alertStatus" @close="closeAlert()" @confirm="closeAlert()" :showAlert='showAlert'></prank-alert>
 	</div>
@@ -44,14 +42,14 @@
 			closeAlert() {
                 this.alertStatus = false;
             },
-			//计算整蛊内容高度是否超过整屏
+			//计算内容高度是否超过整屏
 			computeHeight() {
 				setTimeout(function(){
-					var allheight = $("header").height() + $("#mainContent").height() + 24;
+					var allheight = $("header").height() + $("#mainContent").height() + 44;
 					if(allheight < document.body.clientHeight) {
 						var mainHeight = document.body.clientHeight - $("header").height() - 44;
 						console.log($("header").height())
-						console.log(mainHeight)
+						//设置min-height也能解决
 						$("#mainContent").css("height", mainHeight + "px");
 						$("body").css("overflow","hidden");
 					}
@@ -59,11 +57,6 @@
 						$("body").css("overflow","auto");
 					}
 				},1);
-			},
-			changeTime(time){
-				time = time.replace(/\-/g, "/");
-			    time = new Date(time);
-				return time.getFullYear() + '年' + (time.getMonth()+1) + '月' + time.getDate() + '日';
 			}
 		},
 		components: {
@@ -79,7 +72,7 @@
 				Indicator.close();
 				if(res.code == 0){
 					if( res.list == null || res.list.length == 0){
-						this.showContent = false;
+						this.computeHeight();
 					}
 					else{
 						this.cardList = res.list;
