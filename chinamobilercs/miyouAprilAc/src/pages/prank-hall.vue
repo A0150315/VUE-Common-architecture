@@ -146,6 +146,7 @@
                 }
             }
             & ul{
+                margin-bottom: 0.7rem;
                 & li{
                     width: 100%;
                     height: 1.2rem;

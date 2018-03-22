@@ -137,6 +137,10 @@
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
                 alert(JSON.stringify(res))
+                /* 客户端iOS传的是字符串 */
+                if (typeof(res) === String){
+                    res = JSON.parse(res)
+                }
                 var challengeUserMobile = res.forwardNum || res.groupId;
                 var challengeUsername = res.forwardName || res.groupName;
                 if (res.groupName && res.groupId) {

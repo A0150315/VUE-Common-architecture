@@ -178,6 +178,7 @@
             alert(token);
             alert(username)
             alert(templateId)
+            /* 上面代码是为准备做token验证，没有id则意味着从整蛊大厅进入，不需要验证 */
             if (templateId) {
                 this.userTemplateId = templateId;
                 Ajax.answerToken({username, token, templateId}).then((res) => {

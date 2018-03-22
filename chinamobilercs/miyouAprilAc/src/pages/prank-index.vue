@@ -87,7 +87,7 @@
                 }
             }
             var token = theRequest.token;
-            alert(token)
+            /* 以上是客户端token的拿取，保存起来是防止多次重复验证 */
             if (!sessionStorage.getItem('tokenStatus')) {
                 request.indexToken({token}).then((res) => {
                     alert(res.code)
