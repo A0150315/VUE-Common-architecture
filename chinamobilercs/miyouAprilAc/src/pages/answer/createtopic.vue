@@ -6,6 +6,7 @@
                :current=current
                :selectedIndexs=selectedIndexs
                :setSelectedIndex=setSelectedIndex
+               :isAdd="userTemplateId ? false : true"
         />
         <TopicInteraction
                 :current=current
@@ -51,7 +52,8 @@
                 selectedIndexs: {},
                 topicsIndexs: [],
                 userTemplateId: "",
-                preAgain: false
+                preAgain: false,
+                randomNumberRecord: [], //防止换到重复的题目
             };
         },
         components: {
@@ -77,6 +79,7 @@
             },
             changeTopic() {
                 const randomNumber = this.randomNumber();
+                if (this.topicsIndexs[this.current] === randomNumber) return;
                 this.$set(this.topics, this.current, this.allTopics[randomNumber]); //刷新题目
                 this.$set(this.topicsIndexs, this.current, randomNumber); //刷新题目
                 const tempObject = {...this.selectedIndexs};
@@ -87,19 +90,15 @@
                 const length = this.allTopics.length - 1;
                 let num = parseInt(Math.random() * (length + 1));
                 for (let i = 0; i < length; i++) {
-                    if (this.topicsIndexs[i] === num) {
+                    if (this.topicsIndexs[i] === num || this.randomNumberRecord[num]) {
                         num = this.randomNumber();
                         break;
                     }
                 }
+                this.$set(this.randomNumberRecord, num, num);
                 return num;
             },
             async insertQuestion(callback) {
-                Indicator.open();
-                if (this.preAgain) {
-                    return ;
-                }
-                this.preAgain = true;
                 const answerList = this.topics.map((e, i) => {
                     const answer = e.optionList[this.selectedIndexs[i]];
                     return {
@@ -108,15 +107,18 @@
                     };
                 });
                 if (!this.userTemplateId) {
+                    Indicator.open();
                     const {code, data} = await Ajax.insertQuestion(answerList);
+                    Indicator.close();
                     if (code === 0) {
                         this.userTemplateId = data.userTemplateId;
 //                        alert('inert questions')
                     } else {
-//                        alert(data.msg)
+                          alert(data.msg)
                     }
                 } else {
 //                    alert('had questions')
+                    Indicator.close();
                     this.userTemplateId = this.userTemplateId.userTemplateId
                 }
                 window.forwardSuccess = this.forwardSuccess;
@@ -130,22 +132,25 @@
                     "phone": "13802885145",
                     "authorName": "yuanlin"
                 };
-                Indicator.close();
                 if (window.local_method) {
                     // Call Android interface
+                    Indicator.close();
                     window.local_method.passForwardDetail(JSON.stringify(_parms));
                 } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
                     // Call iOS interface
 //                    alert("IOS")
+                    Indicator.close();
                     window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
                 } else {
                     // No Android or iOS interface found
+                    Indicator.close();
                     alert("No native APIs found.");
                 }
             },
             /* 客户端点击确定后的回调接口函数 */
             forwardSuccess (res) {
 //                alert(JSON.stringify(res))
+                Indicator.close();
                 /* 客户端iOS传的是字符串 */
                 if (typeof(res) === String) {
                     res = JSON.parse(res)
@@ -201,11 +206,6 @@
             } else {
                 this.getNewList();
             }
-        }
-        ,
-        beforeRouteLeave(to, from, next)
-        {
-            next();
         }
     }
     ;

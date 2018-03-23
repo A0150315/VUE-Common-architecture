@@ -45,7 +45,8 @@ export default {
         ],
         confirmBtnTxt: "确定"
       },
-      alertStatus: false //弹框的状态变量
+      alertStatus: false, //弹框的状态变量
+        preAgain: false  //防止按钮多次点击
     };
   },
   created() {
@@ -53,6 +54,7 @@ export default {
     this._getMyPrankList();
   },
   mounted() {
+      this.preAgain = false;
     CommonCenter.setTitle("整蛊好友");
   },
   methods: {
@@ -67,6 +69,8 @@ export default {
     },
     /* 跳转到自定义题目库 */
     goTopic(id) {
+        if (this.preAgain) return ;
+        this.preAgain = true;
       this.$router.push({
         path: `${this.$route.fullPath}/createtopic`,
         query: { userTemplateId: id }

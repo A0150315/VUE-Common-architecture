@@ -14,7 +14,7 @@
           <li v-for="(item,index) of topics[current].optionList" 
               :key="index" class="topic__listitem" 
               :class="{'top__listitem--selected':index===selectedIndexs[current]}"
-              @click="setSelectedIndex(index)" >
+              @click="isAdd?setSelectedIndex(index):''" >
                 <span class="topic__listitem__index">
                   {{index | num2elph}}
                 </span>
@@ -33,7 +33,7 @@
                               ?'topic__listitem--correct'
                               :'topic__listitem--error'
                             :''
-                      ]"
+                      ,(index===answerList[current] && isShowAnswer)?'topic__listitem--correct':'']"
           >
                 <span class="topic__listitem__index">
                   {{(index===selectedIndexs[current]?null:index) | num2elph}}
@@ -43,7 +43,7 @@
                 </span>
           </li>
       </ul>
-      <p v-if="!isMaster" class="topic__tips topic__tips--bottom">回答正确3道或者3道以上，算挑战成功</p>
+      <p v-if="false" class="topic__tips topic__tips--bottom">回答正确3道或者3道以上，算挑战成功</p>
   </div>
   
 </template>
@@ -77,7 +77,15 @@ export default {
     answerList: {
       type: Array,
       defalut: []
-    }
+    },
+      isAdd: {
+          type: Boolean,
+          defalut: true
+      },
+      isShowAnswer: {
+          type: Boolean,
+          defalut: false
+      }
   },
   filters: {
     num2elph: value => {
@@ -97,7 +105,7 @@ export default {
   box-sizing: border-box;
   padding: 1.6rem 0.7rem 0 0.8rem;
   width: 7.5rem;
-  height: 2.7rem;
+  min-height: 2.7rem;
   background-image: url("../assets/img/bg_topic.png");
   background-size: 7.5rem 2.7rem;
 
