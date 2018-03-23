@@ -6,13 +6,13 @@
 		</header>
 		<div id="mainContent" class="iconfont" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
 			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 1'>
-				<span>{{item.challengeUsername}}</span>
+				<span>{{item.challengeUsername == null ? item.challengeUserMobile : item.challengeUsername}}</span>
 				<img class="right" src='../assets/img/trickFail.png' v-if="item.isPass == '0'" />
 				<img class="right" src='../assets/img/trickSuccess.png' v-if="item.isPass == '1'" />
 				<img class="right" src='../assets/img/waitTrick.png' v-if="item.isPass == null" style="width: 1rem;"/>
 			</section>
 			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 0'>
-				<span>{{item.prankUsername}}</span>
+				<span>{{item.prankUsername == null ? item.prankUserMobile : item.prankUsername}}</span>
 				<img class="right" src='../assets/img/breakFail.png' v-if="item.isPass == '0'" />
 				<img class="right" src='../assets/img/breakSuccess.png' v-if="item.isPass == '1'" />
 			</section>
