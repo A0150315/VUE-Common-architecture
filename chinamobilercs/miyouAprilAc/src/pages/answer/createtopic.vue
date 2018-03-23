@@ -39,7 +39,7 @@
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
-    import { Indicator } from 'mint-ui'
+    import {Indicator} from 'mint-ui'
     export default {
         metaInfo: {
             title: "制作题目"
@@ -114,12 +114,14 @@
                         this.userTemplateId = data.userTemplateId;
 //                        alert('inert questions')
                     } else {
-                          alert(data.msg)
+                        alert(data.msg)
+                        return;
                     }
                 } else {
 //                    alert('had questions')
                     Indicator.close();
-                    this.userTemplateId = this.userTemplateId.userTemplateId
+                    if (this.userTemplateId.userTemplateId)
+                        this.userTemplateId = this.userTemplateId.userTemplateId
                 }
                 window.forwardSuccess = this.forwardSuccess;
                 window.vm = this;
@@ -127,7 +129,7 @@
                 var _parms = {
                     "title": "你真的懂我吗，做几道题就知道了",
                     "summary": "答对3题就送1G流量",
-                    "url": "http://"+window.location.host+"/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
+                    "url": "http://" + window.location.host + "/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
                     "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
                     "phone": "13802885145",
                     "authorName": "yuanlin"
@@ -198,6 +200,7 @@
         ,
         mounted()
         {
+            alert('mounted');
             Indicator.open();
             if (this.$route.query.userTemplateId) {
                 this.olderList({
