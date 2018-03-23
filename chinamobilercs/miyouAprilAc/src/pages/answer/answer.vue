@@ -7,6 +7,7 @@
                :current=current
                :selectedIndexs=selectedIndexs
                :setSelectedIndex=setSelectedIndex
+               :isAdd=true
         />
         <TopicInteraction
                 :current=current

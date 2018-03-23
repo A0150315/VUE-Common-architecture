@@ -36,7 +36,7 @@
                       ,(index===answerList[current] && isShowAnswer)?'topic__listitem--correct':'']"
           >
                 <span class="topic__listitem__index">
-                  {{(index===selectedIndexs[current]?null:index) | num2elph}}
+                  {{(index===selectedIndexs[current] || (index===answerList[current] && isShowAnswer)?null:index) | num2elph}}
                 </span>
                 <span class="topic__listitem__text">
                   {{item.content}}
