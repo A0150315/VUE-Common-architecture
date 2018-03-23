@@ -4,7 +4,7 @@
             <li class="create-topic" @click="goTopic()">
                 <p><span class="add-icon"></span>制作题目</p>
             </li>
-            <li @click="goTopic(item.userTemplateId)" v-if="prankList.length" v-for="(item,index) in prankList" :key="index">
+            <li @click="goTopic(item.userTemplateId, item.title)" v-if="prankList.length" v-for="(item,index) in prankList" :key="index">
                 <p class="topic-title">{{item.title}} <i class="iconfont icon-gengduo"></i></p>
             </li>
         </ul>
@@ -68,9 +68,10 @@ export default {
       });
     },
     /* 跳转到自定义题目库 */
-    goTopic(id) {
+    goTopic(id, title) {
         if (this.preAgain) return ;
         this.preAgain = true;
+        sessionStorage.setItem('title', title);
       this.$router.push({
         path: `${this.$route.fullPath}/createtopic`,
         query: { userTemplateId: id }

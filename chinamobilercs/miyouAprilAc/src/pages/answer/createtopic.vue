@@ -34,16 +34,13 @@
 <script>
     import mokedata from "../../test/mockData.js";
     import Ajax from "../../utils/service";
-
+    import CommonCenter from "../../utils/common";
     import Topic from "../../components/Topic.vue";
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import {Indicator} from 'mint-ui'
     export default {
-        metaInfo: {
-            title: "制作题目"
-        },
         data() {
             return {
                 topics: [],
@@ -180,6 +177,7 @@
                 })
             },
             async getNewList() {
+                CommonCenter.setTitle("制作题目");
                 const {data} = await Ajax.getAllQuestion();
                 Indicator.close();
                 this.allTopics = data;
@@ -190,6 +188,7 @@
                 }
             },
             async olderList({query}) {
+                CommonCenter.setTitle(sessionStorage.getItem('title'));
                 this.userTemplateId = query;
                 const {data} = await Ajax.getQuestionList({userTemplateId: query});
                 Indicator.close();
@@ -200,7 +199,6 @@
         ,
         mounted()
         {
-            alert('mounted');
             Indicator.open();
             if (this.$route.query.userTemplateId) {
                 this.olderList({

@@ -114,7 +114,7 @@
                     });
                     //   //插入成功执行的操作
                     var userTemplateId = this.userTemplateId
-                    this.$router.push({
+                    this.$router.replace({
                         path: ':event/result',
                         query: {
                             isPass: isSuccess === '1'? true:false,
@@ -149,7 +149,7 @@
                             this.$router.replace({
                                 path: `:event/result`,
                                 query: {
-                                    isPass: !isSuccess,
+                                    isPass: isSuccess === '1'? true:false,
                                     rightNum: rightCount,
                                     isXiaomi: false,
                                     prankId: prankId,
