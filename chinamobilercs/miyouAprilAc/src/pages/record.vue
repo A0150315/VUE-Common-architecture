@@ -62,7 +62,7 @@
 					this.mark = '1';
 					this.recordList = [];
 //					this.getList();
-                    this.loading = false;
+//                  this.loading = false;
 				} else {
 					this.pageNum = 1;
 					this.isSelect = 1;
@@ -70,7 +70,7 @@
 					this.promptMsg = '您还没有整蛊过好友呢';
 					this.mark = '0';
 					this.recordList = [];
-					this.loading = false;
+//					this.loading = false;
 //					this.getList();
 				}
 			},
