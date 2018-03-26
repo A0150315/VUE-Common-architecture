@@ -61,8 +61,8 @@
 					this.promptMsg = '您还没有挑战过整蛊呢';
 					this.mark = '1';
 					this.recordList = [];
-//					this.getList();
-//                  this.loading = false;
+					this.loading = true;
+					this.getList();
 				} else {
 					this.pageNum = 1;
 					this.isSelect = 1;
@@ -70,8 +70,8 @@
 					this.promptMsg = '您还没有整蛊过好友呢';
 					this.mark = '0';
 					this.recordList = [];
-//					this.loading = false;
-//					this.getList();
+					this.loading = true;
+					this.getList();
 				}
 			},
 			getList(){
