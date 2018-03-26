@@ -22,6 +22,7 @@ import request from "../utils/service/index";
 import bottomBg from "../components/Bottom-bg.vue";
 import CommonCenter from "../utils/common";
 import { Indicator } from 'mint-ui'
+import ERROR_HTML from '../utils/service/config'
 
 export default {
   components: {
@@ -64,6 +65,9 @@ export default {
           Indicator.close();
         if (res.code === 0) {
           this.prankList = res.data;
+        } else {
+            window.location.href = ERROR_HTML;
+            return ;
         }
       });
     },

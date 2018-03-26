@@ -40,6 +40,8 @@
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import CommonCenter from '../../utils/common'
+    import ERROR_HTML from '../../utils/service/config'
+
     export default {
         metaInfo: {
             title: "全民愚人战，整蛊好友领12G"
@@ -197,7 +199,8 @@
                         this.getTopic();
                     } else {
                         Indicator.close();
-                        alert('token验证失败')
+                        window.location.href = ERROR_HTML;
+                        return ;
                     }
                 })
             } else {

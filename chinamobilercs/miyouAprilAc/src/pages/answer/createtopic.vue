@@ -40,6 +40,8 @@
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import {Indicator} from 'mint-ui'
+    import ERROR_HTML from '../../utils/service/config'
+
     export default {
         data() {
             return {
@@ -111,8 +113,8 @@
                         this.userTemplateId = data.userTemplateId;
 //                        alert('inert questions')
                     } else {
-                        alert(data.msg)
-                        return;
+                        window.location.href = ERROR_HTML;
+                        return ;
                     }
                 } else {
 //                    alert('had questions')
@@ -143,7 +145,8 @@
                 } else {
                     // No Android or iOS interface found
                     Indicator.close();
-                    alert("No native APIs found.");
+                    window.location.href = ERROR_HTML;
+                    return ;
                 }
             },
             /* 客户端点击确定后的回调接口函数 */
@@ -173,6 +176,9 @@
 //                    alert(res.code);
                     if (res.code === 0) {
                         window.vm.$router.back();
+                    } else {
+                        window.location.href = ERROR_HTML;
+                        return ;
                     }
                 })
             },

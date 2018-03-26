@@ -30,6 +30,7 @@
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
     import { Indicator } from 'mint-ui'
+    import ERROR_HTML from '../utils/service/config'
 
     export default {
         components: {
@@ -60,6 +61,9 @@
                         this.challenge = res.tFooldayActivityEntity.challenge;
                         this.congratulation = res.tFooldayActivityEntity.congratulation;
                         this.chance = res.tFooldayActivityEntity.chance
+                    } else {
+                        window.location.href = ERROR_HTML;
+                        return ;
                     }
                 })
             },
