@@ -40,7 +40,7 @@
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import {Indicator} from 'mint-ui'
-    import ERROR_HTML from '../../utils/service/config'
+    import URL from '../../utils/service/config'
 
     export default {
         data() {
@@ -86,6 +86,14 @@
                 this.selectedIndexs = tempObject;
             },
             randomNumber() {
+                if (
+                    this.allTopics.length <= this.randomNumberRecord.filter(n => n).length
+                ) {
+                    this.randomNumberRecord = [];
+                    this.topicsIndexs.forEach(num => {
+                        this.$set(this.randomNumberRecord, num, num);
+                    });
+                }
                 const length = this.allTopics.length - 1;
                 let num = parseInt(Math.random() * (length + 1));
                 for (let i = 0; i < length; i++) {
@@ -113,7 +121,7 @@
                         this.userTemplateId = data.userTemplateId;
 //                        alert('inert questions')
                     } else {
-                        window.location.href = ERROR_HTML;
+                        window.location.href = URL.ERROR_HTML;
                         return ;
                     }
                 } else {
@@ -145,7 +153,7 @@
                 } else {
                     // No Android or iOS interface found
                     Indicator.close();
-                    window.location.href = ERROR_HTML;
+                    window.location.href = URL.ERROR_HTML;
                     return ;
                 }
             },
@@ -177,7 +185,7 @@
                     if (res.code === 0) {
                         window.vm.$router.back();
                     } else {
-                        window.location.href = ERROR_HTML;
+                        window.location.href = URL.ERROR_HTML;
                         return ;
                     }
                 })

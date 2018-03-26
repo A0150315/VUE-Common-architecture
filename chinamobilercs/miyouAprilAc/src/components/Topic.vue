@@ -106,7 +106,7 @@ export default {
   padding: 1.6rem 0.7rem 0 0.8rem;
   width: 7.5rem;
   min-height: 2.7rem;
-  background-image: url("../assets/img/bg_topic.png");
+  background: url("../assets/img/bg_topic.png") no-repeat;
   background-size: 7.5rem 2.7rem;
 
   position: relative;

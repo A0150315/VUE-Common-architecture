@@ -40,7 +40,7 @@
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import CommonCenter from '../../utils/common'
-    import ERROR_HTML from '../../utils/service/config'
+    import URL from '../../utils/service/config'
 
     export default {
         metaInfo: {
@@ -199,7 +199,7 @@
                         this.getTopic();
                     } else {
                         Indicator.close();
-                        window.location.href = ERROR_HTML;
+                        window.location.href = URL.ERROR_HTML;
                         return ;
                     }
                 })

@@ -50,7 +50,7 @@
     import request from '../utils/service/index'
     import bottomBg from '../components/Bottom-bg.vue'
     import { Indicator } from 'mint-ui'
-    import ERROR_HTML from '../utils/service/config'
+    import URL from '../utils/service/config'
 
     export default {
         components: {
@@ -99,7 +99,7 @@
                         this._getStatisticsMessage();
                     } else {
                         Indicator.close();
-                        window.location.href = ERROR_HTML;
+                        window.location.href = URL.ERROR_HTML;
                         return ;
                     }
                 })
