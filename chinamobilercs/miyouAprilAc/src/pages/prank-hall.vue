@@ -30,6 +30,7 @@
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
     import { Indicator } from 'mint-ui'
+    import URL from '../utils/service/config'
 
     export default {
         components: {
@@ -60,6 +61,9 @@
                         this.challenge = res.tFooldayActivityEntity.challenge;
                         this.congratulation = res.tFooldayActivityEntity.congratulation;
                         this.chance = res.tFooldayActivityEntity.chance
+                    } else {
+                        window.location.href = URL.ERROR_HTML;
+                        return ;
                     }
                 })
             },
@@ -68,7 +72,7 @@
             },
             /* 跳转到整蛊答题页面 */
             goAnswer() {
-                if (this.chance < 30) {
+                if (this.chance < 3) {
                     this.$router.push('answer')
                 } else {
                     this.showAlert = {

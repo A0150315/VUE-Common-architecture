@@ -7,6 +7,7 @@
                :current=current
                :selectedIndexs=selectedIndexs
                :setSelectedIndex=setSelectedIndex
+               :isAdd=true
         />
         <TopicInteraction
                 :current=current
@@ -39,6 +40,8 @@
     import Bottom_bg from "../../components/Bottom-bg.vue";
     import RefreshBottom from "../../components/RefreshBottom.vue";
     import CommonCenter from '../../utils/common'
+    import URL from '../../utils/service/config'
+
     export default {
         metaInfo: {
             title: "全民愚人战，整蛊好友领12G"
@@ -113,7 +116,7 @@
                     });
                     //   //插入成功执行的操作
                     var userTemplateId = this.userTemplateId
-                    this.$router.push({
+                    this.$router.replace({
                         path: ':event/result',
                         query: {
                             isPass: isSuccess === '1'? true:false,
@@ -148,7 +151,7 @@
                             this.$router.replace({
                                 path: `:event/result`,
                                 query: {
-                                    isPass: !isSuccess,
+                                    isPass: isSuccess === '1'? true:false,
                                     rightNum: rightCount,
                                     isXiaomi: false,
                                     prankId: prankId,
@@ -196,7 +199,8 @@
                         this.getTopic();
                     } else {
                         Indicator.close();
-                        alert('token验证失败')
+                        window.location.href = URL.ERROR_HTML;
+                        return ;
                     }
                 })
             } else {
