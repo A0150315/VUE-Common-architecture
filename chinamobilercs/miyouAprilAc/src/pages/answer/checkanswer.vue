@@ -6,7 +6,7 @@
                :current=current
                :selectedIndexs=selectedIndexs
                :answerList=answerList
-               :isShowAnswer='answer.length? true: false'
+               :isShowAnswer='true'
         />
         <p v-if="answer.length" class="answertopic__right"><span>【答案解析】 </span>{{answer[current]}}</p>
         <TopicInteraction

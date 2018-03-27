@@ -96,7 +96,8 @@
                             rightNum: data.rightNum,
                             isXiaomi: true,
                             userTemplateId: 0,
-                            prankId: data.prankId
+                            prankId: data.prankId,
+                            isDrawable: data.isDrawable
                         }
                     });
                     sessionStorage.setItem("answerList", JSON.stringify(data.questionList));

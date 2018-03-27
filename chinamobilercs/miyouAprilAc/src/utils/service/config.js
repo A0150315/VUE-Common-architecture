@@ -18,4 +18,6 @@ export default {
     prankPush: `/fool/prank/push`,//好友的回调接口
     indexToken: `/fool/enter/index`,//首页的token验证
     answerToken: `/fool/enter/answer/index`,//答题的token验证
+    hallMessage: `/fool/tfooldayactivity/hallchllngstat`,//大厅挑战信息接口
+    ERROR_HTML,
 }

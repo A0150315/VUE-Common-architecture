@@ -87,15 +87,15 @@
             },
             randomNumber() {
                 if (
-                    this.allTopics.length <= this.randomNumberRecord.filter(n => n).length
+                    this.allTopics.length - 1 <= this.randomNumberRecord.filter(n => n).length
                 ) {
                     this.randomNumberRecord = [];
                     this.topicsIndexs.forEach(num => {
                         this.$set(this.randomNumberRecord, num, num);
                     });
                 }
-                const length = this.allTopics.length - 1;
-                let num = parseInt(Math.random() * (length + 1));
+                const length = this.allTopics.length;
+                let num = parseInt(Math.random() * length);
                 for (let i = 0; i < length; i++) {
                     if (this.topicsIndexs[i] === num || this.randomNumberRecord[num]) {
                         num = this.randomNumber();

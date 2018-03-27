@@ -7,11 +7,11 @@
                     <img src="../assets/img/我的战绩.png" alt="">
                 </div>
                 <div class="my-info">
-                    <router-link class="info" to="index/record">
+                    <router-link class="info" :to="{path: 'index/record', query: {sign: 0}}">
                         <p><span class="number">{{this.prankSuccess}}</span><span>位</span></p>
                         <p>成功整蛊好友></p>
                     </router-link>
-                    <router-link class="info" to="index/record">
+                    <router-link class="info" :to="{path: 'index/record', query: {sign: 1}}">
                         <p><span class="number">{{this.congratulation}}</span><span>位</span></p>
                         <p>成功识破整蛊></p>
                     </router-link>
