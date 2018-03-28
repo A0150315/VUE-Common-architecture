@@ -142,7 +142,7 @@ class CommonCenter {
         document.title = _title;
         var iframe = document.createElement("iframe");
         iframe.style.display = "none";
-        iframe.setAttribute("src", "static/favicon.ico");
+        // iframe.setAttribute("src", "static/favicon.ico");
         var d = function () {
             setTimeout(function () {
                 iframe.removeEventListener('load', d);
