@@ -8,7 +8,7 @@
 				<div class="section__img">
 					<div class="section__name">省内流量包</div>
 					<div class="section__num">1G</div>
-					<div class="section__time">截止兑换时间：2018年5月4日</div>
+					<div class="section__time">截止兑换时间：2018年5月31日</div>
 				</div>
 			</section>
 	

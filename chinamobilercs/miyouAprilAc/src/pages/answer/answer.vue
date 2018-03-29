@@ -86,7 +86,9 @@
                         answer: answer.questionOptionId
                     };
                 });
+                Indicator.open();
                 const {code, data} = await Ajax.answer(answerList);
+                Indicator.close();
                 if (code === 0) {
                     //   //插入成功执行的操作
                     this.$router.replace({
@@ -111,10 +113,12 @@
                         const answer = e.optionList[this.selectedIndexs[i]];
                         return answer.questionId + ':' + answer.questionOptionId;
                     });
+                    Indicator.open();
                     const {prankId, isSuccess, rightCount} = await Ajax.freindChanllenge({
                         'userTemplateId': this.userTemplateId,
                         'isPass': answerList.join(',')
                     });
+                    Indicator.close();
                     //   //插入成功执行的操作
                     var userTemplateId = this.userTemplateId
                     this.$router.replace({
