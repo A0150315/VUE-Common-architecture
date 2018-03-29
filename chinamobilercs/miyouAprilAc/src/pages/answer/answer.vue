@@ -34,7 +34,7 @@
 <script>
     import mokedata from "../../test/mockData.js";
     import Ajax from "../../utils/service";
-    import { Indicator } from 'mint-ui'
+    import {Indicator} from 'mint-ui'
     import Topic from "../../components/Topic.vue";
     import TopicInteraction from "../../components/TopicInteraction.vue";
     import Bottom_bg from "../../components/Bottom-bg.vue";
@@ -52,7 +52,7 @@
                 current: 0,
                 selectedIndexs: {},
                 userTemplateId: 0,
-                commitStatus: true, //用做多提交按钮的多次点击进行限制
+//                commitStatus: true, //用做多提交按钮的多次点击进行限制
                 showStatus: false,  //用做数据完全显示的状态
             };
         },
@@ -79,6 +79,7 @@
                 console.log(this.topics.length, this.selectedIndexsLength);
             },
             async goNextPage() {
+                Indicator.open();
                 const answerList = this.topics.map((e, i) => {
                     const answer = e.optionList[this.selectedIndexs[i]];
                     return {
@@ -86,9 +87,7 @@
                         answer: answer.questionOptionId
                     };
                 });
-                Indicator.open();
                 const {code, data} = await Ajax.answer(answerList);
-                Indicator.close();
                 if (code === 0) {
                     //   //插入成功执行的操作
                     this.$router.replace({
@@ -103,36 +102,37 @@
                         }
                     });
                     sessionStorage.setItem("answerList", JSON.stringify(data.questionList));
+                } else {
+                    window.location.href = URL.ERROR_HTML;
+                    return;
                 }
+                Indicator.close();
             },
             /* 好友分享进来的接口处理调用 */
             async goNextPage1() {
-                if (this.commitStatus) {
-                    this.commitStatus = false;
-                    const answerList = this.topics.map((e, i) => {
-                        const answer = e.optionList[this.selectedIndexs[i]];
-                        return answer.questionId + ':' + answer.questionOptionId;
-                    });
-                    Indicator.open();
-                    const {prankId, isSuccess, rightCount, isDrawPrize} = await Ajax.freindChanllenge({
-                        'userTemplateId': this.userTemplateId,
-                        'isPass': answerList.join(',')
-                    });
-                    Indicator.close();
-                    //   //插入成功执行的操作
-                    var userTemplateId = this.userTemplateId
-                    this.$router.replace({
-                        path: ':event/result',
-                        query: {
-                            isPass: isSuccess === '1'? true:false,
-                            rightNum: rightCount,
-                            isXiaomi: false,
-                            userTemplateId: userTemplateId,
-                            prankId: prankId,
-                            isDrawPrize: isDrawPrize
-                        }
-                    });
-                }
+                Indicator.open();
+                const answerList = this.topics.map((e, i) => {
+                    const answer = e.optionList[this.selectedIndexs[i]];
+                    return answer.questionId + ':' + answer.questionOptionId;
+                });
+                const {prankId, isSuccess, rightCount, isDrawPrize} = await Ajax.freindChanllenge({
+                    'userTemplateId': this.userTemplateId,
+                    'isPass': answerList.join(',')
+                });
+                //   //插入成功执行的操作
+                var userTemplateId = this.userTemplateId
+                this.$router.replace({
+                    path: ':event/result',
+                    query: {
+                        isPass: isSuccess === '1' ? true : false,
+                        rightNum: rightCount,
+                        isXiaomi: false,
+                        userTemplateId: userTemplateId,
+                        prankId: prankId,
+                        isDrawPrize: isDrawPrize
+                    }
+                });
+                Indicator.close();
             },
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
@@ -144,7 +144,7 @@
                         this.$router.replace({
                             path: ':from/checkanswer',
                             query: {
-                                QuestionList:list
+                                QuestionList: list
                             }
                         });
                         return false;
@@ -157,12 +157,12 @@
                             this.$router.replace({
                                 path: `:event/result`,
                                 query: {
-                                    isPass: isSuccess === '1'? true:false,
+                                    isPass: isSuccess === '1' ? true : false,
                                     rightNum: rightCount,
                                     isXiaomi: false,
                                     prankId: prankId,
                                     userTemplateId: userTemplateId,
-                                    isDrawPrize : isDrawPrize
+                                    isDrawPrize: isDrawPrize
                                 }
                             });
                             return;
@@ -176,7 +176,7 @@
                     /* 满三次后跳转到整蛊大厅 */
                     if (code === 303) {
                         this.$router.replace('prankHall');
-                        return ;
+                        return;
                     }
                     this.showStatus = true;
                     this.topics = data;
@@ -189,10 +189,10 @@
             var theRequest = new Object();
             var n = url.indexOf("?")
             if (n != -1) {
-                var str = url.substr(n+1);
+                var str = url.substr(n + 1);
                 var strs = str.split("&");
-                for(var i = 0; i < strs.length; i ++) {
-                    theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
                 }
             }
             var token = theRequest.token;
@@ -207,7 +207,7 @@
                     } else {
                         Indicator.close();
                         window.location.href = URL.ERROR_HTML;
-                        return ;
+                        return;
                     }
                 })
             } else {
