@@ -16,7 +16,7 @@
                 :goPreTopic=goPreTopic
                 :goNextTopic=goNextTopic
                 buttonText="提交"
-                :buttonFunC=userTemplateId?goNextPage1:goNextPage
+                :buttonFunC="commitStatus?(userTemplateId?goNextPage1:goNextPage):''"
         />
     </div>
 </template>
@@ -52,7 +52,7 @@
                 current: 0,
                 selectedIndexs: {},
                 userTemplateId: 0,
-//                commitStatus: true, //用做多提交按钮的多次点击进行限制
+                commitStatus: true, //用做多提交按钮的多次点击进行限制
                 showStatus: false,  //用做数据完全显示的状态
             };
         },
@@ -78,8 +78,8 @@
                 if (this.current < this.topics.length - 1) this.current++;
                 console.log(this.topics.length, this.selectedIndexsLength);
             },
-            async goNextPage() {
-                Indicator.open();
+            goNextPage() {
+                this.commitStatus = false;
                 const answerList = this.topics.map((e, i) => {
                     const answer = e.optionList[this.selectedIndexs[i]];
                     return {
@@ -87,52 +87,61 @@
                         answer: answer.questionOptionId
                     };
                 });
-                const {code, data} = await Ajax.answer(answerList);
-                if (code === 0) {
-                    //   //插入成功执行的操作
-                    this.$router.replace({
-                        path: `${this.$route.fullPath}/result`,
-                        query: {
-                            isPass: data.isPass,
-                            rightNum: data.rightNum,
-                            isXiaomi: true,
-                            userTemplateId: 0,
-                            prankId: data.prankId,
-                            isDrawable: data.isDrawable
-                        }
-                    });
-                    sessionStorage.setItem("answerList", JSON.stringify(data.questionList));
-                } else {
-                    window.location.href = URL.ERROR_HTML;
-                    return;
-                }
-                Indicator.close();
+                Indicator.open();
+                Ajax.answer(answerList).then((res) => {
+                    Indicator.close();
+                    if (res.code === 0) {
+                        //   //插入成功执行的操作
+                        sessionStorage.setItem("answerList", JSON.stringify(res.data.questionList));
+                        this.$router.replace({
+                            path: `${this.$route.fullPath}/result`,
+                            query: {
+                                isPass: res.data.isPass,
+                                rightNum: res.data.rightNum,
+                                isXiaomi: true,
+                                userTemplateId: 0,
+                                prankId: res.data.prankId,
+                                isDrawable: res.data.isDrawable
+                            }
+                        });
+                    } else {
+                        window.location.href = URL.ERROR_HTML;
+                        return;
+                    }
+                });
             },
             /* 好友分享进来的接口处理调用 */
-            async goNextPage1() {
-                Indicator.open();
+            goNextPage1() {
+                this.commitStatus = false;
                 const answerList = this.topics.map((e, i) => {
                     const answer = e.optionList[this.selectedIndexs[i]];
                     return answer.questionId + ':' + answer.questionOptionId;
                 });
-                const {prankId, isSuccess, rightCount, isDrawPrize} = await Ajax.freindChanllenge({
+                Indicator.open();
+                Ajax.freindChanllenge({
                     'userTemplateId': this.userTemplateId,
                     'isPass': answerList.join(',')
-                });
-                //   //插入成功执行的操作
-                var userTemplateId = this.userTemplateId
-                this.$router.replace({
-                    path: ':event/result',
-                    query: {
-                        isPass: isSuccess === '1' ? true : false,
-                        rightNum: rightCount,
-                        isXiaomi: false,
-                        userTemplateId: userTemplateId,
-                        prankId: prankId,
-                        isDrawPrize: isDrawPrize
+                }).then((res) => {
+                    Indicator.close();
+                    //   //插入成功执行的操作
+                    if (res.code !== '1') {
+                        var userTemplateId = this.userTemplateId
+                        this.$router.replace({
+                            path: ':event/result',
+                            query: {
+                                isPass: res.isSuccess === '1' ? true : false,
+                                rightNum: res.rightCount,
+                                isXiaomi: false,
+                                userTemplateId: userTemplateId,
+                                prankId: res.prankId,
+                                isDrawPrize: res.isDrawPrize
+                            }
+                        });
+                    } else {
+                        window.location.href = URL.ERROR_HTML;
+                        return;
                     }
                 });
-                Indicator.close();
             },
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
@@ -214,5 +223,8 @@
                 this.getTopic();
             }
         },
+        destroyed() {
+            this.commitStatus = false;
+        }
     };
 </script>

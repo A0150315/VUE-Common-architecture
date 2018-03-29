@@ -136,8 +136,8 @@
                 var _parms = {
                     "title": "你真的懂我吗，做几道题就知道了",
                     "summary": "答对3题就送1G流量",
-                    "url": "http://" + window.location.host + "/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
-//                    "url": "http://" + window.location.host + "/miyoufm/foolac/dist/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
+//                    "url": "http://" + window.location.host + "/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
+                    "url": "http://" + window.location.host + "/miyoufm/foolac/dist/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
                     "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
                     "phone": "13802885145",
                     "authorName": "yuanlin"
