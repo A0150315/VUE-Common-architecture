@@ -94,13 +94,14 @@ export default {
     };
   },
   mounted() {
-    const { isPass, isXiaomi, rightNum, userTemplateId, prankId, isDrawable } = this.$route.query;
+    const { isPass, isXiaomi, rightNum, userTemplateId, prankId, isDrawable, isDrawPrize } = this.$route.query;
     this.isXiaomi = (isXiaomi === 'true' || isXiaomi === true) ? true: false;
     this.isCorrect = (isPass === 'true' || isPass === true) ? true: false;
     this.rightNum = rightNum;
       this.userTemplateId = userTemplateId;
       this.prankId = prankId;
       this.isDrawable = (isDrawable === 'true' || isDrawable === true) ? true: false;
+      this.isDrawPrize = isDrawPrize;
   },
     methods: {
       /* 领取卡卷的接口 */
@@ -116,6 +117,9 @@ export default {
                     rules: [],
                     confirmBtnTxt: ''
                 };
+            if (this.isDrawPrize === '0') {
+                this.showAlert.contentTxt = '识破好友最高只能获得5G奖励，您达到上限了哦，去整蛊好友获得奖励吧！';
+            }
             this.alertStatus = true;
 //            Ajax.getCardStatus({'prankId':this.prankId}).then((res) => {
 //                Indicator.close();

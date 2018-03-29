@@ -114,7 +114,7 @@
                         return answer.questionId + ':' + answer.questionOptionId;
                     });
                     Indicator.open();
-                    const {prankId, isSuccess, rightCount} = await Ajax.freindChanllenge({
+                    const {prankId, isSuccess, rightCount, isDrawPrize} = await Ajax.freindChanllenge({
                         'userTemplateId': this.userTemplateId,
                         'isPass': answerList.join(',')
                     });
@@ -128,7 +128,8 @@
                             rightNum: rightCount,
                             isXiaomi: false,
                             userTemplateId: userTemplateId,
-                            prankId: prankId
+                            prankId: prankId,
+                            isDrawPrize: isDrawPrize
                         }
                     });
                 }
@@ -136,7 +137,7 @@
             async getTopic() {
                 /* 查看答案存在两个入口，一个是大厅，一个是好友分享，故而拿到地址参数userTemplateId来进行判断 */
                 if (this.userTemplateId) {
-                    const {code, QuestionList, isSuccess, rightCount, prankId, user, list} = await Ajax.freindQuestionList(this.userTemplateId)
+                    const {code, QuestionList, isSuccess, rightCount, prankId, user, list, isDrawPrize} = await Ajax.freindQuestionList(this.userTemplateId)
                     Indicator.close();
                     if (user === '1') {
 //                        alert('myself')
@@ -160,7 +161,8 @@
                                     rightNum: rightCount,
                                     isXiaomi: false,
                                     prankId: prankId,
-                                    userTemplateId: userTemplateId
+                                    userTemplateId: userTemplateId,
+                                    isDrawPrize : isDrawPrize
                                 }
                             });
                             return;
