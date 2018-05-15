@@ -20,195 +20,210 @@
     </div>
 </template>
 <style lang="postcss" scoped>
-    .answertopic {
-        font-size: 0.3rem;
-        height: 100vh;
-    }
+.answertopic {
+  font-size: 0.3rem;
+  height: 100vh;
+}
 
-    .answertopic__topiccount {
-        font-size: 1rem;
-        font-weight: bold;
-    }
+.answertopic__topiccount {
+  font-size: 1rem;
+  font-weight: bold;
+}
 </style>
 <script>
-    import mokedata from "../../test/mockData.js";
-    import Ajax from "../../utils/service";
+import mokedata from "../../test/mockData.js";
+import Ajax from "../../utils/service";
 
-    import Topic from "../../components/Topic.vue";
-    import TopicInteraction from "../../components/TopicInteraction.vue";
-    import Bottom_bg from "../../components/Bottom-bg.vue";
-    import RefreshBottom from "../../components/RefreshBottom.vue";
-    import { Indicator } from 'mint-ui'
-    export default {
-        metaInfo: {
-            title: "制作题目"
-        },
-        data() {
-            return {
-                topics: [],
-                allTopics: [],
-                current: 0,
-                selectedIndexs: {},
-                topicsIndexs: [],
-                userTemplateId: "",
-                preAgain: false
-            };
-        },
-        components: {
-            Topic,
-            TopicInteraction,
-            Bottom_bg,
-            RefreshBottom
-        },
-        computed: {
-            selectedIndexsLength() {
-                return Object.keys(this.selectedIndexs).length;
-            }
-        },
-        methods: {
-            setSelectedIndex(index) {
-                this.$set(this.selectedIndexs, this.current, index);
-            },
-            goPreTopic() {
-                if (this.current > 0) this.current--;
-            },
-            goNextTopic() {
-                if (this.current < this.topics.length - 1) this.current++;
-            },
-            changeTopic() {
-                const randomNumber = this.randomNumber();
-                this.$set(this.topics, this.current, this.allTopics[randomNumber]); //刷新题目
-                this.$set(this.topicsIndexs, this.current, randomNumber); //刷新题目
-                const tempObject = {...this.selectedIndexs};
-                delete tempObject[this.current];
-                this.selectedIndexs = tempObject;
-            },
-            randomNumber() {
-                const length = this.allTopics.length - 1;
-                let num = parseInt(Math.random() * (length + 1));
-                for (let i = 0; i < length; i++) {
-                    if (this.topicsIndexs[i] === num) {
-                        num = this.randomNumber();
-                        break;
-                    }
-                }
-                return num;
-            },
-            async insertQuestion(callback) {
-                Indicator.open();
-                if (this.preAgain) {
-                    return ;
-                }
-                this.preAgain = true;
-                const answerList = this.topics.map((e, i) => {
-                    const answer = e.optionList[this.selectedIndexs[i]];
-                    return {
-                        questionId: answer.questionId,
-                        answer: answer.questionOptionId
-                    };
-                });
-                if (!this.userTemplateId) {
-                    const {code, data} = await Ajax.insertQuestion(answerList);
-                    if (code === 0) {
-                        this.userTemplateId = data.userTemplateId;
-//                        alert('inert questions')
-                    } else {
-//                        alert(data.msg)
-                    }
-                } else {
-//                    alert('had questions')
-                    this.userTemplateId = this.userTemplateId.userTemplateId
-                }
-                window.forwardSuccess = this.forwardSuccess;
-                window.vm = this;
-                //插入成功执行的操作
-                var _parms = {
-                    "title": "你真的懂我吗，做几道题就知道了",
-                    "summary": "答对3题就送1G流量",
-                    "url": "http://"+window.location.host+"/foolday/index.html#/index/answer?userTemplateId=" + this.userTemplateId,
-                    "imageUrl": "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
-                    "phone": "13802885145",
-                    "authorName": "yuanlin"
-                };
-                Indicator.close();
-                if (window.local_method) {
-                    // Call Android interface
-                    window.local_method.passForwardDetail(JSON.stringify(_parms));
-                } else if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.passForwardDetail) {
-                    // Call iOS interface
-//                    alert("IOS")
-                    window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
-                } else {
-                    // No Android or iOS interface found
-                    alert("No native APIs found.");
-                }
-            },
-            /* 客户端点击确定后的回调接口函数 */
-            forwardSuccess (res) {
-//                alert(JSON.stringify(res))
-                /* 客户端iOS传的是字符串 */
-                if (typeof(res) === String) {
-                    res = JSON.parse(res)
-                }
-                var challengeUserMobile = res.forwardNum || res.groupId;
-                var challengeUsername = res.forwardName || res.groupName;
-                if (res.groupName && res.groupId) {
-                    var type = 2;
-                } else {
-                    var type = 1;
-                }
-//                alert("xingmin--" + res.forwardNum)
-                /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
-//                alert(window.vm.userTemplateId)
-                Ajax.prankPush({
-                    challengeUserMobile: challengeUserMobile,
-                    challengeUsername: challengeUsername,
-                    userTemplateId: window.vm.userTemplateId,
-                    type: type
-                }).then((res) => {
-//                    alert(res.code);
-                    if (res.code === 0) {
-                        window.vm.$router.back();
-                    }
-                })
-            },
-            async getNewList() {
-                const {data} = await Ajax.getAllQuestion();
-                Indicator.close();
-                this.allTopics = data;
-                for (let i = 0; i < 5; i++) {
-                    const randomNumber = this.randomNumber();
-                    this.topicsIndexs.push(randomNumber);
-                    this.topics.push(data[randomNumber]);
-                }
-            },
-            async olderList({query}) {
-                this.userTemplateId = query;
-                const {data} = await Ajax.getQuestionList({userTemplateId: query});
-                Indicator.close();
-                this.topics = data;
-                this.selectedIndexs = Object(data.map(e => e.answerIndex));
-            }
-        }
-        ,
-        mounted()
-        {
-            Indicator.open();
-            if (this.$route.query.userTemplateId) {
-                this.olderList({
-                    query: this.$route.query
-                });
-            } else {
-                this.getNewList();
-            }
-        }
-        ,
-        beforeRouteLeave(to, from, next)
-        {
-            next();
-        }
+import Topic from "../../components/Topic.vue";
+import TopicInteraction from "../../components/TopicInteraction.vue";
+import Bottom_bg from "../../components/Bottom-bg.vue";
+import RefreshBottom from "../../components/RefreshBottom.vue";
+import { Indicator } from "mint-ui";
+export default {
+  metaInfo: {
+    title: "制作题目"
+  },
+  data() {
+    return {
+      topics: [],
+      allTopics: [],
+      current: 0,
+      selectedIndexs: {},
+      topicsIndexs: [],
+      userTemplateId: "",
+      preAgain: false,
+      randomNumberRecord: []
+    };
+  },
+  components: {
+    Topic,
+    TopicInteraction,
+    Bottom_bg,
+    RefreshBottom
+  },
+  computed: {
+    selectedIndexsLength() {
+      return Object.keys(this.selectedIndexs).length;
     }
-    ;
+  },
+  methods: {
+    setSelectedIndex(index) {
+      this.$set(this.selectedIndexs, this.current, index);
+    },
+    goPreTopic() {
+      if (this.current > 0) this.current--;
+    },
+    goNextTopic() {
+      if (this.current < this.topics.length - 1) this.current++;
+    },
+    changeTopic() {
+      const randomNumber = this.randomNumber();
+      if (this.topicsIndexs[this.current] === randomNumber) return;
+      this.$set(this.topics, this.current, this.allTopics[randomNumber]); //刷新题目
+      this.$set(this.topicsIndexs, this.current, randomNumber); //刷新题目
+      const tempObject = { ...this.selectedIndexs };
+      delete tempObject[this.current];
+      this.selectedIndexs = tempObject;
+    },
+    randomNumber() {
+      if (
+        this.allTopics.length <= this.randomNumberRecord.filter(n => n).length
+      ) {
+        this.randomNumberRecord = [];
+        this.topicsIndexs.forEach(num => {
+          this.$set(this.randomNumberRecord, num, num);
+        });
+      }
+      const length = this.allTopics.length - 1;
+      let num = parseInt(Math.random() * (length + 1));
+      for (let i = 0; i < length; i++) {
+        if (this.topicsIndexs[i] === num || this.randomNumberRecord[num]) {
+          num = this.randomNumber();
+          break;
+        }
+      }
+      this.$set(this.randomNumberRecord, num, num);
+      return num;
+    },
+    async insertQuestion(callback) {
+      Indicator.open();
+      if (this.preAgain) {
+        return;
+      }
+      this.preAgain = true;
+      const answerList = this.topics.map((e, i) => {
+        const answer = e.optionList[this.selectedIndexs[i]];
+        return {
+          questionId: answer.questionId,
+          answer: answer.questionOptionId
+        };
+      });
+      if (!this.userTemplateId) {
+        const { code, data } = await Ajax.insertQuestion(answerList);
+        if (code === 0) {
+          this.userTemplateId = data.userTemplateId;
+          //                        alert('inert questions')
+        } else {
+          //                        alert(data.msg)
+        }
+      } else {
+        //                    alert('had questions')
+        this.userTemplateId = this.userTemplateId.userTemplateId;
+      }
+      window.forwardSuccess = this.forwardSuccess;
+      window.vm = this;
+      //插入成功执行的操作
+      var _parms = {
+        title: "你真的懂我吗，做几道题就知道了",
+        summary: "答对3题就送1G流量",
+        url:
+          "http://" +
+          window.location.host +
+          "/foolday/index.html#/index/answer?userTemplateId=" +
+          this.userTemplateId,
+        imageUrl:
+          "http://117.136.240.58:8080/fastdfs/group1/M00/00/56/CgFYaFqxvX6ARJipAAAq3L9TyD4978.png",
+        phone: "13802885145",
+        authorName: "yuanlin"
+      };
+      Indicator.close();
+      if (window.local_method) {
+        // Call Android interface
+        window.local_method.passForwardDetail(JSON.stringify(_parms));
+      } else if (
+        window.webkit &&
+        window.webkit.messageHandlers &&
+        window.webkit.messageHandlers.passForwardDetail
+      ) {
+        // Call iOS interface
+        //                    alert("IOS")
+        window.webkit.messageHandlers.passForwardDetail.postMessage(_parms);
+      } else {
+        // No Android or iOS interface found
+        alert("No native APIs found.");
+      }
+    },
+    /* 客户端点击确定后的回调接口函数 */
+    forwardSuccess(res) {
+      //                alert(JSON.stringify(res))
+      /* 客户端iOS传的是字符串 */
+      if (typeof res === String) {
+        res = JSON.parse(res);
+      }
+      var challengeUserMobile = res.forwardNum || res.groupId;
+      var challengeUsername = res.forwardName || res.groupName;
+      if (res.groupName && res.groupId) {
+        var type = 2;
+      } else {
+        var type = 1;
+      }
+      //                alert("xingmin--" + res.forwardNum)
+      /* 将客户端的信息发送给后台后，跳转到个人定义题目列表页面 */
+      //                alert(window.vm.userTemplateId)
+      Ajax.prankPush({
+        challengeUserMobile: challengeUserMobile,
+        challengeUsername: challengeUsername,
+        userTemplateId: window.vm.userTemplateId,
+        type: type
+      }).then(res => {
+        //                    alert(res.code);
+        if (res.code === 0) {
+          window.vm.$router.back();
+        }
+      });
+    },
+    async getNewList() {
+      const { data } = await Ajax.getAllQuestion();
+      Indicator.close();
+      this.allTopics = data;
+      for (let i = 0; i < 5; i++) {
+        const randomNumber = this.randomNumber();
+        this.topicsIndexs.push(randomNumber);
+        this.topics.push(data[randomNumber]);
+      }
+    },
+    async olderList({ query }) {
+      this.userTemplateId = query;
+      const { data } = await Ajax.getQuestionList({ userTemplateId: query });
+      Indicator.close();
+      this.topics = data;
+      this.selectedIndexs = Object(data.map(e => e.answerIndex));
+    }
+  },
+  mounted() {
+    Indicator.open();
+    if (this.$route.query.userTemplateId) {
+      this.olderList({
+        query: this.$route.query
+      });
+    } else {
+      this.getNewList();
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    next();
+  }
+};
 </script>
 
 
