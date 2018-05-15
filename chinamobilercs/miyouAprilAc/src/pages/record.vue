@@ -6,13 +6,13 @@
 		</header>
 		<div id="mainContent" class="iconfont" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
 			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 1'>
-				<span>{{item.challengeUsername}}</span>
-				<img class="right" src='../assets/img/trickFail.png' v-if="item.isPass == '0'" />
-				<img class="right" src='../assets/img/trickSuccess.png' v-if="item.isPass == '1'" />
+				<span>{{item.challengeUsername == null ? item.challengeUserMobile : item.challengeUsername}}</span>
+				<img class="right" src='../assets/img/trickFail.png' v-if="item.isPass == '1'" />
+				<img class="right" src='../assets/img/trickSuccess.png' v-if="item.isPass == '0'" />
 				<img class="right" src='../assets/img/waitTrick.png' v-if="item.isPass == null" style="width: 1rem;"/>
 			</section>
 			<section v-for='(item,index) in recordList' v-if='showContent && isSelect == 0'>
-				<span>{{item.prankUsername}}</span>
+				<span>{{item.prankUsername == null ? item.prankUserMobile : item.prankUsername}}</span>
 				<img class="right" src='../assets/img/breakFail.png' v-if="item.isPass == '0'" />
 				<img class="right" src='../assets/img/breakSuccess.png' v-if="item.isPass == '1'" />
 			</section>
@@ -61,6 +61,7 @@
 					this.promptMsg = '您还没有挑战过整蛊呢';
 					this.mark = '1';
 					this.recordList = [];
+					this.loading = true;//防止切换标签时重复加载
 					this.getList();
 				} else {
 					this.pageNum = 1;
@@ -69,6 +70,7 @@
 					this.promptMsg = '您还没有整蛊过好友呢';
 					this.mark = '0';
 					this.recordList = [];
+					this.loading = true;//防止切换标签时重复加载
 					this.getList();
 				}
 			},
@@ -156,6 +158,12 @@
 		},
 		mounted() {
 			this.computeHeight();
+			//在这里判断从首页哪里点击进来的
+            if(this.$route.query.sign == '1'){
+			    this.isSelect = 0;
+				this.promptMsg = '您还没有挑战过整蛊呢';
+				this.mark = '1';
+            }
 		}
 	};
 </script>

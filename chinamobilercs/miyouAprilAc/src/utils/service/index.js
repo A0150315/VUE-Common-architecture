@@ -126,6 +126,10 @@ export default {
                 templateId
             }
         })
+    },
+    //获取大厅挑战信息的接口请求
+    hallMessage() {
+        return axios.get(config.hallMessage, {})
     }
     // 封装更多请求
 }

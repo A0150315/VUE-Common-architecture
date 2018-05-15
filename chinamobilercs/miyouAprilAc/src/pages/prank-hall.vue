@@ -6,7 +6,7 @@
                     <img src="../assets/img/我的战绩.png" alt="">
                 </div>
                 <div class="my-info">
-                    <p>累计已挑战 <span>{{challenge}}</span> 位，成功 <span>{{congratulation}}</span> 位</p>
+                    <p>累计已挑战 <span>{{challenge}}</span> 次，成功 <span>{{congratulation}}</span> 次</p>
                 </div>
             </div>
             <ul>
@@ -30,6 +30,7 @@
     import CommonCenter from '../utils/common'
     import request from '../utils/service/index'
     import { Indicator } from 'mint-ui'
+    import URL from '../utils/service/config'
 
     export default {
         components: {
@@ -46,20 +47,23 @@
         },
         created() {
             Indicator.open();
-            this._getStatisticsMessage();
+            this._hallMessage();
         },
         mounted() {
             CommonCenter.setTitle('全民愚人战，整蛊好友领12G')
         },
         methods: {
             /*获取挑战信息接口数据*/
-            _getStatisticsMessage() {
-                request.getStatisticsMessage().then((res) => {
+            _hallMessage() {
+                request.hallMessage().then((res) => {
                     Indicator.close();
                     if (res.code === 0) {
-                        this.challenge = res.tFooldayActivityEntity.challenge;
-                        this.congratulation = res.tFooldayActivityEntity.congratulation;
-                        this.chance = res.tFooldayActivityEntity.chance
+                        this.challenge = res.data.hallChallenge;
+                        this.congratulation = res.data.hallSuccess;
+                        this.chance = res.data.chance;
+                    } else {
+                        window.location.href = URL.ERROR_HTML;
+                        return ;
                     }
                 })
             },
@@ -68,7 +72,7 @@
             },
             /* 跳转到整蛊答题页面 */
             goAnswer() {
-                if (this.chance < 30) {
+                if (this.chance < 3) {
                     this.$router.push('answer')
                 } else {
                     this.showAlert = {

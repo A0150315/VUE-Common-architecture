@@ -1,11 +1,12 @@
 <template>
     <div class="answertopic">
         <Bottom_bg/>
-        <Topic :isMaster=answer.length?true:false
+        <Topic :isMaster=false
                :topics=topics
                :current=current
                :selectedIndexs=selectedIndexs
                :answerList=answerList
+               :isShowAnswer='true'
         />
         <p v-if="answer.length" class="answertopic__right"><span>【答案解析】 </span>{{answer[current]}}</p>
         <TopicInteraction

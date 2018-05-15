@@ -8,7 +8,7 @@
 				<div class="section__img">
 					<div class="section__name">省内流量包</div>
 					<div class="section__num">1G</div>
-					<div class="section__time">截止兑换时间：2018年5月4日</div>
+					<div class="section__time">截止兑换时间：2018年5月31日</div>
 				</div>
 			</section>
 	
@@ -27,7 +27,7 @@
                 alertStatus: false,   //弹框的状态变量
 				showContent: true,
 				promptMsg: '没有奖品',
-				cardList: ''
+				cardList: []
 			}
 		},
 		methods: {
@@ -108,6 +108,7 @@
                     }
                 this.alertStatus = true;
 			});
+			
 			//	this.setHeight = document.body.clientHeight - 28;
 		}
 	};
@@ -137,6 +138,7 @@
     border-bottom-left-radius: 20px;
 		border-bottom-right-radius: 20px;
 		section {
+			position: relative;
 			margin: 0 .3rem;
 			padding: 8px 0;
 			.section__img{
@@ -157,10 +159,11 @@
     		font-size: 0.63rem;
 			}
 			.section__time{
-				  font-size: 0.16rem;
-    			padding-top: .08rem;
+				font-size: 0.16rem;
     			padding-left: 19px;
     			color: #666666;
+    			position: absolute;
+    			bottom: 0.3rem;
 			}
 		}
 	}

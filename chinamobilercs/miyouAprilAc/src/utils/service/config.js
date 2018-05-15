@@ -1,4 +1,5 @@
 const host = `192.168.185.250:20102`;
+const ERROR_HTML = 'http://117.136.240.59:8080/miyoufm/error/error.html';  //错误页面
 export default {
     moke: 'https://free-api.heweather.com/s6/weather/forecast?parameters', // 测试接口
     statisticsMessage: `/fool/tfooldayactivity/statisticsMessage`, //挑战信息接口
@@ -17,4 +18,6 @@ export default {
     prankPush: `/fool/prank/push`,//好友的回调接口
     indexToken: `/fool/enter/index`,//首页的token验证
     answerToken: `/fool/enter/answer/index`,//答题的token验证
+    hallMessage: `/fool/tfooldayactivity/hallchllngstat`,//大厅挑战信息接口
+    ERROR_HTML,
 }

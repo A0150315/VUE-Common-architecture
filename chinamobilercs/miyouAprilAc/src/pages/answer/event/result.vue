@@ -7,7 +7,10 @@
     <p>{{isCorrect?`回答正确${rightNum}道题，挑战成功`:`只回答正确${rightNum}道题`}}</p>
     <p>{{isCorrect?'还是你最懂他':'你被整蛊了哦'}}</p>
     <div class="result__buttons">
-      <span @click="_getCardStatus()" class="result__buttons__blue" v-if="isCorrect">
+      <span @click="_getCardStatus()" class="result__buttons__blue" v-if="isCorrect && !isXiaomi">
+          领取1G流量
+      </span>
+      <span @click="_getCardStatus()" class="result__buttons__blue" v-if="isDrawable">
           领取1G流量
       </span>
       <router-link :to="isXiaomi?'/index/answer':'/index/prankFriend/createtopic'" tag="span" class="result__buttons__orange" replace>
@@ -86,41 +89,58 @@ export default {
       rightNum: 0,
         userTemplateId: 0,
         showAlert: {},
-        alertStatus: false
+        alertStatus: false,
+        isDrawable :false,
     };
   },
   mounted() {
-    const { isPass, isXiaomi, rightNum, userTemplateId, prankId } = this.$route.query;
+    const { isPass, isXiaomi, rightNum, userTemplateId, prankId, isDrawable, isDrawPrize } = this.$route.query;
     this.isXiaomi = (isXiaomi === 'true' || isXiaomi === true) ? true: false;
     this.isCorrect = (isPass === 'true' || isPass === true) ? true: false;
     this.rightNum = rightNum;
       this.userTemplateId = userTemplateId;
       this.prankId = prankId;
+      this.isDrawable = (isDrawable === 'true' || isDrawable === true) ? true: false;
+      this.isDrawPrize = isDrawPrize;
   },
     methods: {
       /* 领取卡卷的接口 */
         _getCardStatus() {
-            Indicator.open();
-            Ajax.getCardStatus({'prankId':this.prankId}).then((res) => {
-                Indicator.close();
-                this.showAlert = {
+            this.showAlert = {
                     tipImgUrl: '',
                     tipImgWidth: 0,
                     tipImgHeight: 0,
-                    contentTxt: '',
+                    contentTxt: '1G流量包领取成功,24小时之内放到您的“我-卡卷中”',
                     CloseIcon: true,
                     CloseBtn: false,
                     confirmBtn: false,
                     rules: [],
                     confirmBtnTxt: ''
                 };
-                if (res.code === 0) {
-                    this.showAlert.contentTxt = '1G流量包领取成功,24小时之内放到您的“我-卡卷中”'
-                } else {
-                    this.showAlert.contentTxt = res.msg
-                }
-                this.alertStatus = true;
-            })
+            if (this.isDrawPrize === '0') {
+                this.showAlert.contentTxt = '识破好友最高只能获得5G奖励，您达到上限了哦，去整蛊好友获得奖励吧！';
+            }
+            this.alertStatus = true;
+//            Ajax.getCardStatus({'prankId':this.prankId}).then((res) => {
+//                Indicator.close();
+//                this.showAlert = {
+//                    tipImgUrl: '',
+//                    tipImgWidth: 0,
+//                    tipImgHeight: 0,
+//                    contentTxt: '',
+//                    CloseIcon: true,
+//                    CloseBtn: false,
+//                    confirmBtn: false,
+//                    rules: [],
+//                    confirmBtnTxt: ''
+//                };
+//                if (res.code === 0) {
+//                    this.showAlert.contentTxt = '1G流量包领取成功,24小时之内放到您的“我-卡卷中”'
+//                } else {
+//                    this.showAlert.contentTxt = res.msg
+//                }
+//                this.alertStatus = true;
+//            })
         },
         closeAlert () {
             this.alertStatus = false;

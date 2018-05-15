@@ -4,7 +4,7 @@
             <li class="create-topic" @click="goTopic()">
                 <p><span class="add-icon"></span>制作题目</p>
             </li>
-            <li @click="goTopic(item.userTemplateId)" v-if="prankList.length" v-for="(item,index) in prankList" :key="index">
+            <li @click="goTopic(item.userTemplateId, item.title)" v-if="prankList.length" v-for="(item,index) in prankList" :key="index">
                 <p class="topic-title">{{item.title}} <i class="iconfont icon-gengduo"></i></p>
             </li>
         </ul>
@@ -22,6 +22,7 @@ import request from "../utils/service/index";
 import bottomBg from "../components/Bottom-bg.vue";
 import CommonCenter from "../utils/common";
 import { Indicator } from 'mint-ui'
+import URL from '../utils/service/config'
 
 export default {
   components: {
@@ -45,7 +46,8 @@ export default {
         ],
         confirmBtnTxt: "确定"
       },
-      alertStatus: false //弹框的状态变量
+      alertStatus: false, //弹框的状态变量
+        preAgain: false  //防止按钮多次点击
     };
   },
   created() {
@@ -53,6 +55,7 @@ export default {
     this._getMyPrankList();
   },
   mounted() {
+      this.preAgain = false;
     CommonCenter.setTitle("整蛊好友");
   },
   methods: {
@@ -62,11 +65,17 @@ export default {
           Indicator.close();
         if (res.code === 0) {
           this.prankList = res.data;
+        } else {
+            window.location.href = URL.ERROR_HTML;
+            return ;
         }
       });
     },
     /* 跳转到自定义题目库 */
-    goTopic(id) {
+    goTopic(id, title) {
+        if (this.preAgain) return ;
+        this.preAgain = true;
+        sessionStorage.setItem('title', title);
       this.$router.push({
         path: `${this.$route.fullPath}/createtopic`,
         query: { userTemplateId: id }
