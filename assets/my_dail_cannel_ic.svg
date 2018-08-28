@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="18px" viewBox="0 0 23 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>my_dail_cannel_ic</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="P5_1拨号盘" transform="translate(-301.000000, -526.000000)">
+            <g id="Group-17" transform="translate(0.000000, 276.000000)">
+                <g id="Group-11" transform="translate(250.000000, 231.000000)">
+                    <g id="my_dail_cannel_ic" transform="translate(51.000000, 19.000000)">
+                        <path d="M7.14917122,1 L1.24299838,9 L7.14917122,17 L20.9944878,17 C21.5482371,17 22,16.5513182 22,16.0049107 L22,1.99508929 C22,1.4463352 21.5512384,1 20.9944878,1 L7.14917122,1 Z" id="Rectangle-2" stroke="#888888" stroke-width="2"></path>
+                        <path d="M13.6767767,8.6767767 L19.1767767,8.6767767 L19.1767767,9.6767767 L13.6767767,9.6767767 L13.6767767,15.1767767 L12.6767767,15.1767767 L12.6767767,9.6767767 L7.1767767,9.6767767 L7.1767767,8.6767767 L12.6767767,8.6767767 L12.6767767,3.1767767 L13.6767767,3.1767767 L13.6767767,8.6767767 Z" id="Combined-Shape" fill="#888888" transform="translate(13.176777, 9.176777) rotate(45.000000) translate(-13.176777, -9.176777) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

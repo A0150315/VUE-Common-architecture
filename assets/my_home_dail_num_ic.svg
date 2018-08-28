@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="25px" viewBox="0 0 20 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>my_home_dail_num_ic</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.5">
+        <g id="P5_1拨号盘" transform="translate(-53.000000, -522.000000)" fill="#888888">
+            <g id="Group-17" transform="translate(0.000000, 276.000000)">
+                <g id="Group-11" transform="translate(0.500000, 230.500000)">
+                    <g id="my_home_dail_num_ic" transform="translate(62.500000, 28.000000) scale(1, -1) translate(-62.500000, -28.000000) translate(53.000000, 16.000000)">
+                        <circle id="Oval-3" cx="2" cy="2" r="2"></circle>
+                        <circle id="Oval-3" cx="10" cy="2" r="2"></circle>
+                        <circle id="Oval-3" cx="17" cy="2" r="2"></circle>
+                        <circle id="Oval-3" cx="2" cy="9" r="2"></circle>
+                        <circle id="Oval-3" cx="10" cy="9" r="2"></circle>
+                        <circle id="Oval-3" cx="17" cy="9" r="2"></circle>
+                        <circle id="Oval-3" cx="2" cy="15" r="2"></circle>
+                        <circle id="Oval-3" cx="10" cy="15" r="2"></circle>
+                        <circle id="Oval-3" cx="10" cy="22" r="2"></circle>
+                        <circle id="Oval-3" cx="17" cy="15" r="2"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

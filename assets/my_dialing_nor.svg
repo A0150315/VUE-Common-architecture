@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>my_dialing_nor</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="32" cy="32" r="32"></circle>
+        <filter x="-10.9%" y="-7.8%" width="121.9%" height="121.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.423529412   0 0 0 0 0.780392157   0 0 0 0 0.149019608  0 0 0 0.278051404 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M43.4938517,42.186739 C43.0544265,43.0358466 42.4394232,43.7813343 41.6886586,44.3742704 C40.2667632,45.5649399 38.3747404,46.0326687 36.5623514,45.6402562 L36.4831973,45.7030998 C32.4962294,44.1195381 28.6124017,40.9154762 25.5671277,37.0244527 C23.014528,33.6524882 21.1839097,29.7902479 20.1894464,25.6795118 L20.2647627,25.6219452 C19.5264708,23.5831276 20.3568693,20.9878326 22.4479766,19.3279952 C23.0816891,18.821409 23.802711,18.4361924 24.5750631,18.1905748 C25.6841799,17.9794972 26.7270951,17.9123362 27.3536117,18.1521971 C28.8815257,19.1356268 31.0177268,23.5394729 29.7872404,25.6651202 C28.9966589,26.9843551 27.9297576,27.0606309 26.1936444,27.5499471 C27.0441912,29.741796 28.2252662,31.7897284 29.6956136,33.6232251 C31.1079145,35.5421123 32.8382711,37.2053078 34.8118466,38.5403736 C35.6959738,36.9961491 35.6614339,35.9834564 37.4229723,35.6001587 C39.8805871,35.249482 43.4310082,38.0755232 43.9999582,39.8212308 C44.0033163,40.6425145 43.8042317,41.4518052 43.4199746,42.1766648 C43.4439606,42.1819418 43.4689062,42.1819418 43.4938517,42.186739 Z" id="path-3"></path>
+        <filter x="-14.6%" y="-9.0%" width="129.2%" height="125.2%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.406393124   0 0 0 0 0.714285714   0 0 0 0 0.16955267  0 0 0 0.763303895 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="P5_1拨号盘" transform="translate(-152.000000, -581.000000)">
+            <g id="Group-17" transform="translate(0.000000, 276.000000)">
+                <g id="my_dialing_nor" transform="translate(156.000000, 307.000000)">
+                    <g id="Oval-4">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#6CC726" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <g id="Stroke-1">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
