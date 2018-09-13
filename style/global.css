@@ -1,5 +1,4 @@
 /* 全局CSS文件，因为进行了css分离，此文件无法监听 */
-
 * {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     /* cursor: pointer; */
@@ -31,18 +30,12 @@ textarea {
     font-family: Helvetial, Roboto, 'PingFang SC', 'Noto Sans Han';
 }
 
-::-webkit-scrollbar {
-    display: none
-}
-
-::-webkit-input-placeholder {
-    color: #b2b2b2;
-}
-
 body,
 html {
-    background-color: #F6F5F4;
+    background-color: #fff;
     height: 100%;
+    max-width: 750px;
+    margin: 0 auto;
 }
 
 a {
@@ -77,4 +70,96 @@ textarea:focus {
     padding-top: env(safe-area-inset-top);
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);
+}
+
+.loading-bar {
+    height: 3px;
+    border-radius: 3px;
+    background-color: #157cf8;
+    position: fixed;
+    top: 0;
+    z-index: 999999;
+    opacity: 1;
+}
+
+.loading-bar_loading {
+    animation: .5s loading;
+    animation-fill-mode: forwards;
+}
+
+.loading-bar_loaded {
+    animation: .5s loaded;
+    animation-fill-mode: forwards;
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    40% {
+        width: 40%
+    }
+
+    100% {
+        width: 40%;
+    }
+}
+
+@keyframes loaded {
+    0% {
+        width: 40%;
+    }
+
+    80% {
+        width: 80%;
+        opacity: .8;
+    }
+
+    90% {
+        width: 100%;
+        opacity: .44;
+    }
+
+    93% {
+        width: 100%;
+        opacity: .4;
+    }
+
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+    transition: all .3s;
+    opacity: 0;
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+    transition: all .3s;
+    opacity: 0;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit browsers */
+    color: #D5D5D5;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #D5D5D5;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #D5D5D5;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10+ */
+    color: #D5D5D5;
 }

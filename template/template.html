@@ -1,15 +1,15 @@
-<!-- 模板文件 -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=edge,chrome=1">
-    <meta name="format-detection" content="telephone=no, email=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no, email=no" />
     <meta content="width=device-width,user-scalable=0,viewport-fit=cover" name="viewport" />
-    <meta name="theme-color" content="#30C5C3">
-    <meta name="Description" content="密友圈免费电话">
-    <title>密友圈免费电话</title>
+    <meta name="theme-color" content="#157cf8" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#157cf8" />
+    <meta name="Description" content="Vue TS Demo" />
+    <title>Vue TS Demo</title>
     <!-- <script src="http://120.196.212.28:8050/blackboard/static/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
@@ -19,25 +19,52 @@
 <body>
     <div id="box"></div>
 </body>
-<!-- 
-    <script>
-        (function (doc, win) { // 动态修改root 的 font-size
-            var docEl = doc.documentElement,
-                resizeEvt = 'onorientationchange' in window ? 'onorientationchange' : 'resize',
-                recalc = function () {
-                    var clientWidth = docEl.clientWidth;
-                    if (!clientWidth) return;
-                    if (clientWidth >= 750) {
-                        docEl.style.fontSize = '100px';
-                    } else {
-                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
-                    }
-                };
 
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);
-    </script> -->
+<script>
+    (function (doc, win) { // 动态修改root 的 font-size
+        var docEl = doc.documentElement,
+            resizeEvt = 'onorientationchange' in window ? 'onorientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                if (clientWidth >= 750) {
+                    docEl.style.fontSize = '100px';
+                } else {
+                    docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+                }
+            };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+
+    // document.addEventListener('contextmenu', function (e) {
+    //     e.preventDefault();
+    //     console.log('show my context menu');
+    // }, false);
+
+    // 禁用双指缩放:
+    document.documentElement.addEventListener('touchstart', function (event) {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, false);
+
+    // 禁用手指双击缩放:
+    var lastTouchEnd = 0;
+    document.documentElement.addEventListener('touchend', function (event) {
+        var now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+            event.preventDefault();
+        }
+        lastTouchEnd = now;
+    }, false);
+
+    document.body.addEventListener('touchmove', function (e) {
+        e.preventDefault(); //阻止默认的处理方式(阻止下拉滑动的效果)
+    }, {
+        passive: false
+    }); //passive 参数不能省略，用来兼容ios和android
+</script>
 
 </html>
